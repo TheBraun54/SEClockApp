@@ -49,6 +49,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
+	  <PackageReference Include="Npgsql" Version="6.0.7" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <MauiXaml Update="Local.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
