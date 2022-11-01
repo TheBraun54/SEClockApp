@@ -3,10 +3,36 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SEClockApp.Player"
              Title="Player">
+
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <Label x:Name="Display"
+               BindingContext="{x:Reference Name=picker}"
+               Text="{Binding Path=Time}"
+               VerticalOptions="Center"
+               HorizontalOptions="Center"
+               Margin="0,200,0,0" />
+
+        <HorizontalStackLayout HorizontalOptions="Center">
+            <TimePicker x:Name="picker"
+                        Margin="0,20,0,100" />
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout HorizontalOptions="Center">
+            <Button x:Name="stopButton"
+                    Text="Stop"
+                    Clicked="Stop"
+                    HeightRequest="100"
+                    WidthRequest="100"
+                    Margin="0,0,120,0"
+                    CornerRadius="50" />
+
+            <Button x:Name="PauseButton"
+                    Text="Pause"
+                    Clicked="Pause"
+                    HeightRequest="100"
+                    WidthRequest="100"
+                    Margin="120,0,0,0"
+                    CornerRadius="50" />
+        </HorizontalStackLayout>
     </VerticalStackLayout>
 </ContentPage>
