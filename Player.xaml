@@ -6,11 +6,10 @@
 
     <VerticalStackLayout>
         <Label x:Name="Display"
-               BindingContext="{x:Reference Name=picker}"
-               Text="{Binding Path=Time}"
+               Text="00:00"
                VerticalOptions="Center"
                HorizontalOptions="Center"
-               Margin="0,200,0,0" />
+               Margin="0,200,0,0" FontSize="60" />
 
         <HorizontalStackLayout HorizontalOptions="Center">
             <TimePicker x:Name="picker"
@@ -26,9 +25,9 @@
                     Margin="0,0,120,0"
                     CornerRadius="50" />
 
-            <Button x:Name="PauseButton"
-                    Text="Pause"
-                    Clicked="Pause"
+            <Button x:Name="PlayPauseButton"
+                    Text="Play"
+                    Clicked="PlayPause"
                     HeightRequest="100"
                     WidthRequest="100"
                     Margin="120,0,0,0"
