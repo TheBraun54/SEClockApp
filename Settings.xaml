@@ -4,9 +4,34 @@
              x:Class="SEClockApp.Settings"
              Title="Settings">
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI! Settings page"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <Label Text="Connect Music Source" 
+               FontSize="30.0" 
+               HorizontalTextAlignment="Center" 
+               Padding="20"
+               FontAttributes="Bold"/>
+        <!--Spotify Button-->
+        <Button Text="Connect Spotify"
+                HeightRequest="50"
+                WidthRequest="200" 
+                BackgroundColor="#1DB954" 
+                TextColor="Black" 
+                FontAttributes="Bold" />
+        <!--TODO: Have user be able to connect to Spotify account, add Clicked attribute-->
+        <!--YouTube Button-->
+        <Button Text="Connect YouTube"
+                HeightRequest="50"
+                WidthRequest="200" 
+                BackgroundColor="#FF0000" 
+                TextColor="Black" 
+                FontAttributes="Bold"
+                Margin="20"/>
+        <!--TODO: Have user be able to connect to YouTube account,  add Clicked attribute-->
+        <Button Text="Local Storage"
+                HeightRequest="50"
+                WidthRequest="200" 
+                BackgroundColor="Yellow" 
+                TextColor="Black" 
+                FontAttributes="Bold"/>
+        <Image Source="github.png" Aspect="AspectFit" HorizontalOptions="End" HeightRequest="50" WidthRequest="50"/>
     </VerticalStackLayout>
 </ContentPage>
