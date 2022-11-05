@@ -14,6 +14,8 @@
                 <ImageButton Source="musicbutton.png" Clicked="MusicClicked" WidthRequest="100" HorizontalOptions="End"/>
             </HorizontalStackLayout>
 
+            <TimePicker></TimePicker>
+            
         </VerticalStackLayout>
     </ScrollView>
 

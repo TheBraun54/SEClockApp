@@ -10,12 +10,12 @@ public partial class MainPage : ContentPage
 
 	private async void SettingsClicked(object sender, EventArgs e)
 	{
-		await Shell.Current.GoToAsync($"//{nameof(Settings)}");
+		await Shell.Current.GoToAsync($"Settings");
 	}
 
 	private async void MusicClicked(object sender, EventArgs e)
 	{
-		await Shell.Current.GoToAsync($"//{nameof(Spotify)}");
+		await Shell.Current.GoToAsync($"Spotify");
 	}
 }
 
