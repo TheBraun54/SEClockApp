@@ -6,8 +6,9 @@
              BackgroundColor="#C2BBF0">
 
     <VerticalStackLayout>
-        <Border Stroke="#F1E3F3"
-                StrokeThickness="4"
+        <Border x:Name="DisplayBorder"
+                Stroke="#F1E3F3"
+                StrokeThickness="5"
                 StrokeShape="RoundRectangle 40,40,40,40"
                 Background="#3590F3"
                 Padding="16,8"
@@ -18,7 +19,7 @@
                    VerticalOptions="Center"
                    HorizontalOptions="Center"
                    Margin="10,5,5,10"
-                   FontSize="90"
+                   FontSize="130"
                    FontFamily="consolas"
                    TextColor="#F1E3F3"/>
         </Border>
@@ -27,24 +28,28 @@
             <Button x:Name="stopButton"
                     Text="⬛"
                     FontSize="30"
-                    TextColor="#3590F3"
+                    TextColor="#F1E3F3"
+                    BorderColor="#F1E3F3"
+                    BackgroundColor="#3590F3"
+                    BorderWidth="5"
                     Clicked="Stop"
                     HeightRequest="100"
                     WidthRequest="100"
                     Margin="0,0,100,0"
-                    CornerRadius="20"
-                    BackgroundColor="#F1E3F3"/>
+                    CornerRadius="20" />
 
             <Button x:Name="PlayPauseButton"
                     Text="II"
                     FontSize="30"
-                    TextColor="#3590F3"
+                    TextColor="#F1E3F3"
+                    BorderColor="#F1E3F3"
+                    BackgroundColor="#3590F3"
+                    BorderWidth="5"
                     Clicked="PlayPause"
                     HeightRequest="100"
                     WidthRequest="100"
                     Margin="100,0,0,0"
-                    CornerRadius="20"
-                    BackgroundColor="#F1E3F3" />
+                    CornerRadius="20"/>
         </HorizontalStackLayout>
     </VerticalStackLayout>
 </ContentPage>

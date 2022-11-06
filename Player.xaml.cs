@@ -31,11 +31,13 @@ public partial class Player : ContentPage
         if (isRunning)
         {
             Clock();
-            PlayPauseButton.BackgroundColor = Color.FromArgb("#F1E3F3");
+            PlayPauseButton.BorderColor = Color.FromArgb("#F1E3F3");
+            DisplayBorder.Stroke = Color.FromArgb("#F1E3F3");
         }
         else
         {
-            PlayPauseButton.BackgroundColor = Color.FromArgb("#3590F3");
+            PlayPauseButton.BorderColor = Color.FromArgb("#62BFED");
+            DisplayBorder.Stroke = Color.FromArgb("#62BFED");
         }
     }
 
