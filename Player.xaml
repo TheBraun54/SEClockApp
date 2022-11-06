@@ -2,19 +2,26 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SEClockApp.Player"
-             Title="Player">
+             Title="Player"
+             BackgroundColor="#C2BBF0">
 
     <VerticalStackLayout>
-        <Label x:Name="Display"
-               Text="00:00"
-               VerticalOptions="Center"
-               HorizontalOptions="Center"
-               Margin="0,200,0,0" FontSize="60" />
-
-        <HorizontalStackLayout HorizontalOptions="Center">
-            <TimePicker x:Name="picker"
-                        Margin="0,20,0,100" />
-        </HorizontalStackLayout>
+        <Border Stroke="#F1E3F3"
+                StrokeThickness="4"
+                StrokeShape="RoundRectangle 40,40,40,40"
+                Background="#3590F3"
+                Padding="16,8"
+                HorizontalOptions="Center"
+                Margin="0,100,0,100">
+            <Label x:Name="Display"
+                   Text="10:00"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"
+                   Margin="10,5,5,10"
+                   FontSize="90"
+                   FontFamily="consolas"
+                   TextColor="#F1E3F3"/>
+        </Border>
 
         <HorizontalStackLayout HorizontalOptions="Center">
             <Button x:Name="stopButton"
@@ -22,16 +29,18 @@
                     Clicked="Stop"
                     HeightRequest="100"
                     WidthRequest="100"
-                    Margin="0,0,120,0"
-                    CornerRadius="50" />
+                    Margin="0,0,100,0"
+                    CornerRadius="20"
+                    BackgroundColor="#F1E3F3"/>
 
             <Button x:Name="PlayPauseButton"
-                    Text="Play"
+                    Text="Pause"
                     Clicked="PlayPause"
                     HeightRequest="100"
                     WidthRequest="100"
-                    Margin="120,0,0,0"
-                    CornerRadius="50" />
+                    Margin="100,0,0,0"
+                    CornerRadius="20"
+                    BackgroundColor="#F1E3F3" />
         </HorizontalStackLayout>
     </VerticalStackLayout>
 </ContentPage>
