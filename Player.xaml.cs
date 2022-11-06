@@ -24,10 +24,10 @@ public partial class Player : ContentPage
         }
     }
 
-    public async void PlayPause(object sender, EventArgs e)
+    public void PlayPause(object sender, EventArgs e)
     {
         isRunning = !isRunning;
-        PlayPauseButton.Text = isRunning ? "Pause" : "Play";
+        PlayPauseButton.Text = isRunning ? "II" : "\u25BA";
         if (isRunning)
         {
             Clock();
@@ -39,9 +39,8 @@ public partial class Player : ContentPage
         }
     }
 
-    public void Stop(object sender, EventArgs e)
+    public async void Stop(object sender, EventArgs e)
     {
-
+        await Shell.Current.GoToAsync("..");
     }
-
 }

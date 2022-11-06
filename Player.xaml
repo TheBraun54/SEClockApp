@@ -25,7 +25,9 @@
 
         <HorizontalStackLayout HorizontalOptions="Center">
             <Button x:Name="stopButton"
-                    Text="Stop"
+                    Text="⬛"
+                    FontSize="30"
+                    TextColor="#3590F3"
                     Clicked="Stop"
                     HeightRequest="100"
                     WidthRequest="100"
@@ -34,7 +36,9 @@
                     BackgroundColor="#F1E3F3"/>
 
             <Button x:Name="PlayPauseButton"
-                    Text="Pause"
+                    Text="II"
+                    FontSize="30"
+                    TextColor="#3590F3"
                     Clicked="PlayPause"
                     HeightRequest="100"
                     WidthRequest="100"
