@@ -5,17 +5,46 @@
 
     <ScrollView>
         <VerticalStackLayout
-            Spacing="25"
-            Padding="30,0"
-            VerticalOptions="Center">
+            VerticalOptions="Start">
 
-            <HorizontalStackLayout>
-                <ImageButton Source="gear.png" Clicked="SettingsClicked" WidthRequest="100" HorizontalOptions="Start"/>
-                <ImageButton Source="musicbutton.png" Clicked="MusicClicked" WidthRequest="100" HorizontalOptions="End"/>
+            <Grid 
+                Margin="25"
+                VerticalOptions="Start">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <VerticalStackLayout Grid.Row="0" Grid.Column="0">
+                    <ImageButton 
+                   Source="gear.png" 
+                   Clicked="SettingsClicked" 
+                   WidthRequest="150" 
+                   HorizontalOptions="Start"/>
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Row="0" Grid.Column="1">
+                    <ImageButton 
+                   Source="musicbutton.png" 
+                   Clicked="MusicClicked" 
+                   WidthRequest="150" 
+                   HorizontalOptions="End"/>
+                </VerticalStackLayout>
+            </Grid>
+
+            <TimePicker
+                FontSize="150"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"/>
+            
+            <HorizontalStackLayout
+                HorizontalOptions="Center">
+                <Label Text="Timer" FontSize="50" FontAttributes="Bold" Margin="15"/>
+                <Switch ThumbColor="Black" OnColor="DarkOrange" Margin="15"/>
+                <Label Text="Alarm" FontSize="50" FontAttributes="Bold" Margin="15"/>
             </HorizontalStackLayout>
 
-            <TimePicker></TimePicker>
-            
         </VerticalStackLayout>
     </ScrollView>
 
