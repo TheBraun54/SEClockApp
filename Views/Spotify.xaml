@@ -93,7 +93,7 @@
                Margin="25"/>
         <HorizontalStackLayout
             HorizontalOptions="Center">
-            <StackLayout Margin="0 50 0 0">
+            <StackLayout Margin="0, 0, 50, 0">
                 <Label Text="Beginning"
                        FontSize="40"/>
                 <RadioButton Content="Fast"
@@ -101,7 +101,7 @@
                 <RadioButton Content="Slow"
                              FontSize="30"/>
             </StackLayout>
-            <StackLayout Margin="0 0 0 50">
+            <StackLayout Margin="50, 0, 0, 0">
                 <Label Text="End"
                        FontSize="40"/>
                 <RadioButton Content="Fast"
