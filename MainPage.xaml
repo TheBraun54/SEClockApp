@@ -5,35 +5,45 @@
 
     <ScrollView>
         <VerticalStackLayout
-            Spacing="25"
-            Padding="30,0"
-            VerticalOptions="Center">
+            VerticalOptions="Start">
 
-            <Image
-                Source="dotnet_bot.png"
-                SemanticProperties.Description="Cute dot net bot waving hi to you!"
-                HeightRequest="200"
-                HorizontalOptions="Center" />
+            <Grid 
+                Margin="25"
+                VerticalOptions="Start">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <VerticalStackLayout Grid.Row="0" Grid.Column="0">
+                    <ImageButton 
+                   Source="gear.png" 
+                   Clicked="SettingsClicked" 
+                   WidthRequest="150" 
+                   HorizontalOptions="Start"/>
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Row="0" Grid.Column="1">
+                    <ImageButton 
+                   Source="musicbutton.png" 
+                   Clicked="MusicClicked" 
+                   WidthRequest="150" 
+                   HorizontalOptions="End"/>
+                </VerticalStackLayout>
+            </Grid>
 
-            <Label
-                Text="Hello, World!"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
-                HorizontalOptions="Center" />
-
-            <Label
-                Text="Welcome to .NET Multi-platform App UI"
-                SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
-                FontSize="18"
-                HorizontalOptions="Center" />
-
-            <Button
-                x:Name="CounterBtn"
-                Text="Click me"
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Center" />
+            <TimePicker
+                FontSize="150"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"/>
+            
+            <HorizontalStackLayout
+                HorizontalOptions="Center">
+                <Label Text="Timer" FontSize="50" FontAttributes="Bold" Margin="15"/>
+                <Switch ThumbColor="Black" OnColor="DarkOrange" Margin="15"/>
+                <Label Text="Alarm" FontSize="50" FontAttributes="Bold" Margin="15"/>
+            </HorizontalStackLayout>
 
         </VerticalStackLayout>
     </ScrollView>
