@@ -27,29 +27,18 @@
         <HorizontalStackLayout HorizontalOptions="Center">
             <Button x:Name="stopButton"
                     Text="⬛"
-                    FontSize="30"
-                    TextColor="#F1E3F3"
-                    BorderColor="#F1E3F3"
-                    BackgroundColor="#3590F3"
-                    BorderWidth="5"
                     Clicked="Stop"
                     HeightRequest="100"
                     WidthRequest="100"
-                    Margin="0,0,100,0"
-                    CornerRadius="20" />
+                    Margin="0,0,100,0"/>
 
             <Button x:Name="PlayPauseButton"
                     Text="II"
                     FontSize="30"
-                    TextColor="#F1E3F3"
-                    BorderColor="#F1E3F3"
-                    BackgroundColor="#3590F3"
-                    BorderWidth="5"
                     Clicked="PlayPause"
                     HeightRequest="100"
                     WidthRequest="100"
-                    Margin="100,0,0,0"
-                    CornerRadius="20"/>
+                    Margin="100,0,0,0"/>
         </HorizontalStackLayout>
     </VerticalStackLayout>
 </ContentPage>
