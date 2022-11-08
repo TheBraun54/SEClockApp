@@ -7,32 +7,6 @@
         <VerticalStackLayout
             VerticalOptions="Start">
 
-            <Grid 
-                Margin="25"
-                VerticalOptions="Start">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <VerticalStackLayout Grid.Row="0" Grid.Column="0">
-                    <ImageButton 
-                   Source="gear.png" 
-                   Clicked="SettingsClicked" 
-                   WidthRequest="150" 
-                   HorizontalOptions="Start"/>
-                </VerticalStackLayout>
-                <VerticalStackLayout Grid.Row="0" Grid.Column="1">
-                    <ImageButton 
-                   Source="musicbutton.png" 
-                   Clicked="MusicClicked" 
-                   WidthRequest="150" 
-                   HorizontalOptions="End"/>
-                </VerticalStackLayout>
-            </Grid>
-
             <TimePicker
                 FontSize="150"
                 HorizontalOptions="Center"
