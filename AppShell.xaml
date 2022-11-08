@@ -6,9 +6,15 @@
     xmlns:local="clr-namespace:SEClockApp"
     Shell.FlyoutBehavior="Disabled">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
-
+    <TabBar>
+        <Tab Icon="clock.png" Title="Timer">
+            <ShellContent ContentTemplate="{DataTemplate local:MainPage}" />
+        </Tab>
+        <Tab Icon="gear.png" Title="Settings">
+            <ShellContent ContentTemplate="{DataTemplate local:Settings}" />
+        </Tab>
+        <Tab Icon="musicbutton.png" Title="Music">
+            <ShellContent ContentTemplate="{DataTemplate local:Spotify}" />
+        </Tab>
+    </TabBar>
 </Shell>
