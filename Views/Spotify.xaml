@@ -91,31 +91,25 @@
                FontSize="50"
                HorizontalOptions="Center"
                Margin="25"/>
-        <Grid
-            WidthRequest="450">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <StackLayout Grid.Row="0" Grid.Column="0">
+        <HorizontalStackLayout
+            HorizontalOptions="Center">
+            <StackLayout Margin="0 50 0 0">
                 <Label Text="Beginning"
-                       FontSize="25"/>
+                       FontSize="40"/>
                 <RadioButton Content="Fast"
-                             FontSize="25"/>
+                             FontSize="30"/>
                 <RadioButton Content="Slow"
-                             FontSize="25"/>
+                             FontSize="30"/>
             </StackLayout>
-            <StackLayout Grid.Row="0" Grid.Column="1">
-                <Label Text="Beginning"
-                       FontSize="35"/>
+            <StackLayout Margin="0 0 0 50">
+                <Label Text="End"
+                       FontSize="40"/>
                 <RadioButton Content="Fast"
-                             FontSize="25"/>
+                             FontSize="30"/>
                 <RadioButton Content="Slow"
-                             FontSize="25"/>
+                             FontSize="30"/>
             </StackLayout>
-        </Grid>
+        </HorizontalStackLayout>
 
     </VerticalStackLayout>
 </ContentPage>
