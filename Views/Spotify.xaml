@@ -1,7 +1,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SEClockApp.Spotify"
-             Title="Spotify">
+             Title="Spotify"
+             BackgroundColor="#C2BBF0">
     <VerticalStackLayout>
         <Label Text="Select Music"
                FontSize="100"

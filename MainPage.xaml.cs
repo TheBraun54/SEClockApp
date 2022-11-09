@@ -17,5 +17,10 @@ public partial class MainPage : ContentPage
 	{
 		await Shell.Current.GoToAsync($"Spotify");
 	}
+
+    private async void StartClock(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync($"Player");
+    }
 }
 
