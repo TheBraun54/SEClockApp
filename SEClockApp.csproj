@@ -59,19 +59,19 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Local.xaml">
+	  <MauiXaml Update="Views\Local.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Player.xaml">
+	  <MauiXaml Update="Views\Player.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Settings.xaml">
+	  <MauiXaml Update="Views\Settings.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Spotify.xaml">
+	  <MauiXaml Update="Views\Spotify.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Youtube.xaml">
+	  <MauiXaml Update="Views\Youtube.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
