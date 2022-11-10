@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Shell
-    x:Class="SEClockApp.AppShell"
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:SEClockApp"
-    Shell.FlyoutBehavior="Disabled">
+<Shell x:Class="SEClockApp.AppShell"
+       xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:SEClockApp"
+       Shell.FlyoutBehavior="Disabled"
+       TabBarBackgroundColor="#C2BBF0">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:Player}"
-        Route="MainPage" />
-
+    <TabBar>
+        <Tab Icon="clock.png" Title="Timer">
+            <ShellContent ContentTemplate="{DataTemplate local:MainPage}" />
+        </Tab>
+        <Tab Icon="gear.png" Title="Settings">
+            <ShellContent ContentTemplate="{DataTemplate local:Settings}" />
+        </Tab>
+        <Tab Icon="musicbutton.png" Title="Music">
+            <ShellContent ContentTemplate="{DataTemplate local:Spotify}" />
+        </Tab>
+    </TabBar>
 </Shell>

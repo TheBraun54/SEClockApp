@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SEClockApp.Settings"
+             Title="Settings"
+             BackgroundColor="#C2BBF0">
+    <VerticalStackLayout HorizontalOptions="Center">
+        <Label Text="Connect Music Source" 
+               FontSize="30.0" 
+               HorizontalTextAlignment="Center" 
+               Padding="20"
+               FontAttributes="Bold"/>
+        <!--Spotify Button-->
+        <Button Text="Connect Spotify"
+                HeightRequest="50"
+                WidthRequest="200" 
+                BackgroundColor="#1DB954" 
+                TextColor="Black" 
+                FontAttributes="Bold" />
+        <!--TODO: Have user be able to connect to Spotify account, add Clicked attribute-->
+        <!--YouTube Button-->
+        <Button Text="Connect YouTube"
+                HeightRequest="50"
+                WidthRequest="200" 
+                BackgroundColor="#FF0000" 
+                TextColor="Black" 
+                FontAttributes="Bold"
+                Margin="20"/>
+        <!--TODO: Have user be able to connect to YouTube account,  add Clicked attribute-->
+        <Button Text="Local Storage"
+                HeightRequest="50"
+                WidthRequest="200" 
+                BackgroundColor="Yellow" 
+                TextColor="Black" 
+                FontAttributes="Bold"/>
+        <!--TODO: ADD CLICK="" FUNCTIONALITY-->
+        <!--Appearance Row-->
+        <HorizontalStackLayout Padding="0,20,0,0">
+            <Image Source="settings_appearance_icon.png" Aspect="AspectFill" WidthRequest="20" HeightRequest="20"></Image>
+            <Button 
+                Text="Appearance"
+                TextColor="Black"
+                FontSize="16"
+                FontAttributes="Bold"
+                BackgroundColor="White"
+                BorderColor="White"/>
+            <Image Source="settings_rightarrow_icon.png" Aspect="AspectFill" WidthRequest="20" HeightRequest="20"></Image>
+        </HorizontalStackLayout>
+        <!--About Row-->
+        <HorizontalStackLayout>
+            <Image Source="settings_about_icon.png" Aspect="AspectFill" WidthRequest="20" HeightRequest="20"></Image>
+            <Button 
+                Text="About"
+                TextColor="Black"
+                FontSize="16"
+                FontAttributes="Bold"
+                BackgroundColor="White"
+                BorderColor="White"/>
+            <Image Source="settings_rightarrow_icon.png" Aspect="AspectFill" WidthRequest="20" HeightRequest="20"></Image>
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
+</ContentPage>
