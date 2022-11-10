@@ -6,7 +6,7 @@
 
     <ScrollView>
         <VerticalStackLayout
-            VerticalOptions="Start">
+            VerticalOptions="Center">
 
             <TimePicker
                 FontSize="150"

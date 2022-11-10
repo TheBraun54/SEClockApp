@@ -13,8 +13,14 @@
         <Tab Icon="gear.png" Title="Settings">
             <ShellContent ContentTemplate="{DataTemplate local:Settings}" />
         </Tab>
-        <Tab Icon="musicbutton.png" Title="Music">
+        <Tab Icon="musicbutton.png" Title="Spotify">
             <ShellContent ContentTemplate="{DataTemplate local:Spotify}" />
+        </Tab>
+        <Tab Icon="musicbutton.png" Title="Youtube">
+            <ShellContent ContentTemplate="{DataTemplate local:Youtube}" />
+        </Tab>
+        <Tab Icon="musicbutton.png" Title="Local Drive">
+            <ShellContent ContentTemplate="{DataTemplate local:Local}" />
         </Tab>
     </TabBar>
 </Shell>
