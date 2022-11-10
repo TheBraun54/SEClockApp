@@ -22,6 +22,8 @@
         </Tab>
         <Tab Icon="folder.png" Title="Local Drive">
             <ShellContent ContentTemplate="{DataTemplate local:Local}" />
+        <Tab Icon="database.png" Title="Database">
+            <ShellContent ContentTemplate="{DataTemplate local:Database}" />
         </Tab>
     </TabBar>
 </Shell>
