@@ -35,7 +35,7 @@
         <!--TODO: ADD CLICK="" FUNCTIONALITY-->
         <!--Appearance Row-->
         <HorizontalStackLayout Padding="0,20,0,0">
-            <Image Source="settings_appearance_icon.png" Aspect="AspectFill" WidthRequest="40" HeightRequest="40"></Image>
+            
             <Button 
                 Text="Appearance"
                 TextColor="Black"
@@ -43,11 +43,11 @@
                 FontAttributes="Bold"
                 BackgroundColor="White"
                 BorderColor="White"/>
+            <Image Margin="10, 0, 0, 0" Source="settings_appearance_icon.png" Aspect="AspectFill" WidthRequest="40" HeightRequest="40"></Image>
             <Image Source="settings_rightarrow_icon.png" Aspect="AspectFill" WidthRequest="30" HeightRequest="30"></Image>
         </HorizontalStackLayout>
         <!--About Row-->
         <HorizontalStackLayout Padding="0,20,0,0">
-            <Image Source="settings_about_icon.png" Aspect="AspectFill" WidthRequest="40" HeightRequest="40"></Image>
             <Button 
                 Text="About"
                 TextColor="Black"
@@ -55,6 +55,7 @@
                 FontAttributes="Bold"
                 BackgroundColor="White"
                 BorderColor="White"/>
+            <Image Margin="10, 0, 0, 0" Source="settings_about_icon.png" Aspect="AspectFill" WidthRequest="40" HeightRequest="40"></Image>
             <Image Source="settings_rightarrow_icon.png" Aspect="AspectFill" WidthRequest="30" HeightRequest="30"></Image>
         </HorizontalStackLayout>
     </VerticalStackLayout>

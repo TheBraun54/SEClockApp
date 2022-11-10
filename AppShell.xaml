@@ -6,20 +6,21 @@
        Shell.FlyoutBehavior="Disabled"
        TabBarBackgroundColor="#C2BBF0">
 
-    <TabBar>
+    <TabBar
+        >
         <Tab Icon="clock.png" Title="Timer">
             <ShellContent ContentTemplate="{DataTemplate local:MainPage}" />
         </Tab>
         <Tab Icon="gear.png" Title="Settings">
             <ShellContent ContentTemplate="{DataTemplate local:Settings}" />
         </Tab>
-        <Tab Icon="musicbutton.png" Title="Spotify">
+        <Tab Icon="spotify.png" Title="Spotify">
             <ShellContent ContentTemplate="{DataTemplate local:Spotify}" />
         </Tab>
-        <Tab Icon="musicbutton.png" Title="Youtube">
+        <Tab Icon="youtube.png" Title="Youtube">
             <ShellContent ContentTemplate="{DataTemplate local:Youtube}" />
         </Tab>
-        <Tab Icon="musicbutton.png" Title="Local Drive">
+        <Tab Icon="folder.png" Title="Local Drive">
             <ShellContent ContentTemplate="{DataTemplate local:Local}" />
         </Tab>
     </TabBar>
