@@ -1,0 +1,116 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SEClockApp.Spotify"
+             Title="Spotify"
+             BackgroundColor="#C2BBF0">
+    <VerticalStackLayout>
+        <Label Text="Select Music"
+               FontSize="100"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+               Padding="100"/>
+
+        <Label Text="Spotify Playlist:"
+               FontSize="50"
+               HorizontalOptions="Center"
+               Margin="25"/>
+
+        <Grid
+            RowSpacing="45"
+            WidthRequest="450">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <!-- Top Left -->
+            <Button 
+                Grid.Row="0" 
+                Grid.Column="0"
+                Text="+"
+                FontSize="50"
+                TextColor="Black"
+                BackgroundColor="LightGray"
+                WidthRequest="100"
+                HeightRequest="100"/>
+            <!-- Top Middle -->
+            <Button 
+                Grid.Row="0" 
+                Grid.Column="1"
+                Text="+"
+                FontSize="50"
+                TextColor="Black"
+                BackgroundColor="LightGray"
+                WidthRequest="100"
+                HeightRequest="100"/>
+            <!-- Top Right -->
+            <Button 
+                Grid.Row="0" 
+                Grid.Column="2"
+                Text="+"
+                FontSize="50"
+                TextColor="Black"
+                BackgroundColor="LightGray"
+                WidthRequest="100"
+                HeightRequest="100"/>
+            <!-- Bottom Left -->
+            <Button 
+                Grid.Row="1" 
+                Grid.Column="0"
+                Text="+"
+                FontSize="50"
+                TextColor="Black"
+                BackgroundColor="LightGray"
+                WidthRequest="100"
+                HeightRequest="100"/>
+            <!-- Bottom Middle -->
+            <Button Grid.Row="1" Grid.Column="1"
+                Text="+"
+                FontSize="50"
+                TextColor="Black"
+                BackgroundColor="LightGray"
+                WidthRequest="100"
+                HeightRequest="100"/>
+            <!-- Bottom Right -->
+            <Button 
+                Grid.Row="1" 
+                Grid.Column="2"
+                Text="+"
+                FontSize="50"
+                TextColor="Black"
+                BackgroundColor="LightGray"
+                WidthRequest="100"
+                HeightRequest="100"/>
+
+        </Grid>
+
+        <Label Text="Select Mood:"
+               FontSize="50"
+               HorizontalOptions="Center"
+               Margin="25"/>
+        <HorizontalStackLayout
+            HorizontalOptions="Center">
+            <StackLayout Margin="0, 0, 50, 0">
+                <Label Text="Beginning"
+                       FontSize="40"/>
+                <RadioButton Content="Fast"
+                             FontSize="30"/>
+                <RadioButton Content="Slow"
+                             FontSize="30"/>
+            </StackLayout>
+            <StackLayout Margin="50, 0, 0, 0">
+                <Label Text="End"
+                       FontSize="40"/>
+                <RadioButton Content="Fast"
+                             FontSize="30"/>
+                <RadioButton Content="Slow"
+                             FontSize="30"/>
+            </StackLayout>
+        </HorizontalStackLayout>
+
+    </VerticalStackLayout>
+</ContentPage>
