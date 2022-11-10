@@ -11,9 +11,6 @@
         <Tab Icon="clock.png" Title="Timer">
             <ShellContent ContentTemplate="{DataTemplate local:MainPage}" />
         </Tab>
-        <Tab Icon="gear.png" Title="Settings">
-            <ShellContent ContentTemplate="{DataTemplate local:Settings}" />
-        </Tab>
         <Tab Icon="spotify.png" Title="Spotify">
             <ShellContent ContentTemplate="{DataTemplate local:Spotify}" />
         </Tab>
@@ -22,6 +19,9 @@
         </Tab>
         <Tab Icon="folder.png" Title="Local Drive">
             <ShellContent ContentTemplate="{DataTemplate local:Local}" />
+        </Tab>
+        <Tab Icon="gear.png" Title="Settings">
+            <ShellContent ContentTemplate="{DataTemplate local:Settings}" />
         </Tab>
         <Tab Icon="database.png" Title="Database">
             <ShellContent ContentTemplate="{DataTemplate local:Database}" />
