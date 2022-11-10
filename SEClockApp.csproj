@@ -50,7 +50,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\folder.png" />
 	  <None Remove="Resources\Images\musicbutton.png" />
+	  <None Remove="Resources\Images\spotify.png" />
+	  <None Remove="Resources\Images\youtube.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -74,6 +77,10 @@
 	  <MauiXaml Update="Views\Youtube.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Models\" />
 	</ItemGroup>
 
 </Project>

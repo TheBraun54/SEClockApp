@@ -6,7 +6,7 @@
 
     <ScrollView>
         <VerticalStackLayout
-            VerticalOptions="Start">
+            VerticalOptions="Center">
 
             <TimePicker
                 FontSize="150"
@@ -16,12 +16,12 @@
             <HorizontalStackLayout
                 HorizontalOptions="Center">
                 <Label Text="Timer" FontSize="50" FontAttributes="Bold" Margin="15"/>
-                <Switch ThumbColor="Black" OnColor="DarkOrange" Margin="15"/>
+                <Switch ThumbColor="Black" OnColor="WhiteSmoke" Margin="15"/>
                 <Label Text="Alarm" FontSize="50" FontAttributes="Bold" Margin="15"/>
             </HorizontalStackLayout>
 
-            <Button WidthRequest="200"
-                    HeightRequest="50"
+            <Button FontSize="30"
+                    WidthRequest="400"
                     Text="Start"
                     Clicked="StartClock"></Button>
 
