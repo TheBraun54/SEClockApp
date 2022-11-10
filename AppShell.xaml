@@ -16,5 +16,8 @@
         <Tab Icon="musicbutton.png" Title="Music">
             <ShellContent ContentTemplate="{DataTemplate local:Spotify}" />
         </Tab>
+        <Tab Icon="database.png" Title="Database">
+            <ShellContent ContentTemplate="{DataTemplate local:Database}" />
+        </Tab>
     </TabBar>
 </Shell>
