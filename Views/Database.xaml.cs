@@ -7,13 +7,13 @@ public partial class Database : ContentPage
 {
     String connectionString;
     ObservableCollection<Playlist> data = new ObservableCollection<Playlist>();
-    
-	/// <summary>
+
+    /// <summary>
     /// Creates connection string to be used to connect to bit.io db
     /// </summary>
     public Database()
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
         connectionString = InitializeConnectionString();
         SetItemSource();
     }
@@ -36,7 +36,7 @@ public partial class Database : ContentPage
     ///  Sets the item source of the ListView to have data appear 
     /// </summary>
     public void SetItemSource()
-	{
+    {
         string sql = "SELECT * FROM playlists";
 
         // clear entries, ordering of entries is going to change
