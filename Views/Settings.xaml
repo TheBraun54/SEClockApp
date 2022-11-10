@@ -6,57 +6,56 @@
              BackgroundColor="#C2BBF0">
     <VerticalStackLayout HorizontalOptions="Center">
         <Label Text="Connect Music Source" 
-               FontSize="30.0" 
+               FontSize="50" 
                HorizontalTextAlignment="Center" 
                Padding="20"
                FontAttributes="Bold"/>
         <!--Spotify Button-->
         <Button Text="Connect Spotify"
-                HeightRequest="50"
-                WidthRequest="200" 
+                FontSize="40"
                 BackgroundColor="#1DB954" 
                 TextColor="Black" 
-                FontAttributes="Bold" />
+                FontAttributes="Bold" 
+                Margin="0, 20, 0, 0"/>
         <!--TODO: Have user be able to connect to Spotify account, add Clicked attribute-->
         <!--YouTube Button-->
         <Button Text="Connect YouTube"
-                HeightRequest="50"
-                WidthRequest="200" 
+                FontSize="40" 
                 BackgroundColor="#FF0000" 
                 TextColor="Black" 
                 FontAttributes="Bold"
-                Margin="20"/>
+                Margin="0, 20, 0, 0"/>
         <!--TODO: Have user be able to connect to YouTube account,  add Clicked attribute-->
         <Button Text="Local Storage"
-                HeightRequest="50"
-                WidthRequest="200" 
+                FontSize="40"
                 BackgroundColor="Yellow" 
                 TextColor="Black" 
-                FontAttributes="Bold"/>
+                FontAttributes="Bold"
+                Margin="0, 20, 0, 0"/>
         <!--TODO: ADD CLICK="" FUNCTIONALITY-->
         <!--Appearance Row-->
         <HorizontalStackLayout Padding="0,20,0,0">
-            <Image Source="settings_appearance_icon.png" Aspect="AspectFill" WidthRequest="20" HeightRequest="20"></Image>
+            <Image Source="settings_appearance_icon.png" Aspect="AspectFill" WidthRequest="40" HeightRequest="40"></Image>
             <Button 
                 Text="Appearance"
                 TextColor="Black"
-                FontSize="16"
+                FontSize="35"
                 FontAttributes="Bold"
                 BackgroundColor="White"
                 BorderColor="White"/>
-            <Image Source="settings_rightarrow_icon.png" Aspect="AspectFill" WidthRequest="20" HeightRequest="20"></Image>
+            <Image Source="settings_rightarrow_icon.png" Aspect="AspectFill" WidthRequest="30" HeightRequest="30"></Image>
         </HorizontalStackLayout>
         <!--About Row-->
-        <HorizontalStackLayout>
-            <Image Source="settings_about_icon.png" Aspect="AspectFill" WidthRequest="20" HeightRequest="20"></Image>
+        <HorizontalStackLayout Padding="0,20,0,0">
+            <Image Source="settings_about_icon.png" Aspect="AspectFill" WidthRequest="40" HeightRequest="40"></Image>
             <Button 
                 Text="About"
                 TextColor="Black"
-                FontSize="16"
+                FontSize="35"
                 FontAttributes="Bold"
                 BackgroundColor="White"
                 BorderColor="White"/>
-            <Image Source="settings_rightarrow_icon.png" Aspect="AspectFill" WidthRequest="20" HeightRequest="20"></Image>
+            <Image Source="settings_rightarrow_icon.png" Aspect="AspectFill" WidthRequest="30" HeightRequest="30"></Image>
         </HorizontalStackLayout>
     </VerticalStackLayout>
 </ContentPage>
