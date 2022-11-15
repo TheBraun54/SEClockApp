@@ -17,7 +17,7 @@
             <HorizontalStackLayout
                 HorizontalOptions="Center">
                 <Label Text="Timer" FontSize="50" FontAttributes="Bold" Margin="15"/>
-                <Switch ThumbColor="Black" OnColor="WhiteSmoke" Margin="15"/>
+                <Switch x:Name="alarmTimer" ThumbColor="Black" OnColor="WhiteSmoke" Margin="15"/>
                 <Label Text="Alarm" FontSize="50" FontAttributes="Bold" Margin="15"/>
             </HorizontalStackLayout>
 

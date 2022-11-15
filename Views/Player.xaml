@@ -15,7 +15,7 @@
                 HorizontalOptions="Center"
                 Margin="0,100,0,100">
             <Label x:Name="Display"
-                   Text="10:00"
+                   Text="20:00"
                    VerticalOptions="Center"
                    HorizontalOptions="Center"
                    Margin="10,5,5,10"
@@ -24,7 +24,7 @@
                    TextColor="#F1E3F3"/>
         </Border>
 
-        <HorizontalStackLayout HorizontalOptions="Center">
+        <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
             <Button x:Name="stopButton"
                     Text="⬛"
                     Clicked="Stop"

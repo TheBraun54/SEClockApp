@@ -41,7 +41,7 @@
                 TextColor="Black"
                 FontSize="35"
                 FontAttributes="Bold"
-                BackgroundColor="White"
+                BackgroundColor="LightGray"
                 BorderColor="White"/>
             <Image Margin="10, 0, 0, 0" Source="settings_appearance_icon.png" Aspect="AspectFill" WidthRequest="40" HeightRequest="40"></Image>
             <Image Source="settings_rightarrow_icon.png" Aspect="AspectFill" WidthRequest="30" HeightRequest="30"></Image>
@@ -53,7 +53,7 @@
                 TextColor="Black"
                 FontSize="35"
                 FontAttributes="Bold"
-                BackgroundColor="White"
+                BackgroundColor="LightGray"
                 BorderColor="White"/>
             <Image Margin="10, 0, 0, 0" Source="settings_about_icon.png" Aspect="AspectFill" WidthRequest="40" HeightRequest="40"></Image>
             <Image Source="settings_rightarrow_icon.png" Aspect="AspectFill" WidthRequest="30" HeightRequest="30"></Image>
