@@ -23,8 +23,5 @@
         <Tab Icon="gear.png" Title="Settings">
             <ShellContent ContentTemplate="{DataTemplate local:Settings}" />
         </Tab>
-        <Tab Icon="database.png" Title="Database">
-            <ShellContent ContentTemplate="{DataTemplate local:Database}" />
-        </Tab>
     </TabBar>
 </Shell>
