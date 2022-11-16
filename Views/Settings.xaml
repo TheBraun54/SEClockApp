@@ -49,6 +49,7 @@
         <!--About Row-->
         <HorizontalStackLayout Padding="0,20,0,0">
             <Button 
+                Clicked="AboutOpenHandler"
                 Text="About"
                 TextColor="Black"
                 FontSize="35"
