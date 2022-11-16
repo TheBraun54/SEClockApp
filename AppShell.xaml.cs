@@ -12,8 +12,5 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(nameof(Spotify), typeof(Spotify));
         Routing.RegisterRoute(nameof(Youtube), typeof(Youtube));
         Routing.RegisterRoute(nameof(Local), typeof(Local));
-
-        // TODO: DELETE LATER ON
-        Routing.RegisterRoute(nameof(Database), typeof(Database));
     }
 }
