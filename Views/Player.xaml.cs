@@ -12,7 +12,7 @@ public partial class Player : ContentPage
     private WaveOutEvent outputDevice;
     private AudioFileReader audioFile;
 
-    public string AudioDir, AudioFile, AudioFilePath;
+    public string AudioDirPath, AudioFileName, AudioFilePath;
 
     public Player()
     {
@@ -23,10 +23,41 @@ public partial class Player : ContentPage
         Clock();
 
         // Audio
-        AudioDir = @"D:\";// from music select page
-        AudioFile = @"test.mp3";// from scanning files in AudioDir
-        AudioFilePath = Path.Combine(AudioDir, AudioFile);
-        Play();
+        AudioDirPath = @"D:\";// todo: get from select page
+        string[] AudioFiles = getAudioFiles(AudioDirPath);
+
+        // get AudioFilePath for a random song in AudioDirPath
+        Random rand = new Random();
+        AudioFileName = AudioFiles[rand.Next(0, AudioFiles.Length)];
+        AudioFilePath = Path.Combine(AudioDirPath, AudioFileName);
+
+        Play(AudioFilePath);
+    }
+
+    /// <summary>
+    /// Gets a list of audio files in the given directory
+    /// </summary>
+    /// <param name="AudioDirPath"></param>
+    /// <returns> List<string> </returns>
+    public static string[] getAudioFiles(string AudioDirPath)
+    {
+        DirectoryInfo AudioDir = new DirectoryInfo(AudioDirPath);
+        FileInfo[] Files = AudioDir.GetFiles();
+        List<string> AudioFiles = new List<string>();
+        foreach (FileInfo File in Files)
+        {
+            // add to AudioFiles if it ends with .mp3
+            System.Diagnostics.Debug.WriteLine(File.Name);
+            if (File.Name.Length >= 4)
+            {
+                if (File.Name.Substring(File.Name.Length - 4, 4).Equals(".mp3"))
+                {
+                    System.Diagnostics.Debug.WriteLine("Audio: " + File.Name);
+                    AudioFiles.Add(File.Name);
+                }
+            }
+        }
+        return AudioFiles.ToArray();
     }
 
     /// <summary>
@@ -57,7 +88,7 @@ public partial class Player : ContentPage
             PlayPauseButton.BorderColor = Color.FromArgb("#F1E3F3");
             DisplayBorder.Stroke = Color.FromArgb("#F1E3F3");
 
-            Play();
+            Play(AudioFilePath);
         }
         else
         {
@@ -71,7 +102,8 @@ public partial class Player : ContentPage
     /// <summary>
     /// Sets outputDevice and audioFile if needed then plays audio
     /// </summary>
-    public void Play()
+    /// <param name="FilePath"></param>
+    public void Play(string FilePath)
     {
         if (outputDevice == null)
         {
@@ -80,7 +112,7 @@ public partial class Player : ContentPage
         }
         if (audioFile == null)
         {
-            audioFile = new AudioFileReader(AudioFilePath);
+            audioFile = new AudioFileReader(FilePath);
             outputDevice.Init(audioFile);
         }
         outputDevice.Play();
