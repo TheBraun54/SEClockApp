@@ -58,6 +58,8 @@
 
 	<ItemGroup>
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
+	  <PackageReference Include="Naudio" Version="2.1.0" />
+	  <PackageReference Include="NAudio.Core" Version="2.1.0" />
 	  <PackageReference Include="Npgsql" Version="6.0.7" />
 	</ItemGroup>
 
@@ -77,10 +79,6 @@
 	  <MauiXaml Update="Views\Youtube.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Models\" />
 	</ItemGroup>
 
 </Project>
