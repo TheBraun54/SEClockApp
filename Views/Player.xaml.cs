@@ -50,7 +50,8 @@ public partial class Player : ContentPage
             System.Diagnostics.Debug.WriteLine(File.Name);
             if (File.Name.Length >= 4)
             {
-                if (File.Name.Substring(File.Name.Length - 4, 4).Equals(".mp3"))
+                //if (File.Name.Substring(File.Name.Length - 4, 4).Equals(".mp3"))
+                if (File.Name.EndsWith("mp3", StringComparison.OrdinalIgnoreCase))
                 {
                     System.Diagnostics.Debug.WriteLine("Audio: " + File.Name);
                     AudioFiles.Add(File.Name);
