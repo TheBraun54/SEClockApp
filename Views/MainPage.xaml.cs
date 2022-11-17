@@ -22,5 +22,10 @@ public partial class MainPage : ContentPage
     {
         await Shell.Current.GoToAsync($"Player");
     }
+
+    private void Alarm(object sender, EventArgs e)
+    {
+
+    }
 }
 

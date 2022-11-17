@@ -10,6 +10,7 @@
         <StackLayout
             VerticalOptions="CenterAndExpand">
             <TimePicker
+                x:Name="timePicker"
                 FontSize="150"
                 HorizontalOptions="Center"
                 VerticalOptions="Center"/>
@@ -17,7 +18,7 @@
                 <HorizontalStackLayout
                 HorizontalOptions="Center">
                     <Label Text="Timer" FontSize="50" FontAttributes="Bold" Margin="15"/>
-                    <Switch x:Name="alarmTimer" ThumbColor="Black" OnColor="WhiteSmoke" Margin="15"/>
+                    <Switch x:Name="alarmTimer" IsToggled="False" Toggled="Alarm" ThumbColor="Black" OnColor="WhiteSmoke" Margin="15"/>
                     <Label Text="Alarm" FontSize="50" FontAttributes="Bold" Margin="15"/>
                 </HorizontalStackLayout>
 

@@ -38,7 +38,7 @@
                 Text="+"
                 FontSize="50"
                 TextColor="Black"
-                BackgroundColor="LightGray"
+                BackgroundColor="Yellow"
                 WidthRequest="100"
                 HeightRequest="100"/>
             <!-- Top Middle -->
@@ -48,7 +48,7 @@
                 Text="+"
                 FontSize="50"
                 TextColor="Black"
-                BackgroundColor="LightGray"
+                BackgroundColor="Yellow"
                 WidthRequest="100"
                 HeightRequest="100"/>
             <!-- Top Right -->
@@ -58,7 +58,7 @@
                 Text="+"
                 FontSize="50"
                 TextColor="Black"
-                BackgroundColor="LightGray"
+                BackgroundColor="Yellow"
                 WidthRequest="100"
                 HeightRequest="100"/>
             <!-- Bottom Left -->
@@ -68,7 +68,7 @@
                 Text="+"
                 FontSize="50"
                 TextColor="Black"
-                BackgroundColor="LightGray"
+                BackgroundColor="Yellow"
                 WidthRequest="100"
                 HeightRequest="100"/>
             <!-- Bottom Middle -->
@@ -76,7 +76,7 @@
                 Text="+"
                 FontSize="50"
                 TextColor="Black"
-                BackgroundColor="LightGray"
+                BackgroundColor="Yellow"
                 WidthRequest="100"
                 HeightRequest="100"/>
             <!-- Bottom Right -->
@@ -86,7 +86,7 @@
                 Text="+"
                 FontSize="50"
                 TextColor="Black"
-                BackgroundColor="LightGray"
+                BackgroundColor="Yellow"
                 WidthRequest="100"
                 HeightRequest="100"/>
 
