@@ -1,6 +1,8 @@
+using CommunityToolkit.Maui.Views;
+
 namespace SEClockApp.PopUps;
 
-public partial class AboutPopUp : ContentPage
+public partial class AboutPopUp : Popup
 {
 	public AboutPopUp()
 	{

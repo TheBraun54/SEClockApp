@@ -6,27 +6,27 @@
              BackgroundColor="#C2BBF0">
 
     <ScrollView>
-        <VerticalStackLayout
-            VerticalOptions="Center">
 
+        <StackLayout
+            VerticalOptions="CenterAndExpand">
             <TimePicker
                 FontSize="150"
                 HorizontalOptions="Center"
                 VerticalOptions="Center"/>
-            
-            <HorizontalStackLayout
+
+                <HorizontalStackLayout
                 HorizontalOptions="Center">
-                <Label Text="Timer" FontSize="50" FontAttributes="Bold" Margin="15"/>
-                <Switch x:Name="alarmTimer" ThumbColor="Black" OnColor="WhiteSmoke" Margin="15"/>
-                <Label Text="Alarm" FontSize="50" FontAttributes="Bold" Margin="15"/>
-            </HorizontalStackLayout>
+                    <Label Text="Timer" FontSize="50" FontAttributes="Bold" Margin="15"/>
+                    <Switch x:Name="alarmTimer" ThumbColor="Black" OnColor="WhiteSmoke" Margin="15"/>
+                    <Label Text="Alarm" FontSize="50" FontAttributes="Bold" Margin="15"/>
+                </HorizontalStackLayout>
 
             <Button FontSize="30"
                     WidthRequest="400"
                     Text="Start"
                     Clicked="StartClock"></Button>
-
-        </VerticalStackLayout>
+        </StackLayout>
+            
     </ScrollView>
 
 </ContentPage>

@@ -1,17 +1,27 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="SEClockApp.PopUps.AboutPopUp"
-             Title="AboutPopUp">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+             Color="#C2BBF0">
+    <VerticalStackLayout
+        HeightRequest="750"
+        WidthRequest="600">
 
-        <Button
-            x:Name="AboutClose"
-            Text="Close"
-            Clicked="AboutCloseHandler"/>
+        <Label 
+            Text="About"
+            FontSize="50"
+            FontAttributes="Bold"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center"
+            Padding="25"/>
+
+        <Label
+            Text="Tiempo was built to seize the ability for a user to connect music to the app via Spotify, Youtube URL, or a local file path. With the music connected, you can set a timer that will play music until your timer ends."
+            FontSize="35"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            Padding="25"/>
+
     </VerticalStackLayout>
-</ContentPage>
+</toolkit:Popup>

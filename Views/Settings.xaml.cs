@@ -1,4 +1,5 @@
 using SEClockApp.PopUps;
+using CommunityToolkit.Maui.Views;
 
 namespace SEClockApp;
 
@@ -11,8 +12,7 @@ public partial class Settings : ContentPage
 
     private void AboutOpenHandler(object sender, EventArgs e)
     {
-        AboutPopUp aboutPopUp = new AboutPopUp();
-        this.ShowPopUp(aboutPopUp);
-
+        AboutPopUp aboutPopUp = new();
+        this.ShowPopup(aboutPopUp);
     }
 }
