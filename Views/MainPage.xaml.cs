@@ -2,6 +2,11 @@
 using Microsoft.Maui.Layouts;
 
 namespace SEClockApp;
+/*
+ * Primary Author: Brady Braun
+ * Secondary Author: Zach La Vake
+ * Reviewer: 
+ */
 
 public partial class MainPage : ContentPage
 {
@@ -63,7 +68,17 @@ public partial class MainPage : ContentPage
         Player.IsVisible = false;
         Main.IsVisible = true;
         isRunning = !isRunning;
-        time = TimeOnly(0, 15, 0);
+    }
+
+    public void AlarmTimer(object sender, EventArgs e) { 
+        if (AlarmTimerSwitch.IsToggled == true)
+        {
+            Timer.Format = "t";
+        } 
+        else
+        {
+            Timer.Format = "hh:mm:ss";
+        }
     }
 }
 

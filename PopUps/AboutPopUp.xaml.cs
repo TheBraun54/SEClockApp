@@ -1,7 +1,11 @@
 using CommunityToolkit.Maui.Views;
 
 namespace SEClockApp.PopUps;
-
+/*
+ * Primary Author: Brady Braun
+ * Secondary Author: None
+ * Reviewer: 
+ */
 public partial class AboutPopUp : Popup
 {
 	public AboutPopUp()
