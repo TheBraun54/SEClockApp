@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="SEClockApp.PopUps.AboutPopUp"
+             Color="#C2BBF0">
+    <!--    Primary Author: Brady Braun     -->
+    <!--    Secondary Author: None          -->
+    <!--    Reviewer:                       -->
+    <VerticalStackLayout
+        HeightRequest="750"
+        WidthRequest="600">
+
+        <Label 
+            Text="About"
+            FontSize="50"
+            FontAttributes="Bold"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center"
+            Padding="25"/>
+
+        <Label
+            Text="Tiempo was built to seize the ability for a user to connect music to the app via Spotify, Youtube URL, or a local file path. With the music connected, you can set a timer that will play music until your timer ends."
+            FontSize="35"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            Padding="25"/>
+
+    </VerticalStackLayout>
+</toolkit:Popup>

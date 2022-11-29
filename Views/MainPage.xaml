@@ -5,28 +5,77 @@
              Title="Timer"
              BackgroundColor="#C2BBF0">
 
+    <!--    Primary Author: Brady Braun     -->
+    <!--    Secondary Author: Zach La Vake  -->
+    <!--    Reviewer:                       -->
     <ScrollView>
-        <VerticalStackLayout
-            VerticalOptions="Center">
 
-            <TimePicker
+        <StackLayout
+            VerticalOptions="CenterAndExpand">
+            <VerticalStackLayout
+                x:Name="Main"
+                IsVisible="True">
+                
+                <TimePicker
+                x:Name="Timer"
+                Format="hh:mm:ss"
                 FontSize="150"
-                HorizontalOptions="Center"
-                VerticalOptions="Center"/>
-            
-            <HorizontalStackLayout
-                HorizontalOptions="Center">
-                <Label Text="Timer" FontSize="50" FontAttributes="Bold" Margin="15"/>
-                <Switch ThumbColor="Black" OnColor="WhiteSmoke" Margin="15"/>
-                <Label Text="Alarm" FontSize="50" FontAttributes="Bold" Margin="15"/>
-            </HorizontalStackLayout>
+                HorizontalOptions="Center"/>
 
-            <Button FontSize="30"
+                <HorizontalStackLayout
+                HorizontalOptions="Center">
+                    <Label Text="Timer" FontSize="50" FontAttributes="Bold" Margin="15"/>
+                    <Switch x:Name="AlarmTimerSwitch" Toggled="AlarmTimer" ThumbColor="Black" OnColor="WhiteSmoke" Margin="15"/>
+                    <Label Text="Alarm" FontSize="50" FontAttributes="Bold" Margin="15"/>
+                </HorizontalStackLayout>
+
+                <Button FontSize="30"
                     WidthRequest="400"
                     Text="Start"
                     Clicked="StartClock"></Button>
+            </VerticalStackLayout>
+            
+            <VerticalStackLayout
+                x:Name="Player"
+                IsVisible="False">
 
-        </VerticalStackLayout>
+                <Border x:Name="DisplayBorder"
+                Stroke="#F1E3F3"
+                StrokeThickness="5"
+                StrokeShape="RoundRectangle 40,40,40,40"
+                Background="#3590F3"
+                Padding="16,8"
+                HorizontalOptions="Center"
+                Margin="0,100,0,100">
+                    <Label x:Name="Display"
+                   Text="20:00"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"
+                   Margin="10,5,5,10"
+                   FontSize="130"
+                   FontFamily="consolas"
+                   TextColor="#F1E3F3"/>
+                </Border>
+
+                <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                    <Button x:Name="stopButton"
+                    Text="⬛"
+                    Clicked="Stop"
+                    HeightRequest="100"
+                    WidthRequest="100"
+                    Margin="0,0,100,0"/>
+
+                    <Button x:Name="PlayPauseButton"
+                    Text="II"
+                    FontSize="30"
+                    Clicked="PlayPause"
+                    HeightRequest="100"
+                    WidthRequest="100"
+                    Margin="100,0,0,0"/>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </StackLayout>
+            
     </ScrollView>
 
 </ContentPage>
