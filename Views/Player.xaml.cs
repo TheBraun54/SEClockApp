@@ -23,15 +23,30 @@ public partial class Player : ContentPage
         Clock();
 
         // Audio
-        AudioDirPath = @"D:\";// todo: get from select page
-        string[] AudioFiles = getAudioFiles(AudioDirPath);
-
-        // get AudioFilePath for a random song in AudioDirPath
         Random rand = new Random();
-        AudioFileName = AudioFiles[rand.Next(0, AudioFiles.Length)];
-        AudioFilePath = Path.Combine(AudioDirPath, AudioFileName);
-
-        Play(AudioFilePath);
+        List<string> Dirs = Directories.SelectedDirectories;
+        if (Dirs.Count() > 0)
+        {
+            AudioDirPath = Dirs[rand.Next(0, Dirs.Count())];// random dir
+            System.Diagnostics.Debug.WriteLine("AudioDirPath: " + AudioDirPath);
+            string[] AudioFiles = getAudioFiles(AudioDirPath);
+            if (AudioFiles.Length > 0)
+            {
+                AudioFileName = AudioFiles[rand.Next(0, AudioFiles.Length)];// random song in dir
+                AudioFilePath = Path.Combine(AudioDirPath, AudioFileName);
+                Play(AudioFilePath);
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine("Music not found");
+                // notify user
+            }
+        } 
+        else
+        {
+            System.Diagnostics.Debug.WriteLine("No directories avalible");
+            // notify user
+        }
     }
 
     /// <summary>
@@ -47,13 +62,11 @@ public partial class Player : ContentPage
         foreach (FileInfo File in Files)
         {
             // add to AudioFiles if it ends with .mp3
-            System.Diagnostics.Debug.WriteLine(File.Name);
             if (File.Name.Length >= 4)
             {
-                //if (File.Name.Substring(File.Name.Length - 4, 4).Equals(".mp3"))
                 if (File.Name.EndsWith("mp3", StringComparison.OrdinalIgnoreCase))
                 {
-                    System.Diagnostics.Debug.WriteLine("Audio: " + File.Name);
+                    //System.Diagnostics.Debug.WriteLine("Audio: " + File.Name);
                     AudioFiles.Add(File.Name);
                 }
             }

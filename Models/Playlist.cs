@@ -28,4 +28,9 @@ namespace SEClockApp
             set { SetProperty(ref length, value); }
         }
     }
+
+    public static class Directories
+    {
+        public static List<string> SelectedDirectories = new List<string>();
+    }
 }

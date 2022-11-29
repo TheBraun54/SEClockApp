@@ -10,7 +10,7 @@
             VerticalOptions="Center">
 
             <TimePicker
-                FontSize="150"
+                FontSize="100"
                 HorizontalOptions="Center"
                 VerticalOptions="Center"/>
             

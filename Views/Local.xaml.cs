@@ -2,7 +2,7 @@ namespace SEClockApp;
 
 public partial class Local : ContentPage
 {
-    List<string> SelectedDirectories = new List<string>();
+    //List<string> SelectedDirectories = new List<string>();
 
     PickOptions options = new()
     {
@@ -21,7 +21,7 @@ public partial class Local : ContentPage
         string Dir = await PickDirectory(options);
         if (Dir == null) { return; }
 
-        SelectedDirectories.Add(Dir);
+        Directories.SelectedDirectories.Add(Dir);
         Button btn = (Button)sender;
         btn.Text = Dir;
         btn.FontSize = 12;
@@ -41,7 +41,7 @@ public partial class Local : ContentPage
         }
         catch (Exception ex)
         {
-            // The user canceled or something went wrong
+            // user canceled or something went wrong
             System.Diagnostics.Debug.WriteLine(ex);
         }
 
