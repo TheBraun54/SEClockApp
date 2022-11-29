@@ -7,8 +7,6 @@ public partial class Local : ContentPage
     PickOptions options = new()
     {
         PickerTitle = "Select a file in the music directory",
-        //FileTypes = new FilePickerFileType(new Dictionary<DevicePlatform, IEnumerable<string>>
-        //{{ DevicePlatform.WinUI, new[] { "/" } }, })
     };
     
     public Local()

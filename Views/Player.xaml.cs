@@ -1,5 +1,4 @@
 using NAudio.Wave;
-using NAudio.Wave.SampleProviders;
 
 namespace SEClockApp;
 
@@ -12,7 +11,11 @@ public partial class Player : ContentPage
     private WaveOutEvent outputDevice;
     private AudioFileReader audioFile;
 
-    public string AudioDirPath, AudioFileName, AudioFilePath;
+    public string AudioFilePath;
+    public int SongIndex = 0;
+
+    Playlist CurrentPlaylist;
+    List<string> CurrentSongs;
 
     public Player()
     {
@@ -23,55 +26,15 @@ public partial class Player : ContentPage
         Clock();
 
         // Audio
-        Random rand = new Random();
-        List<string> Dirs = Directories.SelectedDirectories;
-        if (Dirs.Count() > 0)
-        {
-            AudioDirPath = Dirs[rand.Next(0, Dirs.Count())];// random dir
-            System.Diagnostics.Debug.WriteLine("AudioDirPath: " + AudioDirPath);
-            string[] AudioFiles = getAudioFiles(AudioDirPath);
-            if (AudioFiles.Length > 0)
-            {
-                AudioFileName = AudioFiles[rand.Next(0, AudioFiles.Length)];// random song in dir
-                AudioFilePath = Path.Combine(AudioDirPath, AudioFileName);
-                Play(AudioFilePath);
-            }
-            else
-            {
-                System.Diagnostics.Debug.WriteLine("Music not found");
-                // notify user
-            }
-        } 
-        else
-        {
-            System.Diagnostics.Debug.WriteLine("No directories avalible");
-            // notify user
-        }
-    }
+        CurrentPlaylist = PlaylistGenerator.GetRandomPlaylist();
+        CurrentSongs = CurrentPlaylist.Songs;
+        CurrentPlaylist.PrintPlaylist();
 
-    /// <summary>
-    /// Gets a list of audio files in the given directory
-    /// </summary>
-    /// <param name="AudioDirPath"></param>
-    /// <returns> List<string> </returns>
-    public static string[] getAudioFiles(string AudioDirPath)
-    {
-        DirectoryInfo AudioDir = new DirectoryInfo(AudioDirPath);
-        FileInfo[] Files = AudioDir.GetFiles();
-        List<string> AudioFiles = new List<string>();
-        foreach (FileInfo File in Files)
+        if (CurrentSongs.Count > 0)
         {
-            // add to AudioFiles if it ends with .mp3
-            if (File.Name.Length >= 4)
-            {
-                if (File.Name.EndsWith("mp3", StringComparison.OrdinalIgnoreCase))
-                {
-                    //System.Diagnostics.Debug.WriteLine("Audio: " + File.Name);
-                    AudioFiles.Add(File.Name);
-                }
-            }
+            AudioFilePath = CurrentSongs[SongIndex];
+            Play(AudioFilePath);
         }
-        return AudioFiles.ToArray();
     }
 
     /// <summary>
@@ -109,7 +72,7 @@ public partial class Player : ContentPage
             PlayPauseButton.BorderColor = Color.FromArgb("#62BFED");
             DisplayBorder.Stroke = Color.FromArgb("#62BFED");
 
-            outputDevice?.Stop();
+            outputDevice?.Pause();
         }
     }
 
@@ -119,31 +82,50 @@ public partial class Player : ContentPage
     /// <param name="FilePath"></param>
     public void Play(string FilePath)
     {
-        if (outputDevice == null)
+        if (FilePath != null)
         {
-            outputDevice = new WaveOutEvent();
-            outputDevice.PlaybackStopped += OnPlaybackStopped;
+            if (outputDevice == null)
+            {
+                outputDevice = new WaveOutEvent();
+                outputDevice.PlaybackStopped += MusicStopped;
+            }
+            if (audioFile == null)
+            {
+                audioFile = new AudioFileReader(FilePath);
+                outputDevice.Init(audioFile);
+            }
+            outputDevice.Play();
         }
-        if (audioFile == null)
+        else
         {
-            audioFile = new AudioFileReader(FilePath);
-            outputDevice.Init(audioFile);
+            System.Diagnostics.Debug.WriteLine("null FilePath in Play");
         }
-        outputDevice.Play();
+        
     }
 
-
     /// <summary>
-    /// Removes audio data after outputDevice.PlaybackStopped
+    /// Called when audio stops, plays next song if timer is running
     /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="args"></param>
-    private void OnPlaybackStopped(object sender, StoppedEventArgs args)
+    private void MusicStopped(object sender, StoppedEventArgs args)
     {
-        outputDevice.Dispose();
-        outputDevice = null;
-        audioFile.Dispose();
-        audioFile = null;
+        // remove old audio 
+        if (outputDevice != null)
+        {
+            outputDevice.Dispose();
+            outputDevice = null;
+        }
+        if (audioFile != null)
+        {
+            audioFile.Dispose();
+            audioFile = null;
+        }
+
+        // start new audio
+        if (isRunning && SongIndex+1 < CurrentSongs.Count)
+        {
+            SongIndex++;
+            Play(CurrentSongs[SongIndex]);
+        }
     }
 
     /// <summary>
@@ -154,7 +136,9 @@ public partial class Player : ContentPage
     /// <param name="e"></param>
     public async void StopButtonHandler(object sender, EventArgs e)
     {
+        isRunning = false;
         outputDevice?.Stop();
         await Shell.Current.GoToAsync("..");
     }
+
 }
