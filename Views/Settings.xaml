@@ -12,6 +12,7 @@
                FontAttributes="Bold"/>
         <!--Spotify Button-->
         <Button Text="Connect Spotify"
+                x:Name="SpotifyButton"
                 FontSize="40"
                 BackgroundColor="#1DB954" 
                 TextColor="Black" 
