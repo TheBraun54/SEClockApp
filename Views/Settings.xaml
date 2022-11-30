@@ -16,7 +16,8 @@
                 BackgroundColor="#1DB954" 
                 TextColor="Black" 
                 FontAttributes="Bold" 
-                Margin="0, 20, 0, 0"/>
+                Margin="0, 20, 0, 0"
+                Clicked="ConnectSpotifyHandler"/>
         <!--TODO: Have user be able to connect to Spotify account, add Clicked attribute-->
         <!--YouTube Button-->
         <Button Text="Connect YouTube"
