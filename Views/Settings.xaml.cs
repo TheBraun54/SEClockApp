@@ -53,15 +53,32 @@ public partial class Settings : ContentPage
         var me = await spotify.UserProfile.Current(); // TODO: Delete?
         var playlists = await spotify.PaginateAll(await spotify.Playlists.CurrentUsers().ConfigureAwait(false));
 
+        // TODO: Issue: only gets public playlists, is that okay??
         // TODO: Delete -- it works though, it prints all the playlists i have on my account
         foreach (SimplePlaylist i in playlists)
         {
             System.Diagnostics.Debug.WriteLine($"{i.Name}");
-            System.Diagnostics.Debug.WriteLine($"{i.Owner.DisplayName}");
+            System.Diagnostics.Debug.WriteLine($"{i.Id}");
+
+            // Prints all the tracks in that playlist
+            var playlistGetItemsRequest = new PlaylistGetItemsRequest();
+            playlistGetItemsRequest.Fields.Add("items(track(name,type))");
+            var playlistItems = await spotify.PaginateAll(await spotify.Playlists.GetItems($"{i.Id}", playlistGetItemsRequest));
+            foreach (PlaylistTrack<IPlayableItem> item in playlistItems)
+            {
+                if (item.Track is FullTrack track)
+                {
+                    // All FullTrack properties are available
+                    System.Diagnostics.Debug.WriteLine($"{track.Name} --- {track.DurationMs} -- {track.Id}");
+                }
+            }
         }
+        System.Diagnostics.Debug.WriteLine($"{playlists.Count()}");
+
         System.Diagnostics.Debug.WriteLine($"Welcome {me.DisplayName}, you're authenticated!");
 
         // Populate the Spotify.xaml with the user's playlists
+        Spotify.PopulatePlaylistGrid(playlists);
     }
 
     private static async Task OnErrorReceived(object sender, string error, string state)
