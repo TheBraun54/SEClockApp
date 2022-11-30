@@ -39,6 +39,21 @@ public partial class Settings : ContentPage
         }
     }
 
+    // TODO: What? This method should be called from your web-server when the user visits "http://localhost:5000/callback"
+    // TODO: So do we have to run a local server for our application? (https://learn.microsoft.com/en-us/dotnet/maui/data-cloud/local-web-services?view=net-maui-6.0)
+    //public Task GetCallback(string code) // TOOD: OLD, doesn't return a task?
+    public async void GetCallback(string code) // TOOD: NEW
+    {
+        // Note that we use the verifier calculated above!
+        var initialResponse = await new OAuthClient().RequestToken(
+            // TODO: below is ClientID, hide it somewhere?
+          new PKCETokenRequest("be543f38f0f945f7a2384d7575434166", code, new Uri("http://localhost:5000"), verifierAndChallenge.Item1)
+        );
+
+        var spotify = new SpotifyClient(initialResponse.AccessToken);
+        // Also important for later: response.RefreshToken
+    }
+
 
     private void AboutOpenHandler(object sender, EventArgs e)
     {
