@@ -8,7 +8,9 @@
                FontSize="100"
                FontAttributes="Bold"
                HorizontalOptions="Center"
-               Padding="100"/>
+               Padding="100"
+               x:Name="Title"/>
+               <!--TODO: DELETE x:Name-->
 
         <Label Text="Spotify Playlist:"
                FontSize="50"

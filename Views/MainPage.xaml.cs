@@ -1,5 +1,4 @@
-﻿using Android.Views;
-using Microsoft.Maui.Layouts;
+﻿using Microsoft.Maui.Layouts;
 
 namespace SEClockApp;
 /*
