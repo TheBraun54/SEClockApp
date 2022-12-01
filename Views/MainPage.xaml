@@ -60,7 +60,7 @@
                 <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
                     <Button x:Name="stopButton"
                     Text="⬛"
-                    Clicked="Stop"
+                    Clicked="StopButtonHandler"
                     HeightRequest="100"
                     WidthRequest="100"
                     Margin="0,0,100,0"/>
@@ -68,7 +68,7 @@
                     <Button x:Name="PlayPauseButton"
                     Text="II"
                     FontSize="30"
-                    Clicked="PlayPause"
+                    Clicked="PlayPauseHandler"
                     HeightRequest="100"
                     WidthRequest="100"
                     Margin="100,0,0,0"/>
