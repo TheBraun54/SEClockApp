@@ -1,9 +1,9 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace SEClockApp
 {
     /// <summary>
-    /// Representing a potential playlist that our application would generate
+    /// Represents a playlist
     /// </summary>
     public class Playlist : ObservableObject
     {
@@ -17,6 +17,21 @@ namespace SEClockApp
 
         }
 
+        /// <summary>
+        /// Created for the construction of a playlist from Spotify
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="length"></param>
+        /// <param name="imageUrl"></param>
+        /// <param name="id"></param>
+        public Playlist(string title, int length, string imageUrl, string id)
+        {
+            this.title = title;
+            this.length = length;
+            this.imageUrl = imageUrl;
+            this.id = id;
+        }
+
         public String Title
         {
             get { return title; }
@@ -28,6 +43,7 @@ namespace SEClockApp
             get { return length; }
             set { SetProperty(ref length, value); }
         }
+        
         public List<string> Songs
         {
             get { return songs; }

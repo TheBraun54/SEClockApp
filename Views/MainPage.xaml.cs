@@ -1,4 +1,4 @@
-﻿using NAudio.Wave;
+using NAudio.Wave;
 using static SEClockApp.Logic.Logic;
 
 namespace SEClockApp;
@@ -265,4 +265,3 @@ public partial class MainPage : ContentPage
         outputDevice?.Stop();
     }
 }
-

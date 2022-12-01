@@ -1,4 +1,10 @@
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<!--
+Primary Author: Brady Braun
+Secondary Author: Paul Hwang
+Reviewer: Paul Hwang
+-->    
+    
+    <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SEClockApp.Spotify"
              Title="Spotify"
@@ -8,7 +14,9 @@
                FontSize="100"
                FontAttributes="Bold"
                HorizontalOptions="Center"
-               Padding="100"/>
+               Padding="100"
+               x:Name="Title"/>
+               <!--TODO: DELETE x:Name-->
 
         <Label Text="Spotify Playlist:"
                FontSize="50"
@@ -85,10 +93,10 @@
                 BackgroundColor="#1DB954"
                 WidthRequest="100"
                 HeightRequest="100"/>
-
         </Grid>
 
-        <Label Text="Select Mood:"
+
+            <Label Text="Select Mood:"
                FontSize="50"
                HorizontalOptions="Center"
                Margin="25"/>
