@@ -17,21 +17,6 @@ namespace SEClockApp
 
         }
 
-        /// <summary>
-        /// Created for the construction of a playlist from Spotify
-        /// </summary>
-        /// <param name="title"></param>
-        /// <param name="length"></param>
-        /// <param name="imageUrl"></param>
-        /// <param name="id"></param>
-        public Playlist(string title, int length, string imageUrl, string id)
-        {
-            this.title = title;
-            this.length = length;
-            this.imageUrl = imageUrl;
-            this.id = id;
-        }
-
         public String Title
         {
             get { return title; }
