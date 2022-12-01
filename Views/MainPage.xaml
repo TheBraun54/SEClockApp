@@ -11,17 +11,86 @@
     <ScrollView>
 
         <StackLayout
-            VerticalOptions="CenterAndExpand">
+            VerticalOptions="Center">
+            
+            <!-- Main Page -->
             <VerticalStackLayout
                 x:Name="Main"
                 IsVisible="True">
                 
+                <!-- Alarm -->
                 <TimePicker
-                x:Name="Timer"
-                Format="hh:mm:ss"
+                IsVisible="False"
+                x:Name="Alarm"
                 FontSize="150"
+                FontAttributes="Bold"
                 HorizontalOptions="Center"/>
+                
+                <!-- Timer -->
+                <HorizontalStackLayout 
+                    x:Name="Timer"
+                    IsVisible="True"
+                    HorizontalOptions="CenterAndExpand">
+                    
+                    <!-- Setting Hours Value -->
+                    <VerticalStackLayout>
+                        <Label
+                            x:Name="Hours"
+                            Text="00"
+                            HorizontalOptions="Center"
+                            FontSize="150"
+                            FontAttributes="Bold"/>
+                        <Slider
+                            x:Name="HrSlider"
+                            Maximum="23"
+                            ValueChanged="OnHourChanged"/>
+                    </VerticalStackLayout>
 
+                    <VerticalStackLayout>
+                        <Label
+                            Text=":"
+                            FontSize="150"
+                            FontAttributes="Bold"/>
+                    </VerticalStackLayout>
+                    
+                    <!-- Setting Minutes Value -->
+                    <VerticalStackLayout>
+                        <Label
+                            x:Name="Minutes"
+                            Text="00"
+                            HorizontalOptions="Center"
+                            FontSize="150"
+                            FontAttributes="Bold"/>
+                        <Slider
+                            x:Name="MinSlider"
+                            Maximum="59"
+                            ValueChanged="OnMinuteChanged"/>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout>
+                        <Label
+                            Text=":"
+                            FontSize="150"
+                            FontAttributes="Bold"/>
+                    </VerticalStackLayout>
+                       
+                    <!-- Setting Seconds Value -->
+                    <VerticalStackLayout>
+                        <Label
+                            x:Name="Seconds"
+                            Text="00"
+                            HorizontalOptions="Center"
+                            FontSize="150"
+                            FontAttributes="Bold"/>
+                        <Slider
+                            x:Name="SecSlider"
+                            Maximum="59"
+                            ValueChanged="OnSecondChanged"/>
+                    </VerticalStackLayout>
+
+
+                </HorizontalStackLayout>
+                
                 <HorizontalStackLayout
                 HorizontalOptions="Center">
                     <Label Text="Timer" FontSize="50" FontAttributes="Bold" Margin="15"/>
@@ -35,6 +104,7 @@
                     Clicked="StartClock"></Button>
             </VerticalStackLayout>
             
+            <!-- Player Page -->
             <VerticalStackLayout
                 x:Name="Player"
                 IsVisible="False">

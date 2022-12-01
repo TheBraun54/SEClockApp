@@ -2,10 +2,10 @@ namespace SEClockApp.Logic;
 
 public class Logic : ILogic
 {
-	public Logic()
-	{
-		
-	}
+    public Logic()
+    {
+
+    }
 
     public static class Directories
     {
