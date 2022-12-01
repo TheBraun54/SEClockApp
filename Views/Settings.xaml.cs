@@ -44,7 +44,7 @@ public partial class Settings : ContentPage
         }
     }
 
-    private static async Task OnImplicitGrantReceived(object sender, ImplictGrantResponse response)
+    private async Task OnImplicitGrantReceived(object sender, ImplictGrantResponse response)
     {
         await _server.Stop();
         var spotify = new SpotifyClient(response.AccessToken);

@@ -9,11 +9,28 @@ namespace SEClockApp
     {
         int length;
         string title;
+        string imageUrl;
+        string id;
         List<string> songs;
         public Playlist(string title, int length)
         {
             this.title = title;
             this.length = length;
+        }
+
+        /// <summary>
+        /// Created for the construction of a playlist from Spotify
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="length"></param>
+        /// <param name="imageUrl"></param>
+        /// <param name="id"></param>
+        public Playlist(string title, int length, string imageUrl, string id)
+        {
+            this.title = title;
+            this.length = length;
+            this.imageUrl = imageUrl;
+            this.id = id;
         }
 
         public String Title
@@ -26,6 +43,19 @@ namespace SEClockApp
         {
             get { return length; }
             set { SetProperty(ref length, value); }
+        }
+
+        public String ImageUrl
+        {
+            get { return imageUrl; }
+            set { SetProperty(ref imageUrl, value); }
+        }
+
+        // TODO: do we need the playlist id for spotify?
+        public String Id
+        {
+            get { return id; }
+            set { SetProperty(ref id, value); }
         }
 
         public List<string> Songs
