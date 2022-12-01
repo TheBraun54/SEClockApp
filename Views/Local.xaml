@@ -40,7 +40,8 @@
                 TextColor="Black"
                 BackgroundColor="Yellow"
                 WidthRequest="100"
-                HeightRequest="100"/>
+                HeightRequest="100"
+                Clicked="addHandler"/>
             <!-- Top Middle -->
             <Button 
                 Grid.Row="0" 
@@ -50,7 +51,8 @@
                 TextColor="Black"
                 BackgroundColor="Yellow"
                 WidthRequest="100"
-                HeightRequest="100"/>
+                HeightRequest="100"
+                Clicked="addHandler"/>
             <!-- Top Right -->
             <Button 
                 Grid.Row="0" 
@@ -60,7 +62,8 @@
                 TextColor="Black"
                 BackgroundColor="Yellow"
                 WidthRequest="100"
-                HeightRequest="100"/>
+                HeightRequest="100"
+                Clicked="addHandler"/>
             <!-- Bottom Left -->
             <Button 
                 Grid.Row="1" 
@@ -70,7 +73,8 @@
                 TextColor="Black"
                 BackgroundColor="Yellow"
                 WidthRequest="100"
-                HeightRequest="100"/>
+                HeightRequest="100"
+                Clicked="addHandler"/>
             <!-- Bottom Middle -->
             <Button Grid.Row="1" Grid.Column="1"
                 Text="+"
@@ -78,7 +82,8 @@
                 TextColor="Black"
                 BackgroundColor="Yellow"
                 WidthRequest="100"
-                HeightRequest="100"/>
+                HeightRequest="100"
+                Clicked="addHandler"/>
             <!-- Bottom Right -->
             <Button 
                 Grid.Row="1" 
@@ -88,7 +93,8 @@
                 TextColor="Black"
                 BackgroundColor="Yellow"
                 WidthRequest="100"
-                HeightRequest="100"/>
+                HeightRequest="100"
+                Clicked="addHandler"/>
 
         </Grid>
 
