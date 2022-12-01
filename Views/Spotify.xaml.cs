@@ -1,3 +1,7 @@
+// Primary Author: Paul Hwang
+// Secondary Author: Brady Braun
+// Reviewer: Brady Braun 
+
 using SpotifyAPI.Web;
 using System;
 using System.ComponentModel;

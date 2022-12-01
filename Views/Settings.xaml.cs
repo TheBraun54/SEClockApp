@@ -1,3 +1,7 @@
+// Primary Author: Paul Hwang
+// Secondary Author: Brady Braun
+// Reviewer: Brady Braun 
+
 using SEClockApp.PopUps;
 using CommunityToolkit.Maui.Views;
 using SpotifyAPI.Web;
