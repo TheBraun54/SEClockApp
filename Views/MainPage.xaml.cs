@@ -1,4 +1,4 @@
-﻿using Microsoft.Maui.Layouts;
+using Microsoft.Maui.Layouts;
 using NAudio.Wave;
 using static SEClockApp.Logic.Logic;
 
@@ -11,7 +11,10 @@ namespace SEClockApp;
 
 public partial class MainPage : ContentPage
 {
-    private TimeOnly time = new TimeOnly(01, 30, 00);
+    private int hours;
+    private int minutes;
+    private int seconds;
+    private TimeOnly time;
 
     private bool isRunning;
 
@@ -26,7 +29,6 @@ public partial class MainPage : ContentPage
     public MainPage()
     {
         InitializeComponent();
-        
     }
 
     private async void SettingsClicked(object sender, EventArgs e)
@@ -43,7 +45,12 @@ public partial class MainPage : ContentPage
     {
         Main.IsVisible = false;
         Player.IsVisible = true;
+        isRunning = true;
+        time = new TimeOnly(hours, minutes, seconds);
+        TimerClock();
+    }
 
+    public async void TimerClock()
         // Clock
         isRunning = true;
         Clock();
@@ -78,6 +85,7 @@ public partial class MainPage : ContentPage
     /// </summary>
     public async void Clock()
     {
+
         while (isRunning)
         {
             time = time.Add(TimeSpan.FromSeconds(-1));
@@ -97,7 +105,7 @@ public partial class MainPage : ContentPage
         PlayPauseButton.Text = isRunning ? "II" : "\u25BA";
         if (isRunning)
         {
-            Clock();
+            TimerClock();
             PlayPauseButton.BorderColor = Color.FromArgb("#F1E3F3");
             DisplayBorder.Stroke = Color.FromArgb("#F1E3F3");
 
@@ -118,6 +126,23 @@ public partial class MainPage : ContentPage
     /// <param name="FilePath"></param>
     public void Play(string FilePath)
     {
+        Player.IsVisible = false;
+        Main.IsVisible = true;
+        isRunning = false;
+        TimerClock();
+        Reset();
+    }
+
+    public void Reset()
+    {
+        Hours.Text = "00";
+        Minutes.Text = "00";
+        Seconds.Text = "00";
+        time = new TimeOnly(0, 0, 0);
+        HrSlider.Value = 0;
+        MinSlider.Value = 0;
+        SecSlider.Value = 0;
+        
         if (FilePath != null)
         {
             if (outputDevice == null)
@@ -136,7 +161,6 @@ public partial class MainPage : ContentPage
         {
             System.Diagnostics.Debug.WriteLine("null FilePath in Play");
         }
-
     }
 
     /// <summary>
@@ -147,6 +171,56 @@ public partial class MainPage : ContentPage
         // remove old audio 
         if (outputDevice != null)
         {
+            Alarm.IsVisible = true;
+            Timer.IsVisible = false;
+        } 
+        else
+        {
+            Alarm.IsVisible = false;
+            Timer.IsVisible = true;
+        }
+    }
+
+    public void OnHourChanged(object sender, ValueChangedEventArgs args)
+    {
+        int value = (int)args.NewValue;
+        hours = value;
+        if (value - 10 < 0)
+        {
+            Hours.Text = String.Format("0{0}", value);
+        }
+        else
+        {
+            Hours.Text = String.Format("{0}", value);
+        }
+    }
+
+    public void OnMinuteChanged(object sender, ValueChangedEventArgs args)
+    {
+        int value = (int)args.NewValue;
+        minutes = value;
+        if (value - 10 < 0)
+        {
+            Minutes.Text = String.Format("0{0}", value);
+        }
+        else
+        {
+            Minutes.Text = String.Format("{0}", value);
+        }
+        
+    }
+
+    public void OnSecondChanged(object sender, ValueChangedEventArgs args)
+    {
+        int value = (int)args.NewValue;
+        seconds = value;
+        if (value - 10 < 0)
+        {
+            Seconds.Text = String.Format("0{0}", value);
+        }
+        else
+        {
+            Seconds.Text = String.Format("{0}", value);
             outputDevice.Dispose();
             outputDevice = null;
         }
@@ -162,6 +236,7 @@ public partial class MainPage : ContentPage
             SongIndex++;
             Play(CurrentSongs[SongIndex]);
         }
+        
     }
 
     /// <summary>
