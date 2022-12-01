@@ -144,6 +144,15 @@ public partial class MainPage : ContentPage
             time = time.Add(TimeSpan.FromSeconds(-1));
             Display.Text = $"{time.Hour:00}:{time.Minute:00}:{time.Second:00}";
             await Task.Delay(TimeSpan.FromSeconds(1));
+
+            // Stops the timer when our timer is over
+            if (time.Hour == 0 && time.Minute == 0 && time.Second == 0)
+            {
+                isRunning = !isRunning;
+                Main.IsVisible = true;
+                Player.IsVisible = false;
+                Reset();
+            }
         }
     }
 
