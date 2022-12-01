@@ -3,8 +3,8 @@ using static SEClockApp.Logic.Logic;
 
 namespace SEClockApp;
 /*
- * Primary Author: Brady 
- * Secondary Author: Zach 
+ * Primary Author: Brady (Main Page, Timer, Alarm Clock Screen) and Zach (audio) 
+ * Secondary Author: 
  * Reviewer: Paul 
  */
 
@@ -40,7 +40,7 @@ public partial class MainPage : ContentPage
         TimerClock();
     }
 
-    public async void TimerClock()
+    public void TimerClock()
     {
         // Clock
         isRunning = true;
@@ -56,39 +56,6 @@ public partial class MainPage : ContentPage
             AudioFilePath = CurrentSongs[SongIndex];
             Play(AudioFilePath);
         }
-
-        while (isRunning)
-        {
-            time = time.Add(TimeSpan.FromSeconds(-1));
-            Display.Text = $"{time.Hour:00}:{time.Minute:00}:{time.Second:00}";
-            await Task.Delay(TimeSpan.FromSeconds(1));
-        }
-    }
-
-    public void PlayPause(object sender, EventArgs e)
-    {
-        isRunning = !isRunning;
-        PlayPauseButton.Text = isRunning ? "II" : "\u25BA";
-        if (isRunning)
-        {
-            TimerClock();
-            PlayPauseButton.BorderColor = Color.FromArgb("#F1E3F3");
-            DisplayBorder.Stroke = Color.FromArgb("#F1E3F3");
-        }
-        else
-        {
-            PlayPauseButton.BorderColor = Color.FromArgb("#62BFED");
-            DisplayBorder.Stroke = Color.FromArgb("#62BFED");
-        }
-    }
-
-    public void Stop(object sender, EventArgs e)
-    {
-        Player.IsVisible = false;
-        Main.IsVisible = true;
-        isRunning = false;
-        TimerClock();
-        Reset();
     }
 
     public void Reset()
@@ -170,6 +137,13 @@ public partial class MainPage : ContentPage
             time = time.Add(TimeSpan.FromSeconds(-1));
             Display.Text = $"{time.Hour:00}:{time.Minute:00}:{time.Second:00}";
             await Task.Delay(TimeSpan.FromSeconds(1));
+            if (time.Hour == 0 && time.Minute == 0 && time.Second == 0)
+            {
+                isRunning = !isRunning;
+                Main.IsVisible = true;
+                Player.IsVisible = false;
+                Reset();
+            }
         }
     }
 
@@ -262,6 +236,7 @@ public partial class MainPage : ContentPage
         Player.IsVisible = false;
         Main.IsVisible = true;
         isRunning = false;
+        Reset();
         outputDevice?.Stop();
     }
 }

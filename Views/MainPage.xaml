@@ -5,9 +5,8 @@
              Title="Timer"
              BackgroundColor="#C2BBF0">
 
-    <!--    Primary Author: Brady Braun     -->
-    <!--    Secondary Author: Zach La Vake  -->
-    <!--    Reviewer:                       -->
+    <!--    Primary Author: Brady       -->
+    <!--    Secondary Author: Zach      -->
     <ScrollView>
 
         <StackLayout

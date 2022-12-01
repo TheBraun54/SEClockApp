@@ -4,9 +4,8 @@
              x:Class="SEClockApp.Local"
              Title="Local Music Selection"
              BackgroundColor="#C2BBF0">
-   
-
-
+    <!-- Primary Author: Qadar      -->
+    <!-- Secondary Author: Brady    -->
     <VerticalStackLayout>
         <Label Text="Select Music"
                FontSize="100"

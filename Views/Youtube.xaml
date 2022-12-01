@@ -4,7 +4,8 @@
              x:Class="SEClockApp.Youtube"
              Title="Youtube"
              BackgroundColor="#C2BBF0">
-   
+        <!-- Primary Author: Qadar      -->
+        <!-- Secondary Author: Brady    -->
         <VerticalStackLayout>
         <Label Text="Select Music"
                FontSize="100"

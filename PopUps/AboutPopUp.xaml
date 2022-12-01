@@ -6,7 +6,6 @@
              Color="#C2BBF0">
     <!--    Primary Author: Brady Braun     -->
     <!--    Secondary Author: None          -->
-    <!--    Reviewer:                       -->
     <VerticalStackLayout
         HeightRequest="750"
         WidthRequest="600">
@@ -20,7 +19,7 @@
             Padding="25"/>
 
         <Label
-            Text="Tiempo was built to seize the ability for a user to connect music to the app via Spotify, Youtube URL, or a local file path. With the music connected, you can set a timer that will play music until your timer ends."
+            Text="MuClock is a .NET MAUI application that aims to add an entertaining twist to a mundane task: setting timers. While this functionality is built into many of the smart phones that we have today, we add a worthwhile twist of generating a playlist with a length that's equal to the user's desired timer length."
             FontSize="35"
             VerticalOptions="Center"
             HorizontalOptions="Center"
