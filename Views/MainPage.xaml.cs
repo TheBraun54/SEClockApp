@@ -4,7 +4,7 @@ using static SEClockApp.Logic.Logic;
 namespace SEClockApp;
 /*
  * Primary Author: Brady 
- * Secondary Author: Zach 
+ * Secondary Author: Zach & Qadar
  * Reviewer: Paul 
  */
 
@@ -35,7 +35,18 @@ public partial class MainPage : ContentPage
     {
         Main.IsVisible = false;
         Player.IsVisible = true;
-        time = new TimeOnly(hours, minutes, seconds);
+        isRunning = true;
+        TimeSpan alarmTime = Alarm.Time - DateTime.Now.TimeOfDay;
+        if (AlarmTimerSwitch.IsToggled)
+        {
+            time = new TimeOnly(alarmTime.Hours, alarmTime.Minutes, alarmTime.Seconds);
+        }
+        else
+        {
+            time = new TimeOnly(hours, minutes, seconds);
+        }
+
+
         TimerClock();
     }
 
