@@ -35,14 +35,13 @@ public partial class MainPage : ContentPage
     {
         Main.IsVisible = false;
         Player.IsVisible = true;
-        isRunning = true;
         time = new TimeOnly(hours, minutes, seconds);
         TimerClock();
     }
 
     public async void TimerClock()
     {
-        // Clock
+        // Start the clock
         isRunning = true;
         Clock();
 
@@ -56,47 +55,22 @@ public partial class MainPage : ContentPage
             AudioFilePath = CurrentSongs[SongIndex];
             Play(AudioFilePath);
         }
-
-        while (isRunning)
-        {
-            time = time.Add(TimeSpan.FromSeconds(-1));
-            Display.Text = $"{time.Hour:00}:{time.Minute:00}:{time.Second:00}";
-            await Task.Delay(TimeSpan.FromSeconds(1));
-        }
-    }
-
-    public void PlayPause(object sender, EventArgs e)
-    {
-        isRunning = !isRunning;
-        PlayPauseButton.Text = isRunning ? "II" : "\u25BA";
-        if (isRunning)
-        {
-            TimerClock();
-            PlayPauseButton.BorderColor = Color.FromArgb("#F1E3F3");
-            DisplayBorder.Stroke = Color.FromArgb("#F1E3F3");
-        }
-        else
-        {
-            PlayPauseButton.BorderColor = Color.FromArgb("#62BFED");
-            DisplayBorder.Stroke = Color.FromArgb("#62BFED");
-        }
-    }
-
-    public void Stop(object sender, EventArgs e)
-    {
-        Player.IsVisible = false;
-        Main.IsVisible = true;
-        isRunning = false;
-        TimerClock();
-        Reset();
     }
 
     public void Reset()
     {
+        // Reset the labels
         Hours.Text = "00";
         Minutes.Text = "00";
         Seconds.Text = "00";
+
+        // Reset time
         time = new TimeOnly(0, 0, 0);
+        hours = 0;
+        minutes = 0;
+        seconds = 0;
+
+        // Reset slider values
         HrSlider.Value = 0;
         MinSlider.Value = 0;
         SecSlider.Value = 0;
@@ -160,8 +134,8 @@ public partial class MainPage : ContentPage
     }
 
 
-    /// <summary>
-    /// Changes Display every second
+    /// <summary> 
+    /// Changes Display every second 
     /// </summary>
     public async void Clock()
     {
@@ -178,7 +152,7 @@ public partial class MainPage : ContentPage
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    public void PlayPauseHandler(object sender, EventArgs e)
+    public async void PlayPauseHandler(object sender, EventArgs e)
     {
         isRunning = !isRunning;
         PlayPauseButton.Text = isRunning ? "II" : "\u25BA";
@@ -197,6 +171,20 @@ public partial class MainPage : ContentPage
 
             outputDevice?.Pause();
         }
+    }
+
+    /// <summary>
+    /// Handler for the Stop button
+    /// Stops audio and goes back a page
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    public void StopButtonHandler(object sender, EventArgs e)
+    {
+        Player.IsVisible = false;
+        Main.IsVisible = true;
+        isRunning = false;
+        outputDevice?.Stop();
     }
 
     /// <summary>
@@ -249,20 +237,6 @@ public partial class MainPage : ContentPage
             SongIndex++;
             Play(CurrentSongs[SongIndex]);
         }
-    }
-
-    /// <summary>
-    /// Handler for the Stop button
-    /// Stops audio and goes back a page
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    public void StopButtonHandler(object sender, EventArgs e)
-    {
-        Player.IsVisible = false;
-        Main.IsVisible = true;
-        isRunning = false;
-        outputDevice?.Stop();
     }
 }
 
