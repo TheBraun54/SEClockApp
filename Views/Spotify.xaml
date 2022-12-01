@@ -33,6 +33,8 @@
                 Grid.Column="0"
                 Text="+"
                 FontSize="50"
+                TextColor="Black"
+                BackgroundColor="#1DB954"
                 WidthRequest="100"
                 HeightRequest="100"/>
             <!-- Top Middle -->
@@ -41,6 +43,8 @@
                 Grid.Column="1"
                 Text="+"
                 FontSize="50"
+                TextColor="Black"
+                BackgroundColor="#1DB954"
                 WidthRequest="100"
                 HeightRequest="100"/>
             <!-- Top Right -->
@@ -49,6 +53,8 @@
                 Grid.Column="2"
                 Text="+"
                 FontSize="50"
+                TextColor="Black"
+                BackgroundColor="#1DB954"
                 WidthRequest="100"
                 HeightRequest="100"/>
             <!-- Bottom Left -->
@@ -57,12 +63,16 @@
                 Grid.Column="0"
                 Text="+"
                 FontSize="50"
+                TextColor="Black"
+                BackgroundColor="#1DB954"
                 WidthRequest="100"
                 HeightRequest="100"/>
             <!-- Bottom Middle -->
             <Button Grid.Row="1" Grid.Column="1"
                 Text="+"
                 FontSize="50"
+                TextColor="Black"
+                BackgroundColor="#1DB954"
                 WidthRequest="100"
                 HeightRequest="100"/>
             <!-- Bottom Right -->
@@ -71,6 +81,8 @@
                 Grid.Column="2"
                 Text="+"
                 FontSize="50"
+                TextColor="Black"
+                BackgroundColor="#1DB954"
                 WidthRequest="100"
                 HeightRequest="100"/>
 

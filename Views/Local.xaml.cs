@@ -1,3 +1,5 @@
+using static SEClockApp.Logic.Logic;
+
 namespace SEClockApp;
 
 public partial class Local : ContentPage
@@ -39,7 +41,7 @@ public partial class Local : ContentPage
         }
         catch (Exception ex)
         {
-            // user canceled or something went wrong
+            // user canceled or something
             System.Diagnostics.Debug.WriteLine(ex);
         }
 

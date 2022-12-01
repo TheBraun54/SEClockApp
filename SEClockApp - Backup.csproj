@@ -57,18 +57,18 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="CommunityToolkit.Maui" Version="1.3.0" />
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
-	  <PackageReference Include="NAudio" Version="2.1.0" />
-	  <PackageReference Include="NAudio.Core" Version="2.1.0" />
 	  <PackageReference Include="Npgsql" Version="6.0.7" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="PopUps\AboutPopUp.xaml">
+	  <MauiXaml Update="Views\Appearance.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Local.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Player.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Settings.xaml">
@@ -80,6 +80,10 @@
 	  <MauiXaml Update="Views\Youtube.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Models\" />
 	</ItemGroup>
 
 </Project>

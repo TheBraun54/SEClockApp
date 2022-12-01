@@ -1,4 +1,6 @@
-﻿namespace SEClockApp;
+﻿using CommunityToolkit.Maui;
+
+namespace SEClockApp;
 
 public static class MauiProgram
 {
@@ -13,6 +15,7 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
 
+        builder.UseMauiCommunityToolkit();
         return builder.Build();
     }
 }
