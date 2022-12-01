@@ -61,6 +61,8 @@
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
 	  <PackageReference Include="NAudio" Version="2.1.0" />
 	  <PackageReference Include="Npgsql" Version="6.0.7" />
+	  <PackageReference Include="SpotifyAPI.Web" Version="7.0.0" />
+	  <PackageReference Include="SpotifyAPI.Web.Auth" Version="7.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
