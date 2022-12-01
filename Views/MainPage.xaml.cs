@@ -65,7 +65,12 @@ public partial class MainPage : ContentPage
         }
     }
 
-    public void PlayPause(object sender, EventArgs e)
+    /// <summary>
+    /// Handler for the play and pause button
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    public void PlayPauseHandler(object sender, EventArgs e)
     {
         isRunning = !isRunning;
         PlayPauseButton.Text = isRunning ? "II" : "\u25BA";
@@ -74,15 +79,77 @@ public partial class MainPage : ContentPage
             TimerClock();
             PlayPauseButton.BorderColor = Color.FromArgb("#F1E3F3");
             DisplayBorder.Stroke = Color.FromArgb("#F1E3F3");
+
+            Play(AudioFilePath);
         }
         else
         {
             PlayPauseButton.BorderColor = Color.FromArgb("#62BFED");
             DisplayBorder.Stroke = Color.FromArgb("#62BFED");
+
+            outputDevice?.Pause();
         }
     }
 
-    public void Stop(object sender, EventArgs e)
+    /// <summary>
+    /// Sets outputDevice and audioFile if needed then plays audio
+    /// </summary>
+    /// <param name="FilePath"></param>
+    public void Play(string FilePath)
+    {
+        if (FilePath != null)
+        {
+            if (outputDevice == null)
+            {
+                outputDevice = new WaveOutEvent();
+                outputDevice.PlaybackStopped += MusicStopped;
+            }
+            if (audioFile == null)
+            {
+                audioFile = new AudioFileReader(FilePath);
+                outputDevice.Init(audioFile);
+            }
+            outputDevice.Play();
+        }
+        else
+        {
+            System.Diagnostics.Debug.WriteLine("null FilePath in Play");
+        }
+
+    }
+
+    /// <summary>
+    /// Called when audio stops, plays next song if timer is running
+    /// </summary>
+    private void MusicStopped(object sender, StoppedEventArgs args)
+    {
+        // remove old audio 
+        if (outputDevice != null)
+        {
+            outputDevice.Dispose();
+            outputDevice = null;
+        }
+        if (audioFile != null)
+        {
+            audioFile.Dispose();
+            audioFile = null;
+        }
+
+        // start new audio
+        if (isRunning && SongIndex + 1 < CurrentSongs.Count)
+        {
+            SongIndex++;
+            Play(CurrentSongs[SongIndex]);
+        }
+    }
+
+    /// <summary>
+    /// Handler for the Stop button
+    /// Stops audio and goes back a page
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    public void StopButtonHandler(object sender, EventArgs e)
     {
         Player.IsVisible = false;
         Main.IsVisible = true;
