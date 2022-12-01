@@ -2,6 +2,10 @@
 
 namespace SEClockApp;
 
+// Primary Author: Paul Hwang
+// Secondary Author: Brady Braun
+// Reviewer: Brady Braun
+
 public static class MauiProgram
 {
     //public static PlaylistViewModel playlistVM = new PlaylistViewModel();   // creates PlaylistViewModel objet so we can have a source for the ListView

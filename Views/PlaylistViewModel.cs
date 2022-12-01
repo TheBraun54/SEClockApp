@@ -1,6 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
+// Primary Author: Paul Hwang
+// Secondary Author: Brady Braun
+// Reviewer: Brady Braun
+
 namespace SEClockApp
 {
     public class PlaylistViewModel

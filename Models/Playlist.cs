@@ -1,5 +1,9 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 
+// Primary Author: Zach La Vake
+// Secondary Author: Brady Braun
+// Reviewer: Paul Hwang
+
 namespace SEClockApp
 {
     /// <summary>

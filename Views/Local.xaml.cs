@@ -2,6 +2,10 @@ using static SEClockApp.Logic.Logic;
 
 namespace SEClockApp;
 
+// Primary Author: Zach La Vake
+// Secondary Author: Qadar Isse
+// Reviewer: Brady Braun
+
 public partial class Local : ContentPage
 {
     //List<string> SelectedDirectories = new List<string>();
