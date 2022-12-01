@@ -1,9 +1,9 @@
 ﻿
 namespace SEClockApp;
 /*
- * Primary Author: Brady Braun
- * Secondary Author: Zach La Vake
- * Reviewer: 
+ * Primary Author: Brady 
+ * Secondary Author: Zach 
+ * Reviewer: Paul 
  */
 
 public partial class MainPage : ContentPage
