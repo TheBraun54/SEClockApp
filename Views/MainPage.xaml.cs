@@ -37,13 +37,12 @@ public partial class MainPage : ContentPage
         Player.IsVisible = true;
         isRunning = true;
         time = new TimeOnly(hours, minutes, seconds);
-        TimerClock();
-    }
 
-    public void TimerClock()
-    {
         // Clock
         isRunning = true;
+        PlayPauseButton.BorderColor = Color.FromArgb("#F1E3F3");
+        DisplayBorder.Stroke = Color.FromArgb("#F1E3F3");
+        PlayPauseButton.Text = "II";
         Clock();
 
         // Audio
@@ -132,19 +131,29 @@ public partial class MainPage : ContentPage
     /// </summary>
     public async void Clock()
     {
-        while (isRunning)
+        while (Player.IsVisible)
         {
-            time = time.Add(TimeSpan.FromSeconds(-1));
-            Display.Text = $"{time.Hour:00}:{time.Minute:00}:{time.Second:00}";
-            await Task.Delay(TimeSpan.FromSeconds(1));
-            if (time.Hour == 0 && time.Minute == 0 && time.Second == 0)
+            while (isRunning)
             {
-                isRunning = !isRunning;
-                Main.IsVisible = true;
-                Player.IsVisible = false;
-                Reset();
+                time = time.Add(TimeSpan.FromSeconds(-1));
+                Display.Text = $"{time.Hour:00}:{time.Minute:00}:{time.Second:00}";
+                await Task.Delay(TimeSpan.FromSeconds(1));
+                if (time.Hour == 0 && time.Minute == 0 && time.Second == 0)
+                {
+                    isRunning = !isRunning;
+                    Main.IsVisible = true;
+                    Player.IsVisible = false;
+                    Reset();
+                }
+                if (!Player.IsVisible)
+                {
+                    break;
+                }
             }
+            // paused
+            await Task.Delay(TimeSpan.FromSeconds(0.1));
         }
+        //System.Diagnostics.Debug.WriteLine("Clock stopped");
     }
 
     /// <summary>
@@ -158,7 +167,6 @@ public partial class MainPage : ContentPage
         PlayPauseButton.Text = isRunning ? "II" : "\u25BA";
         if (isRunning)
         {
-            Clock();
             PlayPauseButton.BorderColor = Color.FromArgb("#F1E3F3");
             DisplayBorder.Stroke = Color.FromArgb("#F1E3F3");
 
@@ -227,15 +235,14 @@ public partial class MainPage : ContentPage
 
     /// <summary>
     /// Handler for the Stop button
-    /// Stops audio and goes back a page
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
     public void StopButtonHandler(object sender, EventArgs e)
     {
+        isRunning = false;
         Player.IsVisible = false;
         Main.IsVisible = true;
-        isRunning = false;
         Reset();
         outputDevice?.Stop();
     }
