@@ -43,6 +43,9 @@ public partial class MainPage : ContentPage
     {
         // Start the clock
         isRunning = true;
+        PlayPauseButton.BorderColor = Color.FromArgb("#F1E3F3");
+        DisplayBorder.Stroke = Color.FromArgb("#F1E3F3");
+        PlayPauseButton.Text = "II";
         Clock();
 
         // Audio
