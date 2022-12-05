@@ -139,11 +139,20 @@ public partial class MainPage : ContentPage
     /// </summary>
     public async void Clock()
     {
-        while (isRunning)
+        while (Player.IsVisible)
         {
-            time = time.Add(TimeSpan.FromSeconds(-1));
-            Display.Text = $"{time.Hour:00}:{time.Minute:00}:{time.Second:00}";
-            await Task.Delay(TimeSpan.FromSeconds(1));
+            while (isRunning)
+            {
+                time = time.Add(TimeSpan.FromSeconds(-1));
+                Display.Text = $"{time.Hour:00}:{time.Minute:00}:{time.Second:00}";
+                await Task.Delay(TimeSpan.FromSeconds(1));
+                if (!Player.IsVisible)
+                {
+                    break;
+                }
+            }
+            // paused
+            await Task.Delay(TimeSpan.FromSeconds(0.1));
         }
     }
 
@@ -158,7 +167,6 @@ public partial class MainPage : ContentPage
         PlayPauseButton.Text = isRunning ? "II" : "\u25BA";
         if (isRunning)
         {
-            Clock();
             PlayPauseButton.BorderColor = Color.FromArgb("#F1E3F3");
             DisplayBorder.Stroke = Color.FromArgb("#F1E3F3");
 
