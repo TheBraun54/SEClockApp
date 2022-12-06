@@ -15,83 +15,41 @@
                x:Name="Title"/>
                <!--TODO: DELETE x:Name-->
 
-        <Label Text="Spotify Playlist:"
+        <Label Text="Spotify Playlists:"
                FontSize="50"
                HorizontalOptions="Center"
                Margin="25"/>
 
-        <Grid
-            RowSpacing="45"
-            WidthRequest="450">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <!-- Top Left -->
-            <Button 
-                Grid.Row="0" 
-                Grid.Column="0"
-                Text="+"
-                FontSize="50"
-                TextColor="Black"
-                BackgroundColor="#1DB954"
-                WidthRequest="100"
-                HeightRequest="100"/>
-            <!-- Top Middle -->
-            <Button 
-                Grid.Row="0" 
-                Grid.Column="1"
-                Text="+"
-                FontSize="50"
-                TextColor="Black"
-                BackgroundColor="#1DB954"
-                WidthRequest="100"
-                HeightRequest="100"/>
-            <!-- Top Right -->
-            <Button 
-                Grid.Row="0" 
-                Grid.Column="2"
-                Text="+"
-                FontSize="50"
-                TextColor="Black"
-                BackgroundColor="#1DB954"
-                WidthRequest="100"
-                HeightRequest="100"/>
-            <!-- Bottom Left -->
-            <Button 
-                Grid.Row="1" 
-                Grid.Column="0"
-                Text="+"
-                FontSize="50"
-                TextColor="Black"
-                BackgroundColor="#1DB954"
-                WidthRequest="100"
-                HeightRequest="100"/>
-            <!-- Bottom Middle -->
-            <Button Grid.Row="1" Grid.Column="1"
-                Text="+"
-                FontSize="50"
-                TextColor="Black"
-                BackgroundColor="#1DB954"
-                WidthRequest="100"
-                HeightRequest="100"/>
-            <!-- Bottom Right -->
-            <Button 
-                Grid.Row="1" 
-                Grid.Column="2"
-                Text="+"
-                FontSize="50"
-                TextColor="Black"
-                BackgroundColor="#1DB954"
-                WidthRequest="100"
-                HeightRequest="100"/>
-        </Grid>
+        <ListView x:Name="PlaylistsLV"
+                          HeightRequest="1000"
+                          MaximumHeightRequest="1000"
+                          WidthRequest="1000"
+                          SelectionMode="None">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid RowSpacing="1" ColumnSpacing="1" Padding="10">
 
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="200" />
+                                <RowDefinition Height="200" />
+                            </Grid.RowDefinitions>
 
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <Image Grid.Row="0"
+                                   Grid.Column="0"
+                                   Source="{Binding ImageUrl}"
+                                   Aspect="Center"
+                                   HeightRequest="200"
+                                   WidthRequest="200"/>
+                            <Label Grid.Row="1" Grid.Column="0" Text="{Binding Title}" TextColor="Blue" FontSize="50.0"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </VerticalStackLayout>
 </ContentPage>

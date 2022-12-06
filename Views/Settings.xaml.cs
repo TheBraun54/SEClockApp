@@ -84,7 +84,7 @@ public partial class Settings : ContentPage
         System.Diagnostics.Debug.WriteLine($"Welcome {me.DisplayName}, you're authenticated!");
 
         // Populate the Spotify.xaml with the user's playlists
-        //Spotify.PopulatePlaylistGrid(playlists);
+        Spotify.PopulatePlaylistGrid(playlists);
     }
 
     private static async Task OnErrorReceived(object sender, string error, string state)

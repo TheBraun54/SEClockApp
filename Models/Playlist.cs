@@ -1,4 +1,5 @@
 using CommunityToolkit.Mvvm.ComponentModel;
+using static Android.Provider.MediaStore.Audio;
 
 // Primary Author: Zach La Vake
 // Secondary Author: Brady Braun
@@ -13,12 +14,21 @@ namespace SEClockApp
     {
         int length;
         string title;
+        string imageUrl;
+        string playlistId;
         List<string> songs;
+
         public Playlist(string title, int length)
         {
             this.title = title;
             this.length = length;
-
+        }
+        public Playlist(string title, int length, string imageUrl, string playlistId)
+        {
+            this.title = title;
+            this.length = length;
+            this.imageUrl = imageUrl;
+            this.playlistId = playlistId;
         }
 
         public String Title
@@ -32,7 +42,19 @@ namespace SEClockApp
             get { return length; }
             set { SetProperty(ref length, value); }
         }
-        
+
+        public string ImageUrl
+        {
+            get { return imageUrl; }
+            set { SetProperty(ref imageUrl, value); }
+        }
+
+        public string PlaylistId
+        {
+            get { return playlistId; }
+            set { SetProperty(ref playlistId, value); }
+        }
+
         public List<string> Songs
         {
             get { return songs; }
