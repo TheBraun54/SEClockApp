@@ -40,7 +40,9 @@ public partial class Settings : ContentPage
             {
                 Scope = new List<string> { Scopes.UserReadEmail }
             };
-            BrowserUtil.Open(request.ToUri());
+
+            // Opens the browser to have user sign in
+            await Browser.Default.OpenAsync(request.ToUri(), BrowserLaunchMode.SystemPreferred);
         }
         catch (Exception ex)
         {
