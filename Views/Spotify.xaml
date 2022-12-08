@@ -11,9 +11,7 @@
                FontSize="100"
                FontAttributes="Bold"
                HorizontalOptions="Center"
-               Padding="100"
-               x:Name="Title"/>
-               <!--TODO: DELETE x:Name-->
+               Padding="100"/>
 
         <Label Text="Spotify Playlists:"
                FontSize="50"
@@ -24,7 +22,7 @@
                           HeightRequest="1000"
                           MaximumHeightRequest="1000"
                           WidthRequest="1000"
-                          SelectionMode="None">
+                          SelectionMode="Single">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>

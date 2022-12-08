@@ -16,6 +16,7 @@ public partial class MainPage : ContentPage
     private TimeOnly time;
 
     private bool isRunning;
+    private bool isSpotify = true;
 
     private WaveOutEvent outputDevice;
     private AudioFileReader audioFile;
@@ -46,17 +47,28 @@ public partial class MainPage : ContentPage
         Clock();
 
         // Audio
-        CurrentPlaylist = PlaylistGenerator.GetRandomPlaylist();
-        CurrentSongs = CurrentPlaylist.Songs;
-        CurrentPlaylist.PrintPlaylist();
-
-        if (CurrentSongs.Count > 0)
+        if (isSpotify)      // we want to play music from spotify
         {
-            AudioFilePath = CurrentSongs[SongIndex];
-            Play(AudioFilePath);
+
+        }
+        else               // we want to play music from the local storage
+        {
+            CurrentPlaylist = PlaylistGenerator.GetRandomPlaylist();
+            CurrentSongs = CurrentPlaylist.Songs;
+            CurrentPlaylist.PrintPlaylist();
+
+            if (CurrentSongs.Count > 0)
+            {
+                AudioFilePath = CurrentSongs[SongIndex];
+                Play(AudioFilePath);
+            }
         }
     }
 
+    /// <summary>
+    /// Resets the timer text values to 0, also resets the time variable
+    /// as well as the slider values for defining a timer length
+    /// </summary>
     public void Reset()
     {
         Hours.Text = "00";
@@ -68,6 +80,11 @@ public partial class MainPage : ContentPage
         SecSlider.Value = 0;
     }
 
+    /// <summary>
+    /// Determines whether the user wants to use the timer or alarm functionality
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     public void AlarmTimer(object sender, EventArgs e) { 
         if (AlarmTimerSwitch.IsToggled == true)
         {
@@ -78,6 +95,29 @@ public partial class MainPage : ContentPage
         {
             Alarm.IsVisible = false;
             Timer.IsVisible = true;
+        }
+    }
+
+    /// <summary>
+    /// Determines whether the user wants to play music from the local directory
+    /// or from their selected spotify playlist
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    public void SpotifyLocal(object sender, EventArgs e)
+    {
+        // If the switch is on local, we aren't playing spotify so set it to false
+        // else we are wanting to play spotify so set it to true
+        isSpotify = SpotifyOrLocalSwitch.IsToggled ? false : true;
+
+        // Changes the toggle's color depending on what music source is selected
+        if (isSpotify)
+        {
+            SpotifyOrLocalSwitch.ThumbColor = Color.FromHex("1DB954");
+        }
+        else
+        {
+            SpotifyOrLocalSwitch.ThumbColor = Colors.Yellow;
         }
     }
 

@@ -24,7 +24,8 @@ public partial class Spotify : ContentPage
             System.Diagnostics.Debug.WriteLine($"{playlist.Name}");
             System.Diagnostics.Debug.WriteLine($"{playlist.Images[0].Url}");
             System.Diagnostics.Debug.WriteLine($"{playlist.Id}");
-            // TODO: make sure that length is actually correct
+
+            // Populates the ListView in Spotify.xaml to show the playlists
             MauiProgram.playlistVM.AddPlaylist(new Playlist(playlist.Name, 0, playlist.Images[0].Url, playlist.Id));
         }
     }
