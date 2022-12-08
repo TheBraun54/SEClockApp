@@ -24,11 +24,12 @@ public partial class MainPage : ContentPage
     public int SongIndex = 0;
 
     Playlist CurrentPlaylist;
-    List<string> CurrentSongs;
+    List<Song> CurrentSongs;
 
     public MainPage()
     {
         InitializeComponent();
+        Directories.UpdateSongList();
     }
 
     private void StartClock(object sender, EventArgs e)
@@ -37,23 +38,22 @@ public partial class MainPage : ContentPage
         Player.IsVisible = true;
         isRunning = true;
         time = new TimeOnly(hours, minutes, seconds);
-        TimerClock();
-    }
 
-    public void TimerClock()
-    {
         // Clock
         isRunning = true;
+        PlayPauseButton.BorderColor = Color.FromArgb("#F1E3F3");
+        DisplayBorder.Stroke = Color.FromArgb("#F1E3F3");
+        PlayPauseButton.Text = "II";
         Clock();
 
         // Audio
-        CurrentPlaylist = PlaylistGenerator.GetRandomPlaylist();
+        CurrentPlaylist = PlaylistGenerator.GetPlaylist(new TimeSpan(hours, minutes, seconds));
         CurrentSongs = CurrentPlaylist.Songs;
         CurrentPlaylist.PrintPlaylist();
 
         if (CurrentSongs.Count > 0)
         {
-            AudioFilePath = CurrentSongs[SongIndex];
+            AudioFilePath = CurrentSongs[SongIndex].Path;
             Play(AudioFilePath);
         }
     }
@@ -67,14 +67,16 @@ public partial class MainPage : ContentPage
         HrSlider.Value = 0;
         MinSlider.Value = 0;
         SecSlider.Value = 0;
+        outputDevice?.Stop();
     }
 
-    public void AlarmTimer(object sender, EventArgs e) { 
+    public void AlarmTimer(object sender, EventArgs e)
+    {
         if (AlarmTimerSwitch.IsToggled == true)
         {
             Alarm.IsVisible = true;
             Timer.IsVisible = false;
-        } 
+        }
         else
         {
             Alarm.IsVisible = false;
@@ -108,7 +110,7 @@ public partial class MainPage : ContentPage
         {
             Minutes.Text = String.Format("{0}", value);
         }
-        
+
     }
 
     public void OnSecondChanged(object sender, ValueChangedEventArgs args)
@@ -123,7 +125,7 @@ public partial class MainPage : ContentPage
         {
             Seconds.Text = String.Format("{0}", value);
         }
-        
+
     }
 
 
@@ -132,19 +134,29 @@ public partial class MainPage : ContentPage
     /// </summary>
     public async void Clock()
     {
-        while (isRunning)
+        while (Player.IsVisible)
         {
-            time = time.Add(TimeSpan.FromSeconds(-1));
-            Display.Text = $"{time.Hour:00}:{time.Minute:00}:{time.Second:00}";
-            await Task.Delay(TimeSpan.FromSeconds(1));
-            if (time.Hour == 0 && time.Minute == 0 && time.Second == 0)
+            while (isRunning)
             {
-                isRunning = !isRunning;
-                Main.IsVisible = true;
-                Player.IsVisible = false;
-                Reset();
+                time = time.Add(TimeSpan.FromSeconds(-1));
+                Display.Text = $"{time.Hour:00}:{time.Minute:00}:{time.Second:00}";
+                await Task.Delay(TimeSpan.FromSeconds(1));
+                if (time.Hour == 0 && time.Minute == 0 && time.Second == 0)
+                {
+                    isRunning = !isRunning;
+                    Main.IsVisible = true;
+                    Player.IsVisible = false;
+                    Reset();
+                }
+                if (!Player.IsVisible)
+                {
+                    break;
+                }
             }
+            // paused
+            await Task.Delay(TimeSpan.FromSeconds(0.1));
         }
+        //System.Diagnostics.Debug.WriteLine("Clock stopped");
     }
 
     /// <summary>
@@ -158,7 +170,6 @@ public partial class MainPage : ContentPage
         PlayPauseButton.Text = isRunning ? "II" : "\u25BA";
         if (isRunning)
         {
-            Clock();
             PlayPauseButton.BorderColor = Color.FromArgb("#F1E3F3");
             DisplayBorder.Stroke = Color.FromArgb("#F1E3F3");
 
@@ -216,27 +227,28 @@ public partial class MainPage : ContentPage
             audioFile.Dispose();
             audioFile = null;
         }
+        
+        // delay between songs, currently causes stop button bug
+        // Task.Delay(CurrentSongs[SongIndex].Delay);
 
         // start new audio
         if (isRunning && SongIndex + 1 < CurrentSongs.Count)
         {
             SongIndex++;
-            Play(CurrentSongs[SongIndex]);
+            Play(CurrentSongs[SongIndex].Path);
         }
     }
 
     /// <summary>
     /// Handler for the Stop button
-    /// Stops audio and goes back a page
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
     public void StopButtonHandler(object sender, EventArgs e)
     {
+        isRunning = false;
         Player.IsVisible = false;
         Main.IsVisible = true;
-        isRunning = false;
         Reset();
-        outputDevice?.Stop();
     }
 }
