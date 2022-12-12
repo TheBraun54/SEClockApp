@@ -39,6 +39,36 @@ public partial class MainPage : ContentPage
     /// <param name="e"></param>
     private void StartClock(object sender, EventArgs e)
     {
+        // Audio
+        if (MauiProgram.isSpotify) // Play music from the user's Spotify account
+        {
+            // List will have proper display error messages
+            // a "" if no issues were found and we can proceed to play music
+            List<String> displayAlertMessages = SpotifyLogic();
+            
+            // Issues were found
+            if (displayAlertMessages.ElementAt(0) != "")
+            {
+                DisplayAlert(displayAlertMessages.ElementAt(0),
+                    displayAlertMessages.ElementAt(1),
+                    "ok");
+                return;     // prevents the timer from starting and playing music
+            }
+        }
+        else // Play music from the local device
+        {
+            CurrentPlaylist = PlaylistGenerator.GetRandomPlaylist();
+            CurrentSongs = CurrentPlaylist.Songs;
+            CurrentPlaylist.PrintPlaylist();
+
+            if (CurrentSongs.Count > 0)
+            {
+                AudioFilePath = CurrentSongs[SongIndex];
+                Play(AudioFilePath);
+            }
+        }
+
+        // Displays the timer
         Main.IsVisible = false;
         Player.IsVisible = true;
         isRunning = true;
@@ -50,17 +80,6 @@ public partial class MainPage : ContentPage
         DisplayBorder.Stroke = Color.FromArgb("#F1E3F3");
         PlayPauseButton.Text = "II";
         Clock();
-
-        // Audio
-        CurrentPlaylist = PlaylistGenerator.GetRandomPlaylist();
-        CurrentSongs = CurrentPlaylist.Songs;
-        CurrentPlaylist.PrintPlaylist();
-
-        if (CurrentSongs.Count > 0)
-        {
-            AudioFilePath = CurrentSongs[SongIndex];
-            Play(AudioFilePath);
-        }
     }
 
     /// <summary>

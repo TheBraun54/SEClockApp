@@ -53,11 +53,11 @@ public partial class Settings : ContentPage
     private async Task OnImplicitGrantReceived(object sender, ImplictGrantResponse response)
     {
         await _server.Stop();
-        var spotify = new SpotifyClient(response.AccessToken);
+        MauiProgram.spotify = new SpotifyClient(response.AccessToken);
 
         // TODO: do calls with Spotify
-        var me = await spotify.UserProfile.Current(); // TODO: Delete?
-        var playlists = await spotify.PaginateAll(await spotify.Playlists.CurrentUsers().ConfigureAwait(false));
+        var me = await MauiProgram.spotify.UserProfile.Current(); // TODO: Delete?
+        var playlists = await MauiProgram.spotify.PaginateAll(await MauiProgram.spotify.Playlists.CurrentUsers().ConfigureAwait(false));
 
         // TODO: Issue: only gets public playlists, is that okay??
         // TODO: Delete -- it works though, it prints all the playlists i have on my account

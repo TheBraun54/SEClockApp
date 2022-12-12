@@ -91,4 +91,29 @@ public class Logic : ILogic
             return RandomPlaylist;
         }
     }
+
+    /// <summary>
+    /// Verifies that the Spotify settings are all set before trying to play music from it
+    /// </summary>
+    /// <returns>List<String> containing proper error messages, an array with one empty string otherwise</returns>
+    public static List<String> SpotifyLogic()
+    {
+        List<String> messages = new List<String>();
+
+        if (MauiProgram.spotify == null) // User has not connected their Spotify account yet
+        {
+            messages.Add("Connect your Spotify in Settings");
+            messages.Add("or toggle for the timer to play local music in Settings");
+        }
+        else if (MauiProgram.playlistId == "empty") // User has not selected a playlist
+        {
+            messages.Add("Select a playlist!");
+            messages.Add("Go to the Spotify tab below");
+        }
+        else // User has connected their Spotify and selected a playlist, no issues found
+        {
+            messages.Add("");
+        }
+        return messages;
+    }
 }

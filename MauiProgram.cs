@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui;
+using SpotifyAPI.Web;
 
 namespace SEClockApp;
 
@@ -11,6 +12,7 @@ public static class MauiProgram
     public static PlaylistViewModel playlistVM = new PlaylistViewModel();   // creates PlaylistViewModel objet so we can have a source for the ListView
     public static bool isSpotify = true;
     public static string playlistId = "empty";
+    public static SpotifyClient spotify = null;            // spotify client to be used throughout the application
 
     public static MauiApp CreateMauiApp()
     {
