@@ -31,6 +31,12 @@ public partial class MainPage : ContentPage
         InitializeComponent();
     }
 
+    /// <summary>
+    /// Starts the clock by making the timer visible
+    /// Also starts playing music
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void StartClock(object sender, EventArgs e)
     {
         Main.IsVisible = false;
@@ -90,6 +96,11 @@ public partial class MainPage : ContentPage
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="args"></param>
     public void OnHourChanged(object sender, ValueChangedEventArgs args)
     {
         int value = (int)args.NewValue;
@@ -104,6 +115,11 @@ public partial class MainPage : ContentPage
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="args"></param>
     public void OnMinuteChanged(object sender, ValueChangedEventArgs args)
     {
         int value = (int)args.NewValue;
@@ -119,6 +135,11 @@ public partial class MainPage : ContentPage
         
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="args"></param>
     public void OnSecondChanged(object sender, ValueChangedEventArgs args)
     {
         int value = (int)args.NewValue;

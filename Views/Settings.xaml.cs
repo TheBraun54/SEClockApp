@@ -15,7 +15,6 @@ public partial class Settings : ContentPage
     private static readonly string? clientId = Environment.GetEnvironmentVariable("SPOTIFY_CLIENT_ID");
     // Make sure "http://localhost:5000/callback" is in your spotify application as redirect uri!
     private static readonly EmbedIOAuthServer _server = new EmbedIOAuthServer(new Uri("http://localhost:5000/callback"), 5000);
-    public bool isSpotify = true;
 
     public Settings()
     {
@@ -97,10 +96,10 @@ public partial class Settings : ContentPage
     {
         // If the switch is on local, we aren't playing spotify so set it to false
         // else we are wanting to play spotify so set it to true
-        isSpotify = SpotifyOrLocalSwitch.IsToggled ? false : true;
+        MauiProgram.isSpotify = SpotifyOrLocalSwitch.IsToggled ? false : true;
 
         // Changes the toggle's color depending on what music source is selected
-        if (isSpotify)
+        if (MauiProgram.isSpotify)
         {
             SpotifyOrLocalSwitch.ThumbColor = Color.FromHex("1DB954");
         }

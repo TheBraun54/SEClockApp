@@ -9,6 +9,8 @@ namespace SEClockApp;
 public static class MauiProgram
 {
     public static PlaylistViewModel playlistVM = new PlaylistViewModel();   // creates PlaylistViewModel objet so we can have a source for the ListView
+    public static bool isSpotify = true;
+
     public static MauiApp CreateMauiApp()
     {
         var builder = MauiApp.CreateBuilder();

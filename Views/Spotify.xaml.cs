@@ -15,6 +15,11 @@ public partial class Spotify : ContentPage
         PlaylistsLV.ItemsSource = MauiProgram.playlistVM.GetPlaylists();     // Sets the ItemSource of the ListView to the playlistsVM in MauiProgram.cs
     }
 
+    /// <summary>
+    /// Populates the PlaylistVM in MauiProgram with the playlists that we are
+    /// getting from the current user's spotify account.
+    /// </summary>
+    /// <param name="retrievedPlaylists">List of playlists from the user's spotify</param>
     public static void PopulatePlaylistGrid(IList<SimplePlaylist> retrievedPlaylists)
     {
         foreach (SimplePlaylist playlist in retrievedPlaylists)
