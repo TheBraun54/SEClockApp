@@ -33,4 +33,19 @@ public partial class Spotify : ContentPage
             MauiProgram.playlistVM.AddPlaylist(new Playlist(playlist.Name, 0, playlist.Images[0].Url, playlist.Id));
         }
     }
+
+    /// <summary>
+    /// Handles the event of when an item is selected in the Playlist ListView
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    public void PlaylistsLV_ItemSelected(System.Object sender, Microsoft.Maui.Controls.SelectedItemChangedEventArgs e)
+    {
+        // Changes the playlist id in MauiProgram to the newly selected playlist
+        Playlist selectedPlaylist = e.SelectedItem as Playlist;
+        MauiProgram.playlistId = selectedPlaylist.PlaylistId;
+
+        // TODO: delete
+        System.Diagnostics.Debug.WriteLine($"{selectedPlaylist.PlaylistId}");
+    }
 }
