@@ -55,8 +55,7 @@ public partial class Settings : ContentPage
         await _server.Stop();
         MauiProgram.spotify = new SpotifyClient(response.AccessToken);
 
-        // TODO: do calls with Spotify
-        var me = await MauiProgram.spotify.UserProfile.Current(); // TODO: Delete?
+        var me = await MauiProgram.spotify.UserProfile.Current();
         var playlists = await MauiProgram.spotify.PaginateAll(await MauiProgram.spotify.Playlists.CurrentUsers().ConfigureAwait(false));
 
         // TODO: Issue: only gets public playlists, is that okay??
