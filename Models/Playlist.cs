@@ -1,5 +1,4 @@
 using CommunityToolkit.Mvvm.ComponentModel;
-using static Android.Provider.MediaStore.Audio;
 
 // Primary Author: Zach La Vake
 // Secondary Author: Brady Braun

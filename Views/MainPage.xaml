@@ -10,13 +10,6 @@
     <ScrollView>
 
         <StackLayout VerticalOptions="Center">
-
-            <HorizontalStackLayout HorizontalOptions="Center">
-                <Label Text="Spotify" FontSize="50" FontAttributes="Bold" Margin="15"/>
-                <Switch x:Name="SpotifyOrLocalSwitch" Toggled="SpotifyLocal" ThumbColor="#1DB954" OnColor="WhiteSmoke" Margin="15"/>
-                <Label Text="Local" FontSize="50" FontAttributes="Bold" Margin="15"/>
-            </HorizontalStackLayout>
-
             <!-- Main Page -->
             <VerticalStackLayout
                 x:Name="Main"

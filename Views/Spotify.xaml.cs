@@ -5,7 +5,6 @@
 using SpotifyAPI.Web;
 using System;
 using System.ComponentModel;
-using static Android.Provider.MediaStore.Audio;
 
 namespace SEClockApp;
 public partial class Spotify : ContentPage
