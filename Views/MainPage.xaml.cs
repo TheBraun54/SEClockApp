@@ -1,5 +1,7 @@
 using NAudio.Wave;
 using static SEClockApp.Logic.Logic;
+using SpotifyAPI.Web;
+using SpotifyAPI.Web.Auth;
 
 namespace SEClockApp;
 /*
@@ -37,7 +39,7 @@ public partial class MainPage : ContentPage
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void StartClock(object sender, EventArgs e)
+    private async void StartClock(object sender, EventArgs e)
     {
         // Audio
         if (MauiProgram.isSpotify) // Play music from the user's Spotify account
@@ -46,13 +48,43 @@ public partial class MainPage : ContentPage
             // a "" if no issues were found and we can proceed to play music
             List<String> displayAlertMessages = SpotifyLogic();
             
-            // Issues were found
-            if (displayAlertMessages.ElementAt(0) != "")
+            if (displayAlertMessages.ElementAt(0) != "") // Issues were found
             {
-                DisplayAlert(displayAlertMessages.ElementAt(0),
+                await DisplayAlert(displayAlertMessages.ElementAt(0),
                     displayAlertMessages.ElementAt(1),
                     "ok");
                 return;     // prevents the timer from starting and playing music
+            }
+            else // No issues were found, start playing music on Spotify
+            {
+                // Retrieve the selected playlist from Spotify
+                //Task<FullPlaylist> Get(string playlistId, PlaylistGetRequest request, CancellationToken cancel = default);
+                var playlist = await MauiProgram.spotify.Playlists.Get($"{MauiProgram.playlistId}");
+
+                // TODO: Work on below, is throwing an error at the moment
+                //var playlistGetItemsRequest = new PlaylistGetItemsRequest();
+                // gets each songs id, name from the selected playlist
+                // ref: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-track
+                //playlistGetItemsRequest.Fields.Add("items(track(id,name,duration_ms))"); TODO
+                //playlistGetItemsRequest.Fields.Add("items(track(id,name))");
+                //var playlistItems = await MauiProgram.spotify.PaginateAll(await MauiProgram.spotify.Playlists.GetItems($"{MauiProgram.playlistId}", playlistGetItemsRequest));
+
+                //foreach (PlaylistTrack<IPlayableItem> item in playlistItems)
+                //{
+                //    // Ensure that the current track is a song
+                //    if (item.Track is FullTrack track)
+                //    {
+                //        // TODO: Delete, printing all songs of the selected playlist to ensure that this works
+                //        System.Diagnostics.Debug.WriteLine($"{track.Name} --- {track.DurationMs} -- {track.Id}");
+                //    }
+                //}
+                //oreach (PlaylistTrack<IPlayableItem> item in playlist.Tracks.Items)
+                //{
+                //    // When was it added
+                //    Console.WriteLine(item.AddedAt);
+                //    // The only propety on item is item.Type, it's a IPlayableItem
+                //    Console.WriteLine(item.Track.Type);
+                //}f
             }
         }
         else // Play music from the local device
@@ -80,6 +112,9 @@ public partial class MainPage : ContentPage
         DisplayBorder.Stroke = Color.FromArgb("#F1E3F3");
         PlayPauseButton.Text = "II";
         Clock();
+
+        // TODO: delete
+
     }
 
     /// <summary>

@@ -44,8 +44,5 @@ public partial class Spotify : ContentPage
         // Changes the playlist id in MauiProgram to the newly selected playlist
         Playlist selectedPlaylist = e.SelectedItem as Playlist;
         MauiProgram.playlistId = selectedPlaylist.PlaylistId;
-
-        // TODO: delete
-        System.Diagnostics.Debug.WriteLine($"{selectedPlaylist.PlaylistId}");
     }
 }

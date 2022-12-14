@@ -60,12 +60,11 @@ public partial class Settings : ContentPage
 
         // TODO: Issue: only gets public playlists, is that okay??
         // TODO: Delete -- it works though, it prints all the playlists i have on my account
-        foreach (SimplePlaylist i in playlists)
+        foreach (SimplePlaylist playlist in playlists)
         {
-            System.Diagnostics.Debug.WriteLine($"{i.Name}");
-            System.Diagnostics.Debug.WriteLine($"{i.Id}");
+            System.Diagnostics.Debug.WriteLine($"{playlist.Name}");
+            System.Diagnostics.Debug.WriteLine($"{playlist.Id}");
         }
-        System.Diagnostics.Debug.WriteLine($"{playlists.Count()}");
         System.Diagnostics.Debug.WriteLine($"Welcome {me.DisplayName}, you're authenticated!");
 
         // Populate the Spotify.xaml with the user's playlists
