@@ -8,8 +8,6 @@ namespace SEClockApp;
 
 public partial class Local : ContentPage
 {
-    //List<string> SelectedDirectories = new List<string>();
-
     PickOptions options = new()
     {
         PickerTitle = "Select a file in the music directory",

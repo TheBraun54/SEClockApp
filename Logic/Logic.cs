@@ -33,6 +33,7 @@ public class Logic : ILogic
         /// </summary>
         public static void UpdateSongList()
         {
+            // clear songList?   
             foreach (string Dir in SelectedDirectories)
             {
                 foreach (string AudioPath in getAudioPaths(Dir))
@@ -125,6 +126,10 @@ public class Logic : ILogic
             List<Song> Songs = new List<Song>();
             TimeSpan Duration = new TimeSpan(0, 0, 0);
             Song Song = Directories.GetRandomSong();
+            if (Song == null)
+            {
+                return null;
+            }
             TimeSpan DurationWithSong = Duration.Add(Song.Duration); ;
             while (DurationWithSong.TotalSeconds <= RequestedDuration.TotalSeconds) 
             {

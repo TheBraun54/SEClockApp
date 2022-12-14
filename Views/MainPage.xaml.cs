@@ -22,6 +22,7 @@ public partial class MainPage : ContentPage
 
     public string AudioFilePath;
     public int SongIndex = 0;
+    Boolean TimerMode = false;
 
     Playlist CurrentPlaylist;
     List<Song> CurrentSongs;
@@ -47,14 +48,21 @@ public partial class MainPage : ContentPage
         Clock();
 
         // Audio
-        CurrentPlaylist = PlaylistGenerator.GetPlaylist(new TimeSpan(hours, minutes, seconds));
-        CurrentSongs = CurrentPlaylist.Songs;
-        CurrentPlaylist.PrintPlaylist();
-
-        if (CurrentSongs.Count > 0)
+        TimerMode = AlarmTimerSwitch.IsToggled;
+        if (!TimerMode)
         {
-            AudioFilePath = CurrentSongs[SongIndex].Path;
-            Play(AudioFilePath);
+            TimerMode = false;
+            CurrentPlaylist = PlaylistGenerator.GetPlaylist(new TimeSpan(hours, minutes, seconds));
+            if (CurrentPlaylist != null)
+            {
+                CurrentSongs = CurrentPlaylist.Songs;
+                CurrentPlaylist.PrintPlaylist();
+                if (CurrentSongs.Count > 0)
+                {
+                    AudioFilePath = CurrentSongs[SongIndex].Path;
+                    Play(AudioFilePath);
+                }
+            }
         }
     }
 
@@ -63,7 +71,6 @@ public partial class MainPage : ContentPage
         Hours.Text = "00";
         Minutes.Text = "00";
         Seconds.Text = "00";
-        time = new TimeOnly(0, 0, 0);
         HrSlider.Value = 0;
         MinSlider.Value = 0;
         SecSlider.Value = 0;
@@ -72,7 +79,7 @@ public partial class MainPage : ContentPage
 
     public void AlarmTimer(object sender, EventArgs e)
     {
-        if (AlarmTimerSwitch.IsToggled == true)
+        if (AlarmTimerSwitch.IsToggled)
         {
             Alarm.IsVisible = true;
             Timer.IsVisible = false;
@@ -143,10 +150,20 @@ public partial class MainPage : ContentPage
                 await Task.Delay(TimeSpan.FromSeconds(1));
                 if (time.Hour == 0 && time.Minute == 0 && time.Second == 0)
                 {
-                    isRunning = !isRunning;
-                    Main.IsVisible = true;
-                    Player.IsVisible = false;
-                    Reset();
+                    isRunning = !isRunning;              
+                    if (TimerMode)
+                    {
+                        Song timerSong = Directories.GetRandomSong();
+                        if (timerSong != null)
+                        {
+                            Play(timerSong.Path);
+                        }
+                    } else
+                    {
+                        Main.IsVisible = true;
+                        Player.IsVisible = false;
+                        Reset();
+                    }
                 }
                 if (!Player.IsVisible)
                 {
@@ -154,8 +171,9 @@ public partial class MainPage : ContentPage
                 }
             }
             // paused
-            await Task.Delay(TimeSpan.FromSeconds(0.1));
+            await Task.Delay(TimeSpan.FromSeconds(0.5));
         }
+
         //System.Diagnostics.Debug.WriteLine("Clock stopped");
     }
 
