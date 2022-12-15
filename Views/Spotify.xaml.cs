@@ -26,6 +26,7 @@ public partial class Spotify : ContentPage
         foreach (SimplePlaylist playlist in retrievedPlaylists)
         {
             List<SpotifyTrack> songs = new List<SpotifyTrack>();
+            TimeSpan playlistDuration = new TimeSpan(0, 0, 0, 0, 0);
 
             // Gets all the songs from the playlists and adds them to a list
             var playlistGetItemsRequest = new PlaylistGetItemsRequest();
@@ -38,14 +39,16 @@ public partial class Spotify : ContentPage
                 {
                     songs.Add(new SpotifyTrack(track.Name, track.Id, TimeSpan.FromMilliseconds(track.DurationMs), track.Uri));
 
-
-                //    // TODO: delete
-                //    System.Diagnostics.Debug.WriteLine($"{track.Name} -- {track.Uri}");
+                    // Adds the songs duration to the timespan
+                    playlistDuration = playlistDuration.Add(TimeSpan.FromMilliseconds(track.DurationMs));
                 }
             }
 
             // Creates a new SpotifyPlaylist and adds it to the ListView
-            MauiProgram.spotifyPlaylistVM.AddPlaylist(new SpotifyPlaylist(playlist.Name, playlist.Images[0].Url, playlist.Id, songs));
+            MauiProgram.spotifyPlaylistVM.AddPlaylist(new SpotifyPlaylist(playlist.Name, playlist.Images[0].Url, playlist.Id, playlistDuration, songs));
+
+            // TODO: Delete
+            System.Diagnostics.Debug.WriteLine($"{playlistDuration}");
         }
     }
 
@@ -59,5 +62,8 @@ public partial class Spotify : ContentPage
         // Changes the playlist id in MauiProgram to the newly selected playlist
         SpotifyPlaylist selectedPlaylist = e.SelectedItem as SpotifyPlaylist;
         MauiProgram.selectedPlaylist = selectedPlaylist;
+
+        // For debugging purposes, prints out information about selected playlist
+        System.Diagnostics.Debug.WriteLine($"{selectedPlaylist.Name} -- {selectedPlaylist.Duration}");
     }
 }
