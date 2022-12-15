@@ -29,11 +29,21 @@ public class Logic : ILogic
         }
 
         /// <summary>
+        /// Removes a directory from SelectedDirectories then updates the SongList
+        /// </summary>
+        /// <param name="Path"></param>
+        public static void RemoveDirectory(string Path)
+        {
+            SelectedDirectories.Remove(Path);
+            UpdateSongList();
+        }
+
+        /// <summary>
         /// Updates SongList 
         /// </summary>
         public static void UpdateSongList()
         {
-            // clear songList?   
+            SongList = new List<Song>();
             foreach (string Dir in SelectedDirectories)
             {
                 foreach (string AudioPath in getAudioPaths(Dir))
@@ -69,7 +79,7 @@ public class Logic : ILogic
             return AudioFilePaths;
         }
 
-       
+
         /// <summary>
         /// Selects a random song from a random SelectedDirectory
         /// </summary>
@@ -130,7 +140,7 @@ public class Logic : ILogic
             {
                 return null;
             }
-            TimeSpan DurationWithSong = Duration.Add(Song.Duration); ;
+            TimeSpan DurationWithSong = Duration.Add(Song.Duration); 
             while (DurationWithSong.TotalSeconds <= RequestedDuration.TotalSeconds) 
             {
                 Songs.Add(Song);
@@ -147,12 +157,68 @@ public class Logic : ILogic
         /// <returns>Playlist</returns>
         public static Playlist GetPlaylistV2(TimeSpan RequestedDuration)
         {
-            List<Song> Songs = new List<Song>();
+            int SampleSize = 100;
+            List<Song> SampleSongs = new List<Song>();
+            int[] Seconds = new int[SampleSize];
+            int[] Values = new int[SampleSize];
+            for (int v = 0; v < SampleSize; v++)
+            {
+                Values[v] = 1;
+                SampleSongs.Add(Directories.GetRandomSong());
+                Seconds[v] = Convert.ToInt32(Math.Floor(SampleSongs[v].Duration.TotalSeconds));
+            }
 
-            // todo: get as close as possible using a delay between songs
-            // Playlist.Duration
-            //return new Playlist("GetPlaylist", Duration, Songs);
-            return GetPlaylist(5);
+            // select songs
+            List<int> indices = KnapSack(Convert.ToInt32(Math.Floor(RequestedDuration.TotalSeconds)),
+                                      Seconds, Values, SampleSize);
+
+            // add selected songs
+            List<Song> Songs = new List<Song>();
+            TimeSpan Duration = new TimeSpan(0, 0, 0);
+            foreach (int ind in indices)
+            {
+                Song song = SampleSongs[ind-1];
+                Songs.Add(song);
+                Duration = Duration.Add(song.Duration);
+
+            }
+
+            return new Playlist("GetPlaylistV2", Duration, Songs);
+        }
+
+        public static List<int> KnapSack(int W, int[] wt, int[] val, int n)
+        {
+            int i, w;
+            int[,] K = new int[n + 1, W + 1];
+
+            for (i = 0; i <= n; i++)
+            {
+                for (w = 0; w <= W; w++)
+                {
+                    if (i == 0 || w == 0)
+                        K[i, w] = 0;
+                    else if (wt[i - 1] <= w)
+                        K[i, w] = Math.Max(val[i - 1] + K[i - 1, 
+                                  w - wt[i - 1]], K[i - 1, w]);
+                    else
+                        K[i, w] = K[i - 1, w];
+                }
+            }
+            int res = K[n, W];
+            w = W;
+            List<int> Indices = new List<int>();
+            for (i = n; i > 0 && res > 0; i--)
+            {
+                if (res == K[i - 1, w])
+                    continue;
+                else
+                {
+                    Indices.Add(i);
+                    res = res - val[i - 1];
+                    w = w - wt[i - 1];
+                }
+            }
+            return Indices;
         }
     }
 

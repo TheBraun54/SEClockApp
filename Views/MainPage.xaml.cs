@@ -100,14 +100,21 @@ public partial class MainPage : ContentPage
         }
         else // Play music from the local device
         {
-            CurrentPlaylist = PlaylistGenerator.GetPlaylist(new TimeSpan(hours, minutes, seconds));
-            CurrentSongs = CurrentPlaylist.Songs;
-            CurrentPlaylist.PrintPlaylist();
-
-            if (CurrentSongs.Count > 0)
+            TimerMode = AlarmTimerSwitch.IsToggled;
+            if (!TimerMode)
             {
-                AudioFilePath = CurrentSongs[SongIndex].Path;
-                Play(AudioFilePath);
+                TimerMode = false;
+                CurrentPlaylist = PlaylistGenerator.GetPlaylistV2(new TimeSpan(hours, minutes, seconds));
+                if (CurrentPlaylist != null)
+                {
+                    CurrentSongs = CurrentPlaylist.Songs;
+                    CurrentPlaylist.PrintPlaylist();
+                    if (CurrentSongs.Count > 0)
+                    {
+                        AudioFilePath = CurrentSongs[SongIndex].Path;
+                        Play(AudioFilePath);
+                    }
+                }
             }
         }
 
@@ -123,24 +130,6 @@ public partial class MainPage : ContentPage
         DisplayBorder.Stroke = Color.FromArgb("#F1E3F3");
         PlayPauseButton.Text = "II";
         Clock();
-
-        // Audio
-        TimerMode = AlarmTimerSwitch.IsToggled;
-        if (!TimerMode)
-        {
-            TimerMode = false;
-            CurrentPlaylist = PlaylistGenerator.GetPlaylist(new TimeSpan(hours, minutes, seconds));
-            if (CurrentPlaylist != null)
-            {
-                CurrentSongs = CurrentPlaylist.Songs;
-                CurrentPlaylist.PrintPlaylist();
-                if (CurrentSongs.Count > 0)
-                {
-                    AudioFilePath = CurrentSongs[SongIndex].Path;
-                    Play(AudioFilePath);
-                }
-            }
-        }
     }
 
     /// <summary>

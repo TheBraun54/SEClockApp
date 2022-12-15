@@ -23,10 +23,10 @@ public partial class Local : ContentPage
         string Dir = await PickDirectory(options);
         if (Dir == null) { return; }
         Button btn = (Button)sender;
-        /*if (btn.Text != "+")
+        if (btn.Text != "+")
         {
-            Directories.RemoveDirectory(Dir);
-        }*/
+            Directories.RemoveDirectory(btn.Text);
+        }
 
         Directories.AddDirectory(Dir); 
         btn.Text = Dir;
