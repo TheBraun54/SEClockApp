@@ -26,16 +26,21 @@ public partial class Spotify : ContentPage
         foreach (SimplePlaylist playlist in retrievedPlaylists)
         {
             List<SpotifyTrack> songs = new List<SpotifyTrack>();
+
             // Gets all the songs from the playlists and adds them to a list
             var playlistGetItemsRequest = new PlaylistGetItemsRequest();
-            playlistGetItemsRequest.Fields.Add("items(track(id,name,type,duration_ms))"); // 'type' is required
+            playlistGetItemsRequest.Fields.Add("items(track(id,name,type,duration_ms,uri))"); // 'type' is required
             var playlistItems = await MauiProgram.spotify.PaginateAll(await MauiProgram.spotify.Playlists.GetItems($"{playlist.Id}", playlistGetItemsRequest));
             foreach (PlaylistTrack<IPlayableItem> item in playlistItems)
             {
                 // Ensure that the current track is a song
                 if (item.Track is FullTrack track)
                 {
-                    songs.Add(new SpotifyTrack(track.Name, track.Id, TimeSpan.FromMilliseconds(track.DurationMs)));
+                    songs.Add(new SpotifyTrack(track.Name, track.Id, TimeSpan.FromMilliseconds(track.DurationMs), track.Uri));
+
+
+                //    // TODO: delete
+                //    System.Diagnostics.Debug.WriteLine($"{track.Name} -- {track.Uri}");
                 }
             }
 

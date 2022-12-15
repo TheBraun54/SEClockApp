@@ -32,11 +32,14 @@ public class SpotifyPlaylist : ObservableObject
         public string Name { get; set; }
         public string Id { get; set; }
         public TimeSpan Duration;
-        public SpotifyTrack(string name, string id, TimeSpan duration)
+        public string Uri { get; set; }
+
+        public SpotifyTrack(string name, string id, TimeSpan duration, string uri)
         {
             this.Name = name;
             this.Id = id;
             this.Duration = duration;
+            this.Uri = uri;
         }
     }
 }

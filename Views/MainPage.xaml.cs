@@ -24,6 +24,8 @@ public partial class MainPage : ContentPage
     private WaveOutEvent outputDevice;
     private AudioFileReader audioFile;
 
+    private static Random rng = new Random();
+
     public string AudioFilePath;
     public int SongIndex = 0;
     Boolean TimerMode = false;
@@ -61,41 +63,34 @@ public partial class MainPage : ContentPage
             }
             else // No issues were found, start playing music on Spotify
             {
-                // Play songs from the selected playlist on spotifuy
+                // Randomizes the songs
+                var songs = MauiProgram.selectedPlaylist.Songs;
+                songs = songs.OrderBy(a => rng.Next()).ToList();
 
-                // TODO: Delete, just testing if it can recognize what song i'm currently listening to on Spotify
-                // ref: https://github.com/JohnnyCrazy/SpotifyAPI-NET/blob/master/SpotifyAPI.Web/Models/Response/CurrentlyPlaying.cs
-                // TODO: potential fix: https://johnnycrazy.github.io/SpotifyAPI-NET/docs/error_handling/
-                // TODO: look at stack overflow post: https://stackoverflow.com/questions/62553848/how-to-get-currently-playing-song-using-spotifyapi-net
-                // TODO: delete, testing, this breaks
-                var task = await MauiProgram.spotify.Player.GetCurrentlyPlaying(new PlayerCurrentlyPlayingRequest());
-                if (task.Item is FullTrack track)
+                try
                 {
-                    System.Diagnostics.Debug.WriteLine($"Testing here: {track.Name}");
-                }
+                    // Get the available devices for the current user
+                    var devices = MauiProgram.spotify.Player.GetAvailableDevices();
 
-                // TODO: FIX - doesn't work if there is no instance of spotify running
-                await MauiProgram.spotify.Player.SkipNext(new PlayerSkipNextRequest());
+                    // TODO: implement clearing the queue here
+                    // Clears the queue (is a bit "hacky" as there's no api call to clear the queue)
+                    // ref: https://github.com/spotify/android-sdk/issues/31
+                    //await MauiProgram.spotify.Player.AddToQueue(new PlayerAddToQueueRequest("spotify:track:0p8e0IhVVpNs1qmbb4dvHJ"));
 
-                // Get the available devices for the current user
-                var devices = await MauiProgram.spotify.Player.GetAvailableDevices();
-                if (devices != null)
-                {
-                    // TODO: Delete, just shows all the possible devices
-                    foreach (Device x in devices.Devices)
+                    // Adds songs to the queue
+                    foreach (SpotifyTrack song in songs)
                     {
-                        System.Diagnostics.Debug.WriteLine($"Name of Device: {x.Name} -- Type of Device: {x.Type}");
+                        MauiProgram.spotify.Player.AddToQueue(new PlayerAddToQueueRequest(song.Uri));
                     }
+
+                    // Skips to the first song in our playlist
+                    MauiProgram.spotify.Player.SkipNext();
                 }
-                else
+                catch(APIException ex)
                 {
-                    System.Diagnostics.Debug.WriteLine($"devices is {devices.GetType()}");
+                    System.Diagnostics.Debug.WriteLine($"{ex.GetType()}");
+                    await DisplayAlert("Something went wrong", "Make sure you have an active device ready with Spotify open", "ok");
                 }
-
-                // Start playing a song
-                // TODO: giving me a "no active device found" error
-                //await MauiProgram.spotify.Player.ResumePlayback(new PlayerResumePlaybackRequest());
-
             }
         }
         else // Play music from the local device
@@ -136,7 +131,7 @@ public partial class MainPage : ContentPage
     /// Resets the timer text values to 0, also resets the time variable
     /// as well as the slider values for defining a timer length
     /// </summary>
-    public void Reset()
+    public async void Reset()
     {
         Hours.Text = "00";
         Minutes.Text = "00";
@@ -144,7 +139,16 @@ public partial class MainPage : ContentPage
         HrSlider.Value = 0;
         MinSlider.Value = 0;
         SecSlider.Value = 0;
-        outputDevice?.Stop();
+
+        if (MauiProgram.isSpotify)
+        {
+            // Pauses the playback
+            MauiProgram.spotify.Player.PausePlayback();
+        }
+        else
+        {
+            outputDevice?.Stop();
+        }
     }
 
     /// <summary>
@@ -280,14 +284,28 @@ public partial class MainPage : ContentPage
             PlayPauseButton.BorderColor = Color.FromArgb("#F1E3F3");
             DisplayBorder.Stroke = Color.FromArgb("#F1E3F3");
 
-            Play(AudioFilePath);
+            if (MauiProgram.isSpotify)
+            {
+                MauiProgram.spotify.Player.ResumePlayback();
+            }
+            else
+            {
+                Play(AudioFilePath);
+            }
         }
         else
         {
             PlayPauseButton.BorderColor = Color.FromArgb("#62BFED");
             DisplayBorder.Stroke = Color.FromArgb("#62BFED");
 
-            outputDevice?.Pause();
+            if (MauiProgram.isSpotify)
+            {
+                MauiProgram.spotify.Player.PausePlayback();
+            }
+            else
+            {
+                outputDevice?.Pause();
+            }
         }
     }
 
