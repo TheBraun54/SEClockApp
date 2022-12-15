@@ -63,7 +63,7 @@ public partial class MainPage : ContentPage
             {
                 try
                 {
-                    PlaySpotify();
+                    PlaySpotify(new TimeSpan(hours, minutes, seconds));
                 }
                 catch(APIException ex)
                 {

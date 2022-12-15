@@ -260,11 +260,22 @@ public class Logic : ILogic
     /// <summary>
     /// Starts the spotify playback
     /// </summary>
-    public async static void PlaySpotify()
+    /// <param name="timerDuration">a TimeSpan object representing the length of the timer</param>
+    public async static void PlaySpotify(TimeSpan timerDuration)
     {
         // Randomizes the songs
         var songs = MauiProgram.selectedPlaylist.Songs;
         songs = songs.OrderBy(a => rng.Next()).ToList();
+
+        // Ensures that the length of the queue is >= the length of the timer
+        TimeSpan queueDuration = MauiProgram.selectedPlaylist.Duration;
+        // While the current queue is shorter than the timer duration, keep adding songs
+        while (TimeSpan.Compare(queueDuration, timerDuration) == -1)
+        {
+            queueDuration = queueDuration.Add(queueDuration);
+            songs.AddRange(songs);
+        }
+        
 
         // Get the available devices for the current user and set it to the first available one
         var devices = await MauiProgram.spotify.Player.GetAvailableDevices();
