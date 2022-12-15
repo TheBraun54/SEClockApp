@@ -30,7 +30,7 @@ public partial class Spotify : ContentPage
             System.Diagnostics.Debug.WriteLine($"{playlist.Id}");
 
             // Populates the ListView in Spotify.xaml to show the playlists
-            MauiProgram.playlistVM.AddPlaylist(new Playlist(playlist.Name, 0, playlist.Images[0].Url, playlist.Id));
+            MauiProgram.playlistVM.AddPlaylist(new Playlist(playlist.Name, playlist.Images[0].Url, playlist.Id));
         }
     }
 

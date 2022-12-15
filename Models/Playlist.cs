@@ -33,26 +33,15 @@ namespace SEClockApp
         }
 
         /// <summary>
-        /// Constructor for a playlist
-        /// </summary>
-        /// <param name="title">title of the playlist</param>
-        /// <param name="length">length of the playlist (in mins)</param>
-        public Playlist(string title, int length)
-        {
-            this.title = title;
-            this.length = length;
-        }
-        /// <summary>
         /// Constructor for a playlist, used when creating playlists acquired from Spotify
         /// </summary>
         /// <param name="title">title of the playlist</param>
         /// <param name="length">length of the playlist (in mins)</param>
         /// <param name="imageUrl">imageUrl of a playlist from spotify (used to display playlist cover art)</param>
         /// <param name="playlistId">specific id of the playlist from spotify</param>
-        public Playlist(string title, int length, string imageUrl, string playlistId)
+        public Playlist(string title, string imageUrl, string playlistId)
         {
             this.title = title;
-            this.length = length;
             this.imageUrl = imageUrl;
             this.playlistId = playlistId;
         }
@@ -91,12 +80,6 @@ namespace SEClockApp
         {
             get { return playlistId; }
             set { SetProperty(ref playlistId, value); }
-        }
-
-        public List<string> Songs
-        {
-            get { return songs; }
-            set { SetProperty(ref songs, value); }
         }
 
         /// <summary>
