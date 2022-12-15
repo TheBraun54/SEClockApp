@@ -29,11 +29,21 @@ public class Logic : ILogic
         }
 
         /// <summary>
+        /// Removes a directory from SelectedDirectories then updates the SongList
+        /// </summary>
+        /// <param name="Path"></param>
+        public static void RemoveDirectory(string Path)
+        {
+            SelectedDirectories.Remove(Path);
+            UpdateSongList();
+        }
+
+        /// <summary>
         /// Updates SongList 
         /// </summary>
         public static void UpdateSongList()
         {
-            // clear songList?   
+            SongList = new List<Song>();
             foreach (string Dir in SelectedDirectories)
             {
                 foreach (string AudioPath in getAudioPaths(Dir))
