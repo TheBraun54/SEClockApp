@@ -84,9 +84,6 @@ public partial class MainPage : ContentPage
                 // ref: https://github.com/JohnnyCrazy/SpotifyAPI-NET/blob/master/SpotifyAPI.Web/Models/Response/CurrentlyPlaying.cs
                 // TODO: potential fix: https://johnnycrazy.github.io/SpotifyAPI-NET/docs/error_handling/
                 // TODO: look at stack overflow post: https://stackoverflow.com/questions/62553848/how-to-get-currently-playing-song-using-spotifyapi-net
-                // Need access token in every request 
-                //var task = MauiProgram.spotify.Player.GetCurrentlyPlaying(new PlayerCurrentlyPlayingRequest());
-                //var track = await MauiProgram.spotify.Player.GetCurrentlyPlaying(new PlayerCurrentlyPlayingRequest { Market = "from_token" });
 
                 // TODO: delete, testing, this breaks
                 var task = await MauiProgram.spotify.Player.GetCurrentlyPlaying(new PlayerCurrentlyPlayingRequest());
@@ -95,7 +92,10 @@ public partial class MainPage : ContentPage
                     System.Diagnostics.Debug.WriteLine($"Testing here: {track.Name}");
                 }
 
-                
+                // TODO: Test, skips the song
+                await MauiProgram.spotify.Player.SkipNext(new PlayerSkipNextRequest());
+
+
             }
         }
         else // Play music from the local device
