@@ -263,6 +263,11 @@ public class Logic : ILogic
     /// <param name="timerDuration">a TimeSpan object representing the length of the timer</param>
     public async static void PlaySpotify(TimeSpan timerDuration)
     {
+        // TODO: clears the queue
+        //await MauiProgram.spotify.Player.AddToQueue(new PlayerAddToQueueRequest("spotify:track:2rwyXXftEO2VlkfzRPPgnp"));
+        //var currentQueue = await MauiProgram.spotify.Player.GetQueue();
+        ////while (currentQueue.Queue[0].Type)
+
         // Randomizes the songs
         var songs = MauiProgram.selectedPlaylist.Songs;
         songs = songs.OrderBy(a => rng.Next()).ToList();

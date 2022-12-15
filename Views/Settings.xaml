@@ -25,30 +25,11 @@ Secondary Author: Brady Braun
                 FontAttributes="Bold" 
                 Margin="0, 20, 0, 0"
                 Clicked="ConnectSpotifyHandler"/>
-        <!--YouTube Button-->
-        <Button Text="Connect YouTube"
-                FontSize="40" 
-                BackgroundColor="#FF0000" 
-                TextColor="Black" 
-                FontAttributes="Bold"
-                Margin="0, 20, 0, 0"/>
         <!--Choose between playing Spotify or local music-->
         <HorizontalStackLayout HorizontalOptions="Center">
             <Label Text="Spotify" FontSize="50" FontAttributes="Bold" Margin="15"/>
             <Switch x:Name="SpotifyOrLocalSwitch" Toggled="SpotifyLocal" ThumbColor="#1DB954" OnColor="WhiteSmoke" Margin="15"/>
             <Label Text="Local" FontSize="50" FontAttributes="Bold" Margin="15"/>
-        </HorizontalStackLayout>
-        <!--Appearance Row-->
-        <HorizontalStackLayout Padding="0,20,0,0">
-            <Button 
-                Text="Appearance"
-                TextColor="Black"
-                FontSize="35"
-                FontAttributes="Bold"
-                BackgroundColor="LightGray"
-                BorderColor="White"/>
-            <Image Margin="10, 0, 0, 0" Source="settings_appearance_icon.png" Aspect="AspectFill" WidthRequest="40" HeightRequest="40"></Image>
-            <Image Source="settings_rightarrow_icon.png" Aspect="AspectFill" WidthRequest="30" HeightRequest="30"></Image>
         </HorizontalStackLayout>
         <!--About Row-->
         <HorizontalStackLayout Padding="0,20,0,0">
