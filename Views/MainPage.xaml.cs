@@ -1,5 +1,7 @@
 using NAudio.Wave;
 using static SEClockApp.Logic.Logic;
+using SpotifyAPI.Web;
+using SpotifyAPI.Web.Auth;
 
 namespace SEClockApp;
 /*
@@ -33,8 +35,71 @@ public partial class MainPage : ContentPage
         Directories.UpdateSongList();
     }
 
-    private void StartClock(object sender, EventArgs e)
+    /// <summary>
+    /// Starts the clock by making the timer visible
+    /// Also starts playing music
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private async void StartClock(object sender, EventArgs e)
     {
+        // Audio
+        if (MauiProgram.isSpotify) // Play music from the user's Spotify account
+        {
+            // List will have proper display error messages
+            // a "" if no issues were found and we can proceed to play music
+            List<String> displayAlertMessages = SpotifyLogic();
+            
+            if (displayAlertMessages.ElementAt(0) != "") // Issues were found
+            {
+                await DisplayAlert(displayAlertMessages.ElementAt(0),
+                    displayAlertMessages.ElementAt(1),
+                    "ok");
+                return;     // prevents the timer from starting and playing music
+            }
+            else // No issues were found, start playing music on Spotify
+            {
+                // Retrieve the selected playlist from Spotify
+                var playlist = await MauiProgram.spotify.Playlists.Get($"{MauiProgram.playlistId}");
+
+                var playlistGetItemsRequest = new PlaylistGetItemsRequest();
+                // gets each songs id, name, type, and duration from the selected playlist
+                // ref: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-track
+                playlistGetItemsRequest.Fields.Add("items(track(id,name,type,duration_ms))"); // 'type' is required
+                var playlistItems = await MauiProgram.spotify.PaginateAll(await MauiProgram.spotify.Playlists.GetItems($"{MauiProgram.playlistId}", playlistGetItemsRequest));
+
+                // TODO: Prints all the songs in the playlist
+                foreach (PlaylistTrack<IPlayableItem> item in playlistItems)
+                {
+                    // Ensure that the current track is a song
+                    if (item.Track is FullTrack track)
+                    {
+                        // TODO: Delete, printing all songs of the selected playlist to ensure that this works
+                        System.Diagnostics.Debug.WriteLine($"{track.Name} --- {track.DurationMs} -- {track.Id}");
+                    }
+                }
+
+                // TODO: Delete, just testing if it can recognize what song i'm currently listening to on Spotify
+                // ref: https://github.com/JohnnyCrazy/SpotifyAPI-NET/blob/master/SpotifyAPI.Web/Models/Response/CurrentlyPlaying.cs
+                var playerCurrentlyPlayingRequest = new PlayerCurrentlyPlayingRequest();
+                var task = MauiProgram.spotify.Player.GetCurrentlyPlaying(playerCurrentlyPlayingRequest);
+                System.Diagnostics.Debug.WriteLine($"{task}"); // TODO: Delete
+            }
+        }
+        else // Play music from the local device
+        {
+            CurrentPlaylist = PlaylistGenerator.GetPlaylist(new TimeSpan(hours, minutes, seconds));
+            CurrentSongs = CurrentPlaylist.Songs;
+            CurrentPlaylist.PrintPlaylist();
+
+            if (CurrentSongs.Count > 0)
+            {
+                AudioFilePath = CurrentSongs[SongIndex].Path;
+                Play(AudioFilePath);
+            }
+        }
+
+        // Displays the timer
         Main.IsVisible = false;
         Player.IsVisible = true;
         isRunning = true;
@@ -66,6 +131,10 @@ public partial class MainPage : ContentPage
         }
     }
 
+    /// <summary>
+    /// Resets the timer text values to 0, also resets the time variable
+    /// as well as the slider values for defining a timer length
+    /// </summary>
     public void Reset()
     {
         Hours.Text = "00";
@@ -77,9 +146,13 @@ public partial class MainPage : ContentPage
         outputDevice?.Stop();
     }
 
-    public void AlarmTimer(object sender, EventArgs e)
-    {
-        if (AlarmTimerSwitch.IsToggled)
+    /// <summary>
+    /// Determines whether the user wants to use the timer or alarm functionality
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    public void AlarmTimer(object sender, EventArgs e) { 
+        if (AlarmTimerSwitch.IsToggled == true)
         {
             Alarm.IsVisible = true;
             Timer.IsVisible = false;
@@ -91,6 +164,11 @@ public partial class MainPage : ContentPage
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="args"></param>
     public void OnHourChanged(object sender, ValueChangedEventArgs args)
     {
         int value = (int)args.NewValue;
@@ -105,6 +183,11 @@ public partial class MainPage : ContentPage
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="args"></param>
     public void OnMinuteChanged(object sender, ValueChangedEventArgs args)
     {
         int value = (int)args.NewValue;
@@ -120,6 +203,11 @@ public partial class MainPage : ContentPage
 
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="args"></param>
     public void OnSecondChanged(object sender, ValueChangedEventArgs args)
     {
         int value = (int)args.NewValue;

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
     
 <!--
 Primary Author: Paul Hwang
@@ -25,7 +25,6 @@ Secondary Author: Brady Braun
                 FontAttributes="Bold" 
                 Margin="0, 20, 0, 0"
                 Clicked="ConnectSpotifyHandler"/>
-        <!--TODO: Have user be able to connect to Spotify account, add Clicked attribute-->
         <!--YouTube Button-->
         <Button Text="Connect YouTube"
                 FontSize="40" 
@@ -33,17 +32,14 @@ Secondary Author: Brady Braun
                 TextColor="Black" 
                 FontAttributes="Bold"
                 Margin="0, 20, 0, 0"/>
-        <!--TODO: Have user be able to connect to YouTube account,  add Clicked attribute-->
-        <Button Text="Local Storage"
-                FontSize="40"
-                BackgroundColor="Yellow" 
-                TextColor="Black" 
-                FontAttributes="Bold"
-                Margin="0, 20, 0, 0"/>
-        <!--TODO: ADD CLICK="" FUNCTIONALITY-->
+        <!--Choose between playing Spotify or local music-->
+        <HorizontalStackLayout HorizontalOptions="Center">
+            <Label Text="Spotify" FontSize="50" FontAttributes="Bold" Margin="15"/>
+            <Switch x:Name="SpotifyOrLocalSwitch" Toggled="SpotifyLocal" ThumbColor="#1DB954" OnColor="WhiteSmoke" Margin="15"/>
+            <Label Text="Local" FontSize="50" FontAttributes="Bold" Margin="15"/>
+        </HorizontalStackLayout>
         <!--Appearance Row-->
         <HorizontalStackLayout Padding="0,20,0,0">
-            
             <Button 
                 Text="Appearance"
                 TextColor="Black"
