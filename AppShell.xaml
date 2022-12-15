@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+﻿<?xml version="1.0" encoding="UTF-8" ?>
     
 <!--
 Primary Author: Paul Hwang
@@ -18,9 +18,6 @@ Secondary Author: Brady Braun
         </Tab>
         <Tab Icon="spotify.png" Title="Spotify">
             <ShellContent ContentTemplate="{DataTemplate local:Spotify}" />
-        </Tab>
-        <Tab Icon="youtube.png" Title="Youtube">
-            <ShellContent ContentTemplate="{DataTemplate local:Youtube}" />
         </Tab>
         <Tab Icon="folder.png" Title="Local Drive">
             <ShellContent ContentTemplate="{DataTemplate local:Local}" />
