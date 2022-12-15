@@ -46,9 +46,6 @@ public partial class Spotify : ContentPage
 
             // Creates a new SpotifyPlaylist and adds it to the ListView
             MauiProgram.spotifyPlaylistVM.AddPlaylist(new SpotifyPlaylist(playlist.Name, playlist.Images[0].Url, playlist.Id, playlistDuration, songs));
-
-            // TODO: Delete
-            System.Diagnostics.Debug.WriteLine($"{playlistDuration}");
         }
     }
 
