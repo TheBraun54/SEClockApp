@@ -58,33 +58,30 @@ public partial class MainPage : ContentPage
             else // No issues were found, start playing music on Spotify
             {
                 // Retrieve the selected playlist from Spotify
-                //Task<FullPlaylist> Get(string playlistId, PlaylistGetRequest request, CancellationToken cancel = default);
                 var playlist = await MauiProgram.spotify.Playlists.Get($"{MauiProgram.playlistId}");
 
-                // TODO: Work on below, is throwing an error at the moment
-                //var playlistGetItemsRequest = new PlaylistGetItemsRequest();
-                // gets each songs id, name from the selected playlist
+                var playlistGetItemsRequest = new PlaylistGetItemsRequest();
+                // gets each songs id, name, type, and duration from the selected playlist
                 // ref: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-track
-                //playlistGetItemsRequest.Fields.Add("items(track(id,name,duration_ms))"); TODO
-                //playlistGetItemsRequest.Fields.Add("items(track(id,name))");
-                //var playlistItems = await MauiProgram.spotify.PaginateAll(await MauiProgram.spotify.Playlists.GetItems($"{MauiProgram.playlistId}", playlistGetItemsRequest));
+                playlistGetItemsRequest.Fields.Add("items(track(id,name,type,duration_ms))"); // 'type' is required
+                var playlistItems = await MauiProgram.spotify.PaginateAll(await MauiProgram.spotify.Playlists.GetItems($"{MauiProgram.playlistId}", playlistGetItemsRequest));
 
-                //foreach (PlaylistTrack<IPlayableItem> item in playlistItems)
-                //{
-                //    // Ensure that the current track is a song
-                //    if (item.Track is FullTrack track)
-                //    {
-                //        // TODO: Delete, printing all songs of the selected playlist to ensure that this works
-                //        System.Diagnostics.Debug.WriteLine($"{track.Name} --- {track.DurationMs} -- {track.Id}");
-                //    }
-                //}
-                //oreach (PlaylistTrack<IPlayableItem> item in playlist.Tracks.Items)
-                //{
-                //    // When was it added
-                //    Console.WriteLine(item.AddedAt);
-                //    // The only propety on item is item.Type, it's a IPlayableItem
-                //    Console.WriteLine(item.Track.Type);
-                //}f
+                // TODO: Prints all the songs in the playlist
+                foreach (PlaylistTrack<IPlayableItem> item in playlistItems)
+                {
+                    // Ensure that the current track is a song
+                    if (item.Track is FullTrack track)
+                    {
+                        // TODO: Delete, printing all songs of the selected playlist to ensure that this works
+                        System.Diagnostics.Debug.WriteLine($"{track.Name} --- {track.DurationMs} -- {track.Id}");
+                    }
+                }
+
+                // TODO: Delete, just testing if it can recognize what song i'm currently listening to on Spotify
+                // ref: https://github.com/JohnnyCrazy/SpotifyAPI-NET/blob/master/SpotifyAPI.Web/Models/Response/CurrentlyPlaying.cs
+                var playerCurrentlyPlayingRequest = new PlayerCurrentlyPlayingRequest();
+                var task = MauiProgram.spotify.Player.GetCurrentlyPlaying(playerCurrentlyPlayingRequest);
+                System.Diagnostics.Debug.WriteLine($"{task}"); // TODO: Delete
             }
         }
         else // Play music from the local device
