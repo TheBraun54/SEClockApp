@@ -60,13 +60,13 @@ public partial class Settings : ContentPage
         var me = await MauiProgram.spotify.UserProfile.Current();
         var playlists = await MauiProgram.spotify.PaginateAll(await MauiProgram.spotify.Playlists.CurrentUsers().ConfigureAwait(false));
 
-        // Prints all public playlists for the signed in user
-        foreach (SimplePlaylist playlist in playlists)
-        {
-            System.Diagnostics.Debug.WriteLine($"{playlist.Name}");
-            System.Diagnostics.Debug.WriteLine($"{playlist.Id}");
-        }
-        System.Diagnostics.Debug.WriteLine($"Welcome {me.DisplayName}, you're authenticated!");
+        // TODO: Delete, Prints all public playlists for the signed in user
+        //foreach (SimplePlaylist playlist in playlists)
+        //{
+        //    System.Diagnostics.Debug.WriteLine($"{playlist.Name}");
+        //    System.Diagnostics.Debug.WriteLine($"{playlist.Id}");
+        //}
+        //System.Diagnostics.Debug.WriteLine($"Welcome {me.DisplayName}, you're authenticated!");
 
         // Populate the Spotify.xaml with the user's playlists
         Spotify.PopulatePlaylistGrid(playlists);

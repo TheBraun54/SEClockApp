@@ -5,6 +5,7 @@
 using SpotifyAPI.Web;
 using System;
 using System.ComponentModel;
+using static SEClockApp.SpotifyPlaylist;
 
 namespace SEClockApp;
 public partial class Spotify : ContentPage
@@ -20,17 +21,26 @@ public partial class Spotify : ContentPage
     /// getting from the current user's spotify account.
     /// </summary>
     /// <param name="retrievedPlaylists">List of playlists from the user's spotify</param>
-    public static void PopulatePlaylistGrid(IList<SimplePlaylist> retrievedPlaylists)
+    public async static void PopulatePlaylistGrid(IList<SimplePlaylist> retrievedPlaylists)
     {
         foreach (SimplePlaylist playlist in retrievedPlaylists)
         {
-            // TODO: Delete, just checking it even acquires the playlists
-            System.Diagnostics.Debug.WriteLine($"{playlist.Name}");
-            System.Diagnostics.Debug.WriteLine($"{playlist.Images[0].Url}");
-            System.Diagnostics.Debug.WriteLine($"{playlist.Id}");
+            List<SpotifyTrack> songs = new List<SpotifyTrack>();
+            // Gets all the songs from the playlists and adds them to a list
+            var playlistGetItemsRequest = new PlaylistGetItemsRequest();
+            playlistGetItemsRequest.Fields.Add("items(track(id,name,type,duration_ms))"); // 'type' is required
+            var playlistItems = await MauiProgram.spotify.PaginateAll(await MauiProgram.spotify.Playlists.GetItems($"{playlist.Id}", playlistGetItemsRequest));
+            foreach (PlaylistTrack<IPlayableItem> item in playlistItems)
+            {
+                // Ensure that the current track is a song
+                if (item.Track is FullTrack track)
+                {
+                    songs.Add(new SpotifyTrack(track.Name, track.Id, TimeSpan.FromMilliseconds(track.DurationMs)));
+                }
+            }
 
-            // Populates the ListView in Spotify.xaml to show the playlists
-            MauiProgram.spotifyPlaylistVM.AddPlaylist(new SpotifyPlaylist(playlist.Name, playlist.Images[0].Url, playlist.Id));
+            // Creates a new SpotifyPlaylist and adds it to the ListView
+            MauiProgram.spotifyPlaylistVM.AddPlaylist(new SpotifyPlaylist(playlist.Name, playlist.Images[0].Url, playlist.Id, songs));
         }
     }
 

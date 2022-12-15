@@ -1,5 +1,6 @@
 using NAudio.Wave;
 using static SEClockApp.Logic.Logic;
+using static SEClockApp.SpotifyPlaylist;
 using SpotifyAPI.Web;
 using SpotifyAPI.Web.Auth;
 
@@ -59,40 +60,48 @@ public partial class MainPage : ContentPage
             }
             else // No issues were found, start playing music on Spotify
             {
-                // Retrieve the selected playlist from Spotify
-                var playlist = await MauiProgram.spotify.Playlists.Get($"{MauiProgram.selectedPlaylist.PlaylistId}");
+                //// Retrieve the selected playlist from Spotify
+                //var playlist = await MauiProgram.spotify.Playlists.Get($"{MauiProgram.selectedPlaylist.PlaylistId}");
 
-                var playlistGetItemsRequest = new PlaylistGetItemsRequest();
-                // gets each songs id, name, type, and duration from the selected playlist
-                // ref: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-track
-                playlistGetItemsRequest.Fields.Add("items(track(id,name,type,duration_ms))"); // 'type' is required
-                var playlistItems = await MauiProgram.spotify.PaginateAll(await MauiProgram.spotify.Playlists.GetItems($"{MauiProgram.selectedPlaylist.PlaylistId}", playlistGetItemsRequest));
-                // TODO: Prints all the songs in the playlist
-                foreach (PlaylistTrack<IPlayableItem> item in playlistItems)
+                //var playlistGetItemsRequest = new PlaylistGetItemsRequest();
+                //// gets each songs id, name, type, and duration from the selected playlist
+                //// ref: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-track
+                //playlistGetItemsRequest.Fields.Add("items(track(id,name,type,duration_ms))"); // 'type' is required
+                //var playlistItems = await MauiProgram.spotify.PaginateAll(await MauiProgram.spotify.Playlists.GetItems($"{MauiProgram.selectedPlaylist.PlaylistId}", playlistGetItemsRequest));
+                //// TODO: Prints all the songs in the playlist
+                //foreach (PlaylistTrack<IPlayableItem> item in playlistItems)
+                //{
+                //    // Ensure that the current track is a song
+                //    if (item.Track is FullTrack ft)
+                //    {
+                //        // TODO: Delete, printing all songs of the selected playlist to ensure that this works
+                //        System.Diagnostics.Debug.WriteLine($"{ft.Name} --- {ft.DurationMs} -- {ft.Id}");
+                //    }
+                //}
+
+                // TODO: Delete, prints all the songs of the selected playlist
+                foreach (SpotifyTrack song in MauiProgram.selectedPlaylist.Songs)
                 {
-                    // Ensure that the current track is a song
-                    if (item.Track is FullTrack ft)
-                    {
-                        // TODO: Delete, printing all songs of the selected playlist to ensure that this works
-                        System.Diagnostics.Debug.WriteLine($"{ft.Name} --- {ft.DurationMs} -- {ft.Id}");
-                    }
+                    System.Diagnostics.Debug.WriteLine($"{song.Name} -- {song.Id} -- {song.Duration}");
                 }
 
                 // TODO: Delete, just testing if it can recognize what song i'm currently listening to on Spotify
                 // ref: https://github.com/JohnnyCrazy/SpotifyAPI-NET/blob/master/SpotifyAPI.Web/Models/Response/CurrentlyPlaying.cs
                 // TODO: potential fix: https://johnnycrazy.github.io/SpotifyAPI-NET/docs/error_handling/
                 // TODO: look at stack overflow post: https://stackoverflow.com/questions/62553848/how-to-get-currently-playing-song-using-spotifyapi-net
-
                 // TODO: delete, testing, this breaks
-                //var task = await MauiProgram.spotify.Player.GetCurrentlyPlaying(new PlayerCurrentlyPlayingRequest());
-                //if (task.Item is FullTrack track)
-                //{
-                //    System.Diagnostics.Debug.WriteLine($"Testing here: {track.Name}");
-                //}
+                var task = await MauiProgram.spotify.Player.GetCurrentlyPlaying(new PlayerCurrentlyPlayingRequest());
+                if (task.Item is FullTrack track)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Testing here: {track.Name}");
+                }
 
                 //// TODO: Test, skips the song
-                //await MauiProgram.spotify.Player.SkipNext(new PlayerSkipNextRequest());
+                await MauiProgram.spotify.Player.SkipNext(new PlayerSkipNextRequest());
 
+                // Start playing a song
+                // TODO: giving me a "no active device found" error
+                //await MauiProgram.spotify.Player.ResumePlayback(new PlayerResumePlaybackRequest());
 
             }
         }
