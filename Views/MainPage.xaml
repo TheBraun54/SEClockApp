@@ -5,28 +5,143 @@
              Title="Timer"
              BackgroundColor="#C2BBF0">
 
+    <!--    Primary Author: Brady       -->
+    <!--    Secondary Author: Zach      -->
     <ScrollView>
-        <VerticalStackLayout
-            VerticalOptions="Center">
 
-            <TimePicker
+        <StackLayout VerticalOptions="Center">
+            <!-- Main Page -->
+            <VerticalStackLayout
+                x:Name="Main"
+                IsVisible="True">
+                
+                <!-- Alarm -->
+                <TimePicker
+                IsVisible="False"
+                x:Name="Alarm"
                 FontSize="150"
-                HorizontalOptions="Center"
-                VerticalOptions="Center"/>
-            
-            <HorizontalStackLayout
-                HorizontalOptions="Center">
-                <Label Text="Timer" FontSize="50" FontAttributes="Bold" Margin="15"/>
-                <Switch ThumbColor="Black" OnColor="WhiteSmoke" Margin="15"/>
-                <Label Text="Alarm" FontSize="50" FontAttributes="Bold" Margin="15"/>
-            </HorizontalStackLayout>
+                FontAttributes="Bold"
+                HorizontalOptions="Center"/>
+                
+                <!-- Timer -->
+                <HorizontalStackLayout 
+                    x:Name="Timer"
+                    IsVisible="True"
+                    HorizontalOptions="CenterAndExpand">
+                    
+                    <!-- Setting Hours Value -->
+                    <VerticalStackLayout>
+                        <Label
+                            x:Name="Hours"
+                            Text="00"
+                            HorizontalOptions="Center"
+                            FontSize="150"
+                            FontAttributes="Bold"/>
+                        <Slider
+                            x:Name="HrSlider"
+                            Maximum="23"
+                            ValueChanged="OnHourChanged"/>
+                    </VerticalStackLayout>
 
-            <Button FontSize="30"
+                    <VerticalStackLayout>
+                        <Label
+                            Text=":"
+                            FontSize="150"
+                            FontAttributes="Bold"/>
+                    </VerticalStackLayout>
+                    
+                    <!-- Setting Minutes Value -->
+                    <VerticalStackLayout>
+                        <Label
+                            x:Name="Minutes"
+                            Text="00"
+                            HorizontalOptions="Center"
+                            FontSize="150"
+                            FontAttributes="Bold"/>
+                        <Slider
+                            x:Name="MinSlider"
+                            Maximum="59"
+                            ValueChanged="OnMinuteChanged"/>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout>
+                        <Label
+                            Text=":"
+                            FontSize="150"
+                            FontAttributes="Bold"/>
+                    </VerticalStackLayout>
+                       
+                    <!-- Setting Seconds Value -->
+                    <VerticalStackLayout>
+                        <Label
+                            x:Name="Seconds"
+                            Text="00"
+                            HorizontalOptions="Center"
+                            FontSize="150"
+                            FontAttributes="Bold"/>
+                        <Slider
+                            x:Name="SecSlider"
+                            Maximum="59"
+                            ValueChanged="OnSecondChanged"/>
+                    </VerticalStackLayout>
+
+
+                </HorizontalStackLayout>
+                
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Label Text="Timer" FontSize="50" FontAttributes="Bold" Margin="15"/>
+                    <Switch x:Name="AlarmTimerSwitch" Toggled="AlarmTimer" ThumbColor="Black" OnColor="WhiteSmoke" Margin="15"/>
+                    <Label Text="Alarm" FontSize="50" FontAttributes="Bold" Margin="15"/>
+                </HorizontalStackLayout>
+
+                <Button FontSize="30"
                     WidthRequest="400"
                     Text="Start"
                     Clicked="StartClock"></Button>
+            </VerticalStackLayout>
+            
+            <!-- Player Page -->
+            <VerticalStackLayout
+                x:Name="Player"
+                IsVisible="False">
 
-        </VerticalStackLayout>
+                <Border x:Name="DisplayBorder"
+                Stroke="#F1E3F3"
+                StrokeThickness="5"
+                StrokeShape="RoundRectangle 40,40,40,40"
+                Background="#3590F3"
+                Padding="16,8"
+                HorizontalOptions="Center"
+                Margin="0,100,0,100">
+                    <Label x:Name="Display"
+                   Text="20:00"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"
+                   Margin="10,5,5,10"
+                   FontSize="130"
+                   FontFamily="consolas"
+                   TextColor="#F1E3F3"/>
+                </Border>
+
+                <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                    <Button x:Name="stopButton"
+                    Text="⬛"
+                    Clicked="StopButtonHandler"
+                    HeightRequest="100"
+                    WidthRequest="100"
+                    Margin="0,0,100,0"/>
+
+                    <Button x:Name="PlayPauseButton"
+                    Text="II"
+                    FontSize="30"
+                    Clicked="PlayPauseHandler"
+                    HeightRequest="100"
+                    WidthRequest="100"
+                    Margin="100,0,0,0"/>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </StackLayout>
+            
     </ScrollView>
 
 </ContentPage>

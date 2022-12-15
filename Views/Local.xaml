@@ -4,9 +4,8 @@
              x:Class="SEClockApp.Local"
              Title="Local Music Selection"
              BackgroundColor="#C2BBF0">
-   
-
-
+    <!-- Primary Author: Qadar      -->
+    <!-- Secondary Author: Brady    -->
     <VerticalStackLayout>
         <Label Text="Select Music"
                FontSize="100"
@@ -38,9 +37,10 @@
                 Text="+"
                 FontSize="50"
                 TextColor="Black"
-                BackgroundColor="LightGray"
+                BackgroundColor="Yellow"
                 WidthRequest="100"
-                HeightRequest="100"/>
+                HeightRequest="100"
+                Clicked="addHandler"/>
             <!-- Top Middle -->
             <Button 
                 Grid.Row="0" 
@@ -48,9 +48,10 @@
                 Text="+"
                 FontSize="50"
                 TextColor="Black"
-                BackgroundColor="LightGray"
+                BackgroundColor="Yellow"
                 WidthRequest="100"
-                HeightRequest="100"/>
+                HeightRequest="100"
+                Clicked="addHandler"/>
             <!-- Top Right -->
             <Button 
                 Grid.Row="0" 
@@ -58,9 +59,10 @@
                 Text="+"
                 FontSize="50"
                 TextColor="Black"
-                BackgroundColor="LightGray"
+                BackgroundColor="Yellow"
                 WidthRequest="100"
-                HeightRequest="100"/>
+                HeightRequest="100"
+                Clicked="addHandler"/>
             <!-- Bottom Left -->
             <Button 
                 Grid.Row="1" 
@@ -68,17 +70,19 @@
                 Text="+"
                 FontSize="50"
                 TextColor="Black"
-                BackgroundColor="LightGray"
+                BackgroundColor="Yellow"
                 WidthRequest="100"
-                HeightRequest="100"/>
+                HeightRequest="100"
+                Clicked="addHandler"/>
             <!-- Bottom Middle -->
             <Button Grid.Row="1" Grid.Column="1"
                 Text="+"
                 FontSize="50"
                 TextColor="Black"
-                BackgroundColor="LightGray"
+                BackgroundColor="Yellow"
                 WidthRequest="100"
-                HeightRequest="100"/>
+                HeightRequest="100"
+                Clicked="addHandler"/>
             <!-- Bottom Right -->
             <Button 
                 Grid.Row="1" 
@@ -86,9 +90,10 @@
                 Text="+"
                 FontSize="50"
                 TextColor="Black"
-                BackgroundColor="LightGray"
+                BackgroundColor="Yellow"
                 WidthRequest="100"
-                HeightRequest="100"/>
+                HeightRequest="100"
+                Clicked="addHandler"/>
 
         </Grid>
 

@@ -4,7 +4,8 @@
              x:Class="SEClockApp.Youtube"
              Title="Youtube"
              BackgroundColor="#C2BBF0">
-   
+        <!-- Primary Author: Qadar      -->
+        <!-- Secondary Author: Brady    -->
         <VerticalStackLayout>
         <Label Text="Select Music"
                FontSize="100"
@@ -36,7 +37,7 @@
                 Text="+"
                 FontSize="50"
                 TextColor="Black"
-                BackgroundColor="LightGray"
+                BackgroundColor="#FF0000"
                 WidthRequest="100"
                 HeightRequest="100"/>
             <!-- Top Middle -->
@@ -46,7 +47,7 @@
                 Text="+"
                 FontSize="50"
                 TextColor="Black"
-                BackgroundColor="LightGray"
+                BackgroundColor="#FF0000"
                 WidthRequest="100"
                 HeightRequest="100"/>
             <!-- Top Right -->
@@ -56,7 +57,7 @@
                 Text="+"
                 FontSize="50"
                 TextColor="Black"
-                BackgroundColor="LightGray"
+                BackgroundColor="#FF0000"
                 WidthRequest="100"
                 HeightRequest="100"/>
             <!-- Bottom Left -->
@@ -66,7 +67,7 @@
                 Text="+"
                 FontSize="50"
                 TextColor="Black"
-                BackgroundColor="LightGray"
+                BackgroundColor="#FF0000"
                 WidthRequest="100"
                 HeightRequest="100"/>
             <!-- Bottom Middle -->
@@ -74,7 +75,7 @@
                 Text="+"
                 FontSize="50"
                 TextColor="Black"
-                BackgroundColor="LightGray"
+                BackgroundColor="#FF0000"
                 WidthRequest="100"
                 HeightRequest="100"/>
             <!-- Bottom Right -->
@@ -84,7 +85,7 @@
                 Text="+"
                 FontSize="50"
                 TextColor="Black"
-                BackgroundColor="LightGray"
+                BackgroundColor="#FF0000"
                 WidthRequest="100"
                 HeightRequest="100"/>
 
