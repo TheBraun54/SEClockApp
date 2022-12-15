@@ -24,8 +24,6 @@ public partial class MainPage : ContentPage
     private WaveOutEvent outputDevice;
     private AudioFileReader audioFile;
 
-    private static Random rng = new Random();
-
     public string AudioFilePath;
     public int SongIndex = 0;
     Boolean TimerMode = false;
@@ -63,33 +61,15 @@ public partial class MainPage : ContentPage
             }
             else // No issues were found, start playing music on Spotify
             {
-                // Randomizes the songs
-                var songs = MauiProgram.selectedPlaylist.Songs;
-                songs = songs.OrderBy(a => rng.Next()).ToList();
-
                 try
                 {
-                    // Get the available devices for the current user
-                    var devices = MauiProgram.spotify.Player.GetAvailableDevices();
-
-                    // TODO: implement clearing the queue here
-                    // Clears the queue (is a bit "hacky" as there's no api call to clear the queue)
-                    // ref: https://github.com/spotify/android-sdk/issues/31
-                    //await MauiProgram.spotify.Player.AddToQueue(new PlayerAddToQueueRequest("spotify:track:0p8e0IhVVpNs1qmbb4dvHJ"));
-
-                    // Adds songs to the queue
-                    foreach (SpotifyTrack song in songs)
-                    {
-                        MauiProgram.spotify.Player.AddToQueue(new PlayerAddToQueueRequest(song.Uri));
-                    }
-
-                    // Skips to the first song in our playlist
-                    MauiProgram.spotify.Player.SkipNext();
+                    PlaySpotify();
                 }
                 catch(APIException ex)
                 {
                     System.Diagnostics.Debug.WriteLine($"{ex.GetType()}");
                     await DisplayAlert("Something went wrong", "Make sure you have an active device ready with Spotify open", "ok");
+                    return; // prevents the timer from starting
                 }
             }
         }
@@ -131,7 +111,7 @@ public partial class MainPage : ContentPage
     /// Resets the timer text values to 0, also resets the time variable
     /// as well as the slider values for defining a timer length
     /// </summary>
-    public async void Reset()
+    public void Reset()
     {
         Hours.Text = "00";
         Minutes.Text = "00";
@@ -142,7 +122,6 @@ public partial class MainPage : ContentPage
 
         if (MauiProgram.isSpotify)
         {
-            // Pauses the playback
             MauiProgram.spotify.Player.PausePlayback();
         }
         else

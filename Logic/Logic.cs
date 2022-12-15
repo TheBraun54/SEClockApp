@@ -1,4 +1,6 @@
 using NAudio.Wave;
+using SpotifyAPI.Web;
+using static SEClockApp.SpotifyPlaylist;
 
 namespace SEClockApp.Logic;
 
@@ -7,6 +9,8 @@ namespace SEClockApp.Logic;
 // Reviewer: Paul Hwang
 public class Logic : ILogic
 {
+    private static Random rng = new Random();
+
     public Logic()
     {
 
@@ -245,5 +249,34 @@ public class Logic : ILogic
             messages.Add("");
         }
         return messages;
+    }
+
+    /// <summary>
+    /// Starts the spotify playback
+    /// </summary>
+    public async static void PlaySpotify()
+    {
+        // Randomizes the songs
+        var songs = MauiProgram.selectedPlaylist.Songs;
+        songs = songs.OrderBy(a => rng.Next()).ToList();
+
+        // Get the available devices for the current user and set it to the first available one
+        var devices = await MauiProgram.spotify.Player.GetAvailableDevices();
+        //List<string> deviceId = new List<string> { $"{devices.Devices[0]}" };
+        //await MauiProgram.spotify.Player.TransferPlayback(new PlayerTransferPlaybackRequest(deviceId));
+
+        // TODO: implement clearing the queue here
+        // Clears the queue (is a bit "hacky" as there's no api call to clear the queue)
+        // ref: https://github.com/spotify/android-sdk/issues/31
+        //await MauiProgram.spotify.Player.AddToQueue(new PlayerAddToQueueRequest("spotify:track:0p8e0IhVVpNs1qmbb4dvHJ"));
+
+        // Adds songs to the queue
+        foreach (SpotifyTrack song in songs)
+        {
+            MauiProgram.spotify.Player.AddToQueue(new PlayerAddToQueueRequest(song.Uri));
+        }
+
+        // Skips to the first song in our playlist
+        MauiProgram.spotify.Player.SkipNext();
     }
 }
