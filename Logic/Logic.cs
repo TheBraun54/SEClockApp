@@ -168,7 +168,13 @@ public class Logic : ILogic
             for (int v = 0; v < SampleSize; v++)
             {
                 Values[v] = 1;
-                SampleSongs.Add(Directories.GetRandomSong());
+                Song Song = Directories.GetRandomSong();
+                if (Song == null)
+                {
+                    return null;
+                }
+                SampleSongs.Add(Song);
+                Values[v] = 1;
                 Seconds[v] = Convert.ToInt32(Math.Floor(SampleSongs[v].Duration.TotalSeconds));
             }
 
