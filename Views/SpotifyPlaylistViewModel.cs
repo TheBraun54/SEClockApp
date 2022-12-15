@@ -7,28 +7,28 @@ using System.Collections.ObjectModel;
 
 namespace SEClockApp
 {
-    public class PlaylistViewModel
+    public class SpotifyPlaylistViewModel
     {
         // Class is used to dispaly the games in the ListView of the MainPage.xaml
-        public ObservableCollection<Playlist> Playlists { get; private set; }
+        public ObservableCollection<SpotifyPlaylist> SpotifyPlaylists { get; private set; }
 
         /// <summary>
         /// Constructor for a GamesViewModel object that creates the ObservableCollection of Games
         /// </summary>
-        public PlaylistViewModel()
+        public SpotifyPlaylistViewModel()
         {
-            Playlists = new ObservableCollection<Playlist>();
+            SpotifyPlaylists = new ObservableCollection<SpotifyPlaylist>();
         }
 
         /// <summary>
         /// Adds a playlist's name and image to the ObservableCollections
         /// </summary>
         /// <param name="playlistToBeAdded">Playlist to be added from a Spotify account</param>
-        public bool AddPlaylist(Playlist playlistToBeAdded)
+        public bool AddPlaylist(SpotifyPlaylist playlistToBeAdded)
         {
             try
             {
-                Playlists.Add(playlistToBeAdded);
+                SpotifyPlaylists.Add(playlistToBeAdded);
                 return true;
             }
             catch (Exception e)
@@ -37,9 +37,9 @@ namespace SEClockApp
             }
         }
 
-        public ObservableCollection<Playlist> GetPlaylists()
+        public ObservableCollection<SpotifyPlaylist> GetPlaylists()
         {
-            return Playlists;
+            return SpotifyPlaylists;
         }
     }
 }

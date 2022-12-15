@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
@@ -19,7 +19,13 @@
             Padding="25"/>
 
         <Label
-            Text="MuClock is a .NET MAUI application that aims to add an entertaining twist to a mundane task: setting timers. While this functionality is built into many of the smart phones that we have today, we add a worthwhile twist of generating a playlist with a length that's equal to the user's desired timer length."
+            Text="Tiempo is a .NET MAUI application
+                  that aims to add an entertaining twist
+                  to a mundane task: setting timers. While
+                  this functionality is built into many of the
+                  smart phones that we have today, we add a worthwhile
+                  twist of generating a playlist with a length that's equal
+                  to the user's desired timer length."
             FontSize="35"
             VerticalOptions="Center"
             HorizontalOptions="Center"

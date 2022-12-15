@@ -1,5 +1,9 @@
 using NAudio.Wave;
 using static SEClockApp.Logic.Logic;
+using static SEClockApp.SpotifyPlaylist;
+using SpotifyAPI.Web;
+using SpotifyAPI.Web.Auth;
+using Device = SpotifyAPI.Web.Device;
 
 namespace SEClockApp;
 /*
@@ -22,17 +26,74 @@ public partial class MainPage : ContentPage
 
     public string AudioFilePath;
     public int SongIndex = 0;
+    Boolean TimerMode = false;
 
     Playlist CurrentPlaylist;
-    List<string> CurrentSongs;
+    List<Song> CurrentSongs;
 
     public MainPage()
     {
         InitializeComponent();
+        Directories.UpdateSongList();
     }
 
-    private void StartClock(object sender, EventArgs e)
+    /// <summary>
+    /// Starts the clock by making the timer visible
+    /// Also starts playing music
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private async void StartClock(object sender, EventArgs e)
     {
+        // Audio
+        if (MauiProgram.isSpotify) // Play music from the user's Spotify account
+        {
+            // List will have proper display error messages
+            // a "" if no issues were found and we can proceed to play music
+            List<String> displayAlertMessages = SpotifyLogic();
+            
+            if (displayAlertMessages.ElementAt(0) != "") // Issues were found
+            {
+                await DisplayAlert(displayAlertMessages.ElementAt(0),
+                    displayAlertMessages.ElementAt(1),
+                    "ok");
+                return;     // prevents the timer from starting and playing music
+            }
+            else // No issues were found, start playing music on Spotify
+            {
+                try
+                {
+                    PlaySpotify(new TimeSpan(hours, minutes, seconds));
+                }
+                catch(APIException ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"{ex.GetType()}");
+                    await DisplayAlert("Something went wrong", "Make sure you have an active device ready with Spotify open", "ok");
+                    return; // prevents the timer from starting
+                }
+            }
+        }
+        else // Play music from the local device
+        {
+            TimerMode = AlarmTimerSwitch.IsToggled;
+            if (!TimerMode)
+            {
+                TimerMode = false;
+                CurrentPlaylist = PlaylistGenerator.GetPlaylistV2(new TimeSpan(hours, minutes, seconds));
+                if (CurrentPlaylist != null)
+                {
+                    CurrentSongs = CurrentPlaylist.Songs;
+                    CurrentPlaylist.PrintPlaylist();
+                    if (CurrentSongs.Count > 0)
+                    {
+                        AudioFilePath = CurrentSongs[SongIndex].Path;
+                        Play(AudioFilePath);
+                    }
+                }
+            }
+        }
+
+        // Displays the timer
         Main.IsVisible = false;
         Player.IsVisible = true;
         isRunning = true;
@@ -44,36 +105,42 @@ public partial class MainPage : ContentPage
         DisplayBorder.Stroke = Color.FromArgb("#F1E3F3");
         PlayPauseButton.Text = "II";
         Clock();
-
-        // Audio
-        CurrentPlaylist = PlaylistGenerator.GetRandomPlaylist();
-        CurrentSongs = CurrentPlaylist.Songs;
-        CurrentPlaylist.PrintPlaylist();
-
-        if (CurrentSongs.Count > 0)
-        {
-            AudioFilePath = CurrentSongs[SongIndex];
-            Play(AudioFilePath);
-        }
     }
 
+    /// <summary>
+    /// Resets the timer text values to 0, also resets the time variable
+    /// as well as the slider values for defining a timer length
+    /// </summary>
     public void Reset()
     {
         Hours.Text = "00";
         Minutes.Text = "00";
         Seconds.Text = "00";
-        time = new TimeOnly(0, 0, 0);
         HrSlider.Value = 0;
         MinSlider.Value = 0;
         SecSlider.Value = 0;
+
+        if (MauiProgram.isSpotify)
+        {
+            MauiProgram.spotify.Player.PausePlayback();
+        }
+        else
+        {
+            outputDevice?.Stop();
+        }
     }
 
+    /// <summary>
+    /// Determines whether the user wants to use the timer or alarm functionality
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     public void AlarmTimer(object sender, EventArgs e) { 
         if (AlarmTimerSwitch.IsToggled == true)
         {
             Alarm.IsVisible = true;
             Timer.IsVisible = false;
-        } 
+        }
         else
         {
             Alarm.IsVisible = false;
@@ -81,6 +148,11 @@ public partial class MainPage : ContentPage
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="args"></param>
     public void OnHourChanged(object sender, ValueChangedEventArgs args)
     {
         int value = (int)args.NewValue;
@@ -95,6 +167,11 @@ public partial class MainPage : ContentPage
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="args"></param>
     public void OnMinuteChanged(object sender, ValueChangedEventArgs args)
     {
         int value = (int)args.NewValue;
@@ -107,9 +184,14 @@ public partial class MainPage : ContentPage
         {
             Minutes.Text = String.Format("{0}", value);
         }
-        
+
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="args"></param>
     public void OnSecondChanged(object sender, ValueChangedEventArgs args)
     {
         int value = (int)args.NewValue;
@@ -122,7 +204,7 @@ public partial class MainPage : ContentPage
         {
             Seconds.Text = String.Format("{0}", value);
         }
-        
+
     }
 
 
@@ -140,10 +222,20 @@ public partial class MainPage : ContentPage
                 await Task.Delay(TimeSpan.FromSeconds(1));
                 if (time.Hour == 0 && time.Minute == 0 && time.Second == 0)
                 {
-                    isRunning = !isRunning;
-                    Main.IsVisible = true;
-                    Player.IsVisible = false;
-                    Reset();
+                    isRunning = !isRunning;              
+                    if (TimerMode)
+                    {
+                        Song timerSong = Directories.GetRandomSong();
+                        if (timerSong != null)
+                        {
+                            Play(timerSong.Path);
+                        }
+                    } else
+                    {
+                        Main.IsVisible = true;
+                        Player.IsVisible = false;
+                        Reset();
+                    }
                 }
                 if (!Player.IsVisible)
                 {
@@ -151,8 +243,9 @@ public partial class MainPage : ContentPage
                 }
             }
             // paused
-            await Task.Delay(TimeSpan.FromSeconds(0.1));
+            await Task.Delay(TimeSpan.FromSeconds(0.5));
         }
+
         //System.Diagnostics.Debug.WriteLine("Clock stopped");
     }
 
@@ -170,14 +263,28 @@ public partial class MainPage : ContentPage
             PlayPauseButton.BorderColor = Color.FromArgb("#F1E3F3");
             DisplayBorder.Stroke = Color.FromArgb("#F1E3F3");
 
-            Play(AudioFilePath);
+            if (MauiProgram.isSpotify)
+            {
+                MauiProgram.spotify.Player.ResumePlayback();
+            }
+            else
+            {
+                Play(AudioFilePath);
+            }
         }
         else
         {
             PlayPauseButton.BorderColor = Color.FromArgb("#62BFED");
             DisplayBorder.Stroke = Color.FromArgb("#62BFED");
 
-            outputDevice?.Pause();
+            if (MauiProgram.isSpotify)
+            {
+                MauiProgram.spotify.Player.PausePlayback();
+            }
+            else
+            {
+                outputDevice?.Pause();
+            }
         }
     }
 
@@ -224,12 +331,15 @@ public partial class MainPage : ContentPage
             audioFile.Dispose();
             audioFile = null;
         }
+        
+        // delay between songs, currently causes stop button bug
+        // Task.Delay(CurrentSongs[SongIndex].Delay);
 
         // start new audio
         if (isRunning && SongIndex + 1 < CurrentSongs.Count)
         {
             SongIndex++;
-            Play(CurrentSongs[SongIndex]);
+            Play(CurrentSongs[SongIndex].Path);
         }
     }
 
@@ -244,6 +354,5 @@ public partial class MainPage : ContentPage
         Player.IsVisible = false;
         Main.IsVisible = true;
         Reset();
-        outputDevice?.Stop();
     }
 }
