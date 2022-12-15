@@ -169,7 +169,7 @@ public class Logic : ILogic
             messages.Add("Connect your Spotify in Settings");
             messages.Add("or toggle for the timer to play local music in Settings");
         }
-        else if (MauiProgram.playlistId == "empty") // User has not selected a playlist
+        else if (MauiProgram.selectedPlaylist == null) // User has not selected a playlist
         {
             messages.Add("Select a playlist!");
             messages.Add("Go to the Spotify tab below");

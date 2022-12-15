@@ -45,7 +45,7 @@
                                    Aspect="Center"
                                    HeightRequest="200"
                                    WidthRequest="200"/>
-                            <Label Grid.Row="1" Grid.Column="0" Text="{Binding Title}" TextColor="Blue" FontSize="50.0"/>
+                            <Label Grid.Row="1" Grid.Column="0" Text="{Binding Name}" TextColor="Blue" FontSize="50.0"/>
                         </Grid>
                     </ViewCell>
                 </DataTemplate>

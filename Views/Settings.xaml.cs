@@ -38,7 +38,7 @@ public partial class Settings : ContentPage
 
             var request = new LoginRequest(_server.BaseUri, clientId, LoginRequest.ResponseType.Token)
             {
-                Scope = new List<string> { Scopes.UserReadEmail, Scopes.UserModifyPlaybackState,
+                Scope = new List<string> { Scopes.UserModifyPlaybackState,
                                            Scopes.UserReadCurrentlyPlaying, Scopes.UserReadPlaybackState,
                                            Scopes.PlaylistReadPrivate }
             };

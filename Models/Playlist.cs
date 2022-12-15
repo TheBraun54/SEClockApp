@@ -17,8 +17,6 @@ namespace SEClockApp
         TimeSpan duration;
         TimeSpan delay = new TimeSpan(0,0,1); 
         List<Song> songs = new List<Song>();
-        string imageUrl;
-        string playlistId;
 
         /// <summary>
         /// Constructor for a Playlist
@@ -30,20 +28,6 @@ namespace SEClockApp
             this.title = title;
             this.duration = duration;
             this.songs = songs;
-        }
-
-        /// <summary>
-        /// Constructor for a playlist, used when creating playlists acquired from Spotify
-        /// </summary>
-        /// <param name="title">title of the playlist</param>
-        /// <param name="length">length of the playlist (in mins)</param>
-        /// <param name="imageUrl">imageUrl of a playlist from spotify (used to display playlist cover art)</param>
-        /// <param name="playlistId">specific id of the playlist from spotify</param>
-        public Playlist(string title, string imageUrl, string playlistId)
-        {
-            this.title = title;
-            this.imageUrl = imageUrl;
-            this.playlistId = playlistId;
         }
 
         public String Title
@@ -69,17 +53,6 @@ namespace SEClockApp
         {
             get { return songs; }
             set { SetProperty(ref songs, value); }
-        }
-        public string ImageUrl
-        {
-            get { return imageUrl; }
-            set { SetProperty(ref imageUrl, value); }
-        }
-
-        public string PlaylistId
-        {
-            get { return playlistId; }
-            set { SetProperty(ref playlistId, value); }
         }
 
         /// <summary>

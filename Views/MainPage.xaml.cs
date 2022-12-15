@@ -60,14 +60,13 @@ public partial class MainPage : ContentPage
             else // No issues were found, start playing music on Spotify
             {
                 // Retrieve the selected playlist from Spotify
-                var playlist = await MauiProgram.spotify.Playlists.Get($"{MauiProgram.playlistId}");
+                var playlist = await MauiProgram.spotify.Playlists.Get($"{MauiProgram.selectedPlaylist.PlaylistId}");
 
                 var playlistGetItemsRequest = new PlaylistGetItemsRequest();
                 // gets each songs id, name, type, and duration from the selected playlist
                 // ref: https://developer.spotify.com/documentation/web-api/reference/#/operations/get-track
                 playlistGetItemsRequest.Fields.Add("items(track(id,name,type,duration_ms))"); // 'type' is required
-                var playlistItems = await MauiProgram.spotify.PaginateAll(await MauiProgram.spotify.Playlists.GetItems($"{MauiProgram.playlistId}", playlistGetItemsRequest));
-
+                var playlistItems = await MauiProgram.spotify.PaginateAll(await MauiProgram.spotify.Playlists.GetItems($"{MauiProgram.selectedPlaylist.PlaylistId}", playlistGetItemsRequest));
                 // TODO: Prints all the songs in the playlist
                 foreach (PlaylistTrack<IPlayableItem> item in playlistItems)
                 {
@@ -78,7 +77,6 @@ public partial class MainPage : ContentPage
                         System.Diagnostics.Debug.WriteLine($"{ft.Name} --- {ft.DurationMs} -- {ft.Id}");
                     }
                 }
-                System.Diagnostics.Debug.WriteLine($"{playlistItems.Count}"); // TODO: delete
 
                 // TODO: Delete, just testing if it can recognize what song i'm currently listening to on Spotify
                 // ref: https://github.com/JohnnyCrazy/SpotifyAPI-NET/blob/master/SpotifyAPI.Web/Models/Response/CurrentlyPlaying.cs
@@ -86,14 +84,14 @@ public partial class MainPage : ContentPage
                 // TODO: look at stack overflow post: https://stackoverflow.com/questions/62553848/how-to-get-currently-playing-song-using-spotifyapi-net
 
                 // TODO: delete, testing, this breaks
-                var task = await MauiProgram.spotify.Player.GetCurrentlyPlaying(new PlayerCurrentlyPlayingRequest());
-                if (task.Item is FullTrack track)
-                {
-                    System.Diagnostics.Debug.WriteLine($"Testing here: {track.Name}");
-                }
+                //var task = await MauiProgram.spotify.Player.GetCurrentlyPlaying(new PlayerCurrentlyPlayingRequest());
+                //if (task.Item is FullTrack track)
+                //{
+                //    System.Diagnostics.Debug.WriteLine($"Testing here: {track.Name}");
+                //}
 
-                // TODO: Test, skips the song
-                await MauiProgram.spotify.Player.SkipNext(new PlayerSkipNextRequest());
+                //// TODO: Test, skips the song
+                //await MauiProgram.spotify.Player.SkipNext(new PlayerSkipNextRequest());
 
 
             }

@@ -12,7 +12,7 @@ public partial class Spotify : ContentPage
     public Spotify()
     {
         InitializeComponent();
-        PlaylistsLV.ItemsSource = MauiProgram.playlistVM.GetPlaylists();     // Sets the ItemSource of the ListView to the playlistsVM in MauiProgram.cs
+        PlaylistsLV.ItemsSource = MauiProgram.spotifyPlaylistVM.GetPlaylists();     // Sets the ItemSource of the ListView to the playlistsVM in MauiProgram.cs
     }
 
     /// <summary>
@@ -30,7 +30,7 @@ public partial class Spotify : ContentPage
             System.Diagnostics.Debug.WriteLine($"{playlist.Id}");
 
             // Populates the ListView in Spotify.xaml to show the playlists
-            MauiProgram.playlistVM.AddPlaylist(new Playlist(playlist.Name, playlist.Images[0].Url, playlist.Id));
+            MauiProgram.spotifyPlaylistVM.AddPlaylist(new SpotifyPlaylist(playlist.Name, playlist.Images[0].Url, playlist.Id));
         }
     }
 
@@ -42,7 +42,7 @@ public partial class Spotify : ContentPage
     public void PlaylistsLV_ItemSelected(System.Object sender, Microsoft.Maui.Controls.SelectedItemChangedEventArgs e)
     {
         // Changes the playlist id in MauiProgram to the newly selected playlist
-        Playlist selectedPlaylist = e.SelectedItem as Playlist;
-        MauiProgram.playlistId = selectedPlaylist.PlaylistId;
+        SpotifyPlaylist selectedPlaylist = e.SelectedItem as SpotifyPlaylist;
+        MauiProgram.selectedPlaylist = selectedPlaylist;
     }
 }
