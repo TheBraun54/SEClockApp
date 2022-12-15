@@ -1,3 +1,5 @@
+using NAudio.Wave;
+
 namespace SEClockApp.Logic;
 
 // Primary Author: Zach La Vake
@@ -13,18 +15,44 @@ public class Logic : ILogic
     public static class Directories
     {
         public static List<string> SelectedDirectories = new List<string>();
+        public static List<Song> SongList = new List<Song>();
         public static string AudioDirPath, AudioFileName, AudioFilePath;
 
         /// <summary>
-        /// Gets a list of audio files in the given directory
+        /// Adds a directory to SelectedDirectories then updates the SongList
+        /// </summary>
+        /// <param name="Path"></param>
+        public static void AddDirectory(string Path)
+        {
+            SelectedDirectories.Add(Path);
+            UpdateSongList();
+        }
+
+        /// <summary>
+        /// Updates SongList 
+        /// </summary>
+        public static void UpdateSongList()
+        {
+            // clear songList?   
+            foreach (string Dir in SelectedDirectories)
+            {
+                foreach (string AudioPath in getAudioPaths(Dir))
+                {
+                    SongList.Add(new Song(AudioPath, new AudioFileReader(AudioPath).TotalTime));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets a list of audio file paths in the given directory
         /// </summary>
         /// <param name="AudioDirPath"></param>
-        /// <returns> List<string> </returns>
-        public static string[] getAudioFiles(string AudioDirPath)
+        /// <returns> List </returns>
+        public static List<string> getAudioPaths(string AudioDirPath)
         {
             DirectoryInfo AudioDir = new DirectoryInfo(AudioDirPath);
             FileInfo[] Files = AudioDir.GetFiles();
-            List<string> AudioFiles = new List<string>();
+            List<string> AudioFilePaths = new List<string>();
             foreach (FileInfo File in Files)
             {
                 // add to AudioFiles if it ends with .mp3
@@ -33,62 +61,98 @@ public class Logic : ILogic
                     if (File.Name.EndsWith("mp3", StringComparison.OrdinalIgnoreCase))
                     {
                         //System.Diagnostics.Debug.WriteLine("Audio: " + File.Name);
-                        AudioFiles.Add(File.Name);
+                        AudioFilePath = Path.Combine(AudioDirPath, File.Name);
+                        AudioFilePaths.Add(AudioFilePath);
                     }
                 }
             }
-            return AudioFiles.ToArray();
+            return AudioFilePaths;
+        }
+
+       
+        /// <summary>
+        /// Selects a random song from a random SelectedDirectory
+        /// </summary>
+        public static Song GetRandomSong()
+        {
+            if (SongList.Count() > 0)
+            {
+                return SongList[new Random().Next(0, SongList.Count)];
+            }
+            else return null;
         }
 
         /// <summary>
-        /// Selects a random song from a random SelectedDirectory
-        /// and returns its path as a string
+        /// Prints the SelectedDirectories
         /// </summary>
-        public static string GetRandomPath()
+        /// <returns></returns>
+        public static void PrintDirectories()
         {
-            Random rand = new Random();
-            if (SelectedDirectories.Count() > 0)
+            foreach (string s in SelectedDirectories)
             {
-                AudioDirPath = SelectedDirectories[rand.Next(0, SelectedDirectories.Count())];// random dir
-                //System.Diagnostics.Debug.WriteLine("AudioDirPath: " + AudioDirPath);
-                string[] AudioFiles = Directories.getAudioFiles(AudioDirPath);
-                if (AudioFiles.Length > 0)
-                {
-                    AudioFileName = AudioFiles[rand.Next(0, AudioFiles.Length)];// random song in dir
-                    AudioFilePath = Path.Combine(AudioDirPath, AudioFileName);
-                    return AudioFilePath;
-                }
-                else
-                {
-                    System.Diagnostics.Debug.WriteLine("Music not found");
-                    // notify user
-                }
+                System.Diagnostics.Debug.WriteLine(s);
             }
-            else
-            {
-                System.Diagnostics.Debug.WriteLine("No directories avalible");
-                // notify user
-            }
-            return null;
         }
     }
 
     public static class PlaylistGenerator
     {
         /// <summary>
-        /// Creates a playlist using random songs
+        /// Creates a playlist with a certain number of song and a random duration
         /// </summary>
-        /// <returns></returns>
-        public static Playlist GetRandomPlaylist()
+        /// <returns>Playlist</returns>
+        public static Playlist GetPlaylist(int songCount)
         {
-            Playlist RandomPlaylist = new Playlist("Random", 5);
-            List<string> Paths = new List<string>();
-            for (int i = 0; i < RandomPlaylist.Length; i++)
+            List<Song> Songs = new List<Song>();
+            TimeSpan Duration = new TimeSpan(0,0,0);
+            for (int i = 0; i < songCount; i++)
             {
-                Paths.Add(Directories.GetRandomPath());
+                Song Song = Directories.GetRandomSong();
+                if (Song != null)
+                {
+                    Songs.Add(Song);
+                    Duration = Duration.Add(Song.Duration);
+                }
             }
-            RandomPlaylist.Songs = Paths;
-            return RandomPlaylist;
+            return new Playlist("Random", Duration, Songs);
+        }
+
+        /// <summary>
+        /// Creates a playlist which gets close to the given duration using random songs 
+        /// </summary>
+        /// <returns>Playlist</returns>
+        public static Playlist GetPlaylist(TimeSpan RequestedDuration)
+        {
+            List<Song> Songs = new List<Song>();
+            TimeSpan Duration = new TimeSpan(0, 0, 0);
+            Song Song = Directories.GetRandomSong();
+            if (Song == null)
+            {
+                return null;
+            }
+            TimeSpan DurationWithSong = Duration.Add(Song.Duration); ;
+            while (DurationWithSong.TotalSeconds <= RequestedDuration.TotalSeconds) 
+            {
+                Songs.Add(Song);
+                Duration = DurationWithSong;
+                Song = Directories.GetRandomSong();
+                DurationWithSong = Duration.Add(Song.Duration);
+            }
+            return new Playlist("GetPlaylist", Duration, Songs);
+        }
+
+        /// <summary>
+        /// Creates a playlist which lasts exactly the given duration using random songs 
+        /// </summary>
+        /// <returns>Playlist</returns>
+        public static Playlist GetPlaylistV2(TimeSpan RequestedDuration)
+        {
+            List<Song> Songs = new List<Song>();
+
+            // todo: get as close as possible using a delay between songs
+            // Playlist.Duration
+            //return new Playlist("GetPlaylist", Duration, Songs);
+            return GetPlaylist(5);
         }
     }
 }

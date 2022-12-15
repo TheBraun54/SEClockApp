@@ -8,8 +8,6 @@ namespace SEClockApp;
 
 public partial class Local : ContentPage
 {
-    //List<string> SelectedDirectories = new List<string>();
-
     PickOptions options = new()
     {
         PickerTitle = "Select a file in the music directory",
@@ -24,9 +22,13 @@ public partial class Local : ContentPage
     {
         string Dir = await PickDirectory(options);
         if (Dir == null) { return; }
-
-        Directories.SelectedDirectories.Add(Dir);
         Button btn = (Button)sender;
+        /*if (btn.Text != "+")
+        {
+            Directories.RemoveDirectory(Dir);
+        }*/
+
+        Directories.AddDirectory(Dir); 
         btn.Text = Dir;
         btn.FontSize = 12;
     }

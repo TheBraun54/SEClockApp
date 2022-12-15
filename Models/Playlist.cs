@@ -1,4 +1,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
+using NAudio.Wave;
+using static SEClockApp.Logic.Logic;
 
 // Primary Author: Zach La Vake
 // Secondary Author: Brady Braun
@@ -11,14 +13,21 @@ namespace SEClockApp
     /// </summary>
     public class Playlist : ObservableObject
     {
-        int length;
         string title;
-        List<string> songs;
-        public Playlist(string title, int length)
+        TimeSpan duration;
+        TimeSpan delay = new TimeSpan(0,0,1); 
+        List<Song> songs = new List<Song>();
+
+        /// <summary>
+        /// Constructor for a Playlist
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="duration"></param>
+        public Playlist(string title, TimeSpan duration, List<Song> songs)
         {
             this.title = title;
-            this.length = length;
-
+            this.duration = duration;
+            this.songs = songs;
         }
 
         public String Title
@@ -27,13 +36,20 @@ namespace SEClockApp
             set { SetProperty(ref title, value); }
         }
 
-        public int Length
+        public TimeSpan Duration
         {
-            get { return length; }
-            set { SetProperty(ref length, value); }
+            get { return duration; }
+            set { SetProperty(ref duration, value); }
         }
-        
-        public List<string> Songs
+
+        // time to wait between songs in order to make it the correct duration
+        public TimeSpan Delay
+        {
+            get { return delay; }
+            set { SetProperty(ref delay, value); }
+        }
+
+        public List<Song> Songs
         {
             get { return songs; }
             set { SetProperty(ref songs, value); }
@@ -41,12 +57,26 @@ namespace SEClockApp
 
         public void PrintPlaylist()
         {
-            System.Diagnostics.Debug.WriteLine("\nCurrent Playlist: ");
-            foreach (string song in songs)
+            System.Diagnostics.Debug.WriteLine("\nCurrent Playlist: " + title);
+            foreach (Song song in songs)
             {
-                System.Diagnostics.Debug.WriteLine(song);
+                System.Diagnostics.Debug.WriteLine(song.Path + "    Duration: " + song.Duration);
             }
-            System.Diagnostics.Debug.WriteLine("\n");
+            System.Diagnostics.Debug.WriteLine("Total duration: " + duration + "\n");
+        }
+    }
+
+    /// <summary>
+    /// Represents a song
+    /// </summary>
+    public class Song
+    {
+        public string Path;
+        public TimeSpan Duration;
+        public Song(string Path, TimeSpan Duration)
+        {
+            this.Path = Path;
+            this.Duration = Duration;
         }
     }
 }
