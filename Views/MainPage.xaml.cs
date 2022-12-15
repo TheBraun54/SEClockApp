@@ -90,6 +90,19 @@ public partial class MainPage : ContentPage
                         Play(AudioFilePath);
                     }
                 }
+                time = new TimeOnly(hours, minutes, seconds);
+            }
+            else // Alarm is toggled instead
+            {
+                TimeSpan alarmTime = Alarm.Time.Subtract(DateTime.Now.TimeOfDay);
+                if (alarmTime.Hours < 0 || alarmTime.Minutes < 0 || alarmTime.Seconds < 0)
+                {
+                    time = new TimeOnly(Math.Abs(23 + alarmTime.Hours), Math.Abs(60 + alarmTime.Minutes), Math.Abs(alarmTime.Seconds));
+                }
+                else
+                {
+                    time = new TimeOnly(alarmTime.Hours, alarmTime.Minutes, alarmTime.Seconds);
+                }
             }
         }
 
@@ -97,7 +110,6 @@ public partial class MainPage : ContentPage
         Main.IsVisible = false;
         Player.IsVisible = true;
         isRunning = true;
-        time = new TimeOnly(hours, minutes, seconds);
 
         // Clock
         isRunning = true;
