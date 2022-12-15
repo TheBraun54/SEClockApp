@@ -1,4 +1,5 @@
 ﻿using NAudio.Wave;
+using Swan;
 using static SEClockApp.Logic.Logic;
 
 namespace SEClockApp;
@@ -36,10 +37,20 @@ public partial class MainPage : ContentPage
         Main.IsVisible = false;
         Player.IsVisible = true;
         isRunning = true;
-        TimeSpan alarmTime = Alarm.Time - DateTime.Now.TimeOfDay;
+        //TimeSpan alarmTime = Alarm.Time - DateTime.Now.TimeOfDay;
+       
+        TimeSpan alarmTime = Alarm.Time.Subtract(DateTime.Now.TimeOfDay);
         if (AlarmTimerSwitch.IsToggled)
         {
-            time = new TimeOnly(alarmTime.Hours, alarmTime.Minutes, alarmTime.Seconds);
+            if (alarmTime.Hours <0 || alarmTime.Minutes< 0|| alarmTime.Seconds< 0)
+            {
+                time = new TimeOnly( Math.Abs(24 + alarmTime.Hours), Math.Abs(60+alarmTime.Minutes), Math.Abs(alarmTime.Seconds));
+            }
+            else
+            {
+                time = new TimeOnly(alarmTime.Hours, alarmTime.Minutes, alarmTime.Seconds);
+            }
+            
         }
         else
         {
