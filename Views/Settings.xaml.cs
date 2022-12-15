@@ -38,7 +38,9 @@ public partial class Settings : ContentPage
 
             var request = new LoginRequest(_server.BaseUri, clientId, LoginRequest.ResponseType.Token)
             {
-                Scope = new List<string> { Scopes.UserReadEmail }
+                Scope = new List<string> { Scopes.UserReadEmail, Scopes.AppRemoteControl,
+                                           Scopes.UserReadCurrentlyPlaying, Scopes.UserReadPlaybackState,
+                                           Scopes.PlaylistReadPrivate }
             };
 
             // Opens the browser to have user sign in
@@ -58,8 +60,7 @@ public partial class Settings : ContentPage
         var me = await MauiProgram.spotify.UserProfile.Current();
         var playlists = await MauiProgram.spotify.PaginateAll(await MauiProgram.spotify.Playlists.CurrentUsers().ConfigureAwait(false));
 
-        // TODO: Issue: only gets public playlists, is that okay??
-        // TODO: Delete -- it works though, it prints all the playlists i have on my account
+        // Prints all public playlists for the signed in user
         foreach (SimplePlaylist playlist in playlists)
         {
             System.Diagnostics.Debug.WriteLine($"{playlist.Name}");

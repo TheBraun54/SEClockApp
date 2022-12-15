@@ -72,18 +72,30 @@ public partial class MainPage : ContentPage
                 foreach (PlaylistTrack<IPlayableItem> item in playlistItems)
                 {
                     // Ensure that the current track is a song
-                    if (item.Track is FullTrack track)
+                    if (item.Track is FullTrack ft)
                     {
                         // TODO: Delete, printing all songs of the selected playlist to ensure that this works
-                        System.Diagnostics.Debug.WriteLine($"{track.Name} --- {track.DurationMs} -- {track.Id}");
+                        System.Diagnostics.Debug.WriteLine($"{ft.Name} --- {ft.DurationMs} -- {ft.Id}");
                     }
                 }
+                System.Diagnostics.Debug.WriteLine($"{playlistItems.Count}"); // TODO: delete
 
                 // TODO: Delete, just testing if it can recognize what song i'm currently listening to on Spotify
                 // ref: https://github.com/JohnnyCrazy/SpotifyAPI-NET/blob/master/SpotifyAPI.Web/Models/Response/CurrentlyPlaying.cs
-                var playerCurrentlyPlayingRequest = new PlayerCurrentlyPlayingRequest();
-                var task = MauiProgram.spotify.Player.GetCurrentlyPlaying(playerCurrentlyPlayingRequest);
-                System.Diagnostics.Debug.WriteLine($"{task}"); // TODO: Delete
+                // TODO: potential fix: https://johnnycrazy.github.io/SpotifyAPI-NET/docs/error_handling/
+                // TODO: look at stack overflow post: https://stackoverflow.com/questions/62553848/how-to-get-currently-playing-song-using-spotifyapi-net
+                // Need access token in every request 
+                //var task = MauiProgram.spotify.Player.GetCurrentlyPlaying(new PlayerCurrentlyPlayingRequest());
+                //var track = await MauiProgram.spotify.Player.GetCurrentlyPlaying(new PlayerCurrentlyPlayingRequest { Market = "from_token" });
+
+                // TODO: delete, testing, this breaks
+                var task = await MauiProgram.spotify.Player.GetCurrentlyPlaying(new PlayerCurrentlyPlayingRequest());
+                if (task.Item is FullTrack track)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Testing here: {track.Name}");
+                }
+
+                
             }
         }
         else // Play music from the local device
