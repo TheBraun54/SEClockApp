@@ -90,7 +90,6 @@ public partial class MainPage : ContentPage
                         Play(AudioFilePath);
                     }
                 }
-                time = new TimeOnly(hours, minutes, seconds);
             }
             else // Alarm is toggled instead
             {
@@ -110,6 +109,7 @@ public partial class MainPage : ContentPage
         Main.IsVisible = false;
         Player.IsVisible = true;
         isRunning = true;
+        time = new TimeOnly(hours, minutes, seconds);
 
         // Clock
         isRunning = true;
